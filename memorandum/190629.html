@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"> 
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap');
+    body{
+        text-align: center;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content:safe center;  
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Sans JP', sans-serif;
+    }
+    section.flextest{
+        display:flex; 
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content:center;  
+        align-content:center;
+        text-align: center;   
+        min-height: calc(100vh - 2em);
+        max-width: 66em;
+        margin: auto;
+    }
+    div.wrap{
+        background-color:#EEE; 
+        position: relative;
+        width:20em;
+        max-width: 85vw;
+        height:15em;
+        margin:  0.5em;
+        padding: 0;
+        transition: 0.5s;
+        vertical-align: middle;
+    }
+    .inner{
+        background-color:#AAA; 
+        width:100%;
+        height:100%;
+        position:absolute; 
+        display: block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+    div.wrap:hover > .inner{
+        width:100%;
+        height:0%;
+        transition: 0.5s;
+    }
+    footer{
+        background-color:#999; 
+        color:#fff;
+        height:2em;
+        padding: 0;
+    }
+    --></style>
+</head>
+<body>
+</div>
+<section class="flextest">
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+  <div class="wrap">
+    なんか書く
+    <span class="inner">１</span>
+  </div>
+</section>
+<footer>
+  20190629
+</footer>
+</body>
