@@ -32,11 +32,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction:column;
         width:20em;
         max-width: 85vw;
         height:16em;
         margin:  0.5em 0 0 0.5em;
-        transition: 0.5s;
         vertical-align: middle;
     }
     div.wrap2{
@@ -45,15 +45,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction:column;
         width:20em;
         max-width: 85vw;
         height:32.5em;
         margin:  0.5em 0 0.5em 0.5em;
-        transition: 0.5s;
-        vertical-align: middle;
     }
-    .inner{
+    .cover{
         background-color:#AAA; 
+        color:#FFF;
         width:100%;
         height:100%;
         position:absolute;
@@ -65,15 +65,27 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        transition: 0.5s;
+        transition: all 0.5s ease 0s;
+        font-size: 3em; 
     }
-    div.wrap:hover > .inner{
+    div.wrap:hover > .cover{
         width:100%;
         height:0%;
-        transition: 0.5s;
+        transition: all 0.5s ease 0s;
     }
     h1{
-      font-size: 2em;
+        font-size: 2em;
+         margin: 0.2em;
+        padding: 0;
+    }
+    h2{
+        font-size: 1.5em;
+        margin: 0.1em;
+        padding: 0;
+    }
+    img.radiusImg{
+        border-radius: 50%;
+        width:16em;
     }
     footer{
         margin-top: 0.5em;
@@ -103,32 +115,50 @@
 <section class="flexSec">
   <div class="centralWrap">
     <div class="wrap2">
-      なんか書く
+      <img class="radiusImg" src="./icon.jpg">
+      <div>
+      <h1>あいてにあむ</h1>
+      <h2>所属</h1>
+      立命館大学　情報理工学部<br>
+      画像・音メディアコース　3回生<br>
+      立命館コンピュータクラブ
+      </div>
+      <h2>自己紹介</h2>
+      GASでスプレッドシート自動化スクリプトや簡単なWebアプリをよく作ります．
     </div>
   </div>
   <div class="centralWrap">
     <div class="wrap">
-      なんか書く
-      <span class="inner">１</span>
+      <h2>よく書く</h2>
+      GoogleAppsScript / JavaScript /<br> HTML / CSS
+      <h2>たまに書く</h2>
+      C / Java / VBA
+
+      <span class="cover">skill</span>
     </div>
     <div class="wrap">
-      なんか書く
-      <span class="inner">１</span>
+      <h2>画像処理</h2>
+      C言語で画像のエッジ検出・パターンマッチングなど / 
+      metasequoiaでCG作成 / OpenGL + C言語でCG
+      <h2>音声処理</h2>
+      C言語で低域・高域通過フィルタ設計や周波数・音の高さ分析など
+      <span class="cover">major</span>
     </div>
   </div>
   <div class="lastWrap">
     <div class="wrap">
-      なんか書く
-      <span class="inner">１</span>
+      <a href="https://github.com/itanium-R/">github</a>
+      <span class="cover">products</span>
     </div>
     <div class="wrap">
-      なんか書く
-      <span class="inner">１</span>
+      
+        <a href="https://twitter.com/itanium103">twitter</a>
+      <span class="cover">links</span>
     </div>
   </div>
  
 </section>
 <footer>
-  20190702
+    COPYRIGHT © あいてにあむ 2019 ALL RIGHTS RESERVED.	
 </footer>
 </body>
