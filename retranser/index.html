@@ -2,8 +2,8 @@
 <html>
   <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title></title>
-  <style type="text/css"><!--
+  <title>再翻やくん</title>
+  <style type="text/css">
     
     @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
     
@@ -75,11 +75,12 @@
       
     }
     
-  --></style>
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript"><!--
 
-    var isWaiting = false;
+    var isWaiting = false,
+        speaks = false;
       
     var transRequest = new XMLHttpRequest();
     transRequest.responseType = 'json';
@@ -90,6 +91,10 @@
       console.log(data.retranslatedText);
       document.getElementById("translated"  ).innerHTML = data.translatedText;
       document.getElementById("retranslated").innerHTML = data.retranslatedText;
+      if(speaks){
+        speak(data.translatedText);
+        speaks=false;
+      }
     };
 
     function execTrans(){
@@ -133,7 +138,8 @@
         if(event.results.length > 0){
           document.getElementById("input").value = event.results[0][0].transcript;
           document.getElementById("recButton").value = "音声入力";
-          execTrans(true);
+          execTrans();
+          speaks=true;
         }else{
           document.getElementById("recButton").value = "認識失敗...";
         }
@@ -166,7 +172,7 @@
         if(window.event.keyCode == 13 )execTrans();
       }
     --></script>
-    </head>
+  </head>
   <body>
   <header class="header">
   <section><h1>再翻やくん</h1></section>
