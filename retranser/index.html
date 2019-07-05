@@ -39,7 +39,7 @@
       border-radius: .2em;
       height:1.5em;
     }
-    #recButton{
+    #recButton,#repRecButton{
       width:8.5em;
       max-width:90%;
       display:none;
@@ -80,7 +80,7 @@
   <script type="text/javascript"><!--
 
     var isWaiting = false,
-        speaks = false;
+        speaks    = false;
       
     var transRequest = new XMLHttpRequest();
     transRequest.responseType = 'json';
@@ -110,68 +110,84 @@
       transRequest.send();
     }
  
-      // 負荷対策：自動リアルタイム翻訳は1秒以上間隔をあける
-      function autoTrans(){
-        if(!isWaiting){
-          isWaiting = true;
-          setTimeout(autoExecTrans,1000);
-        }
+    // 負荷対策：自動リアルタイム翻訳は1秒以上間隔をあける
+    function autoTrans(){
+      if(!isWaiting){
+        isWaiting = true;
+        setTimeout(autoExecTrans,1000);
       }
-      function autoExecTrans(){
-        isWaiting = false;
-        execTrans();
-        console.log("trans");
-      }
-      
-      function transByTimer(){
-        if(transWaitCnt>0){
-        //execTrans();
-          transWaitCnt -= 1;
-          setTimeout(transByTimer(), 3000);
-        }
-      }
-      
-      // 音声認識
-      var recognition = new webkitSpeechRecognition();
-      recognition.lanh = "ja"; //初期の認識言語
-      recognition.onresult = function(event){
-        if(event.results.length > 0){
-          document.getElementById("input").value = event.results[0][0].transcript;
-          document.getElementById("recButton").value = "音声入力";
-          execTrans();
-          speaks=true;
-        }else{
-          document.getElementById("recButton").value = "認識失敗...";
-        }
-        recognition.stop();
-      }
-      recognition.onaudiostart = function(){
-        document.getElementById("recButton").value ="音声入力中...";
-      }
-      recognition.onspeechstart = function(){
-        document.getElementById("recButton").value ="音声認識中...";
-      }
-      recognition.onend = function(){
-        if(document.getElementById("recButton").value =="音声認識中...")
-          document.getElementById("recButton").value = "認識失敗...";
-      }
+    }
+    function autoExecTrans(){
+      isWaiting = false;
+      execTrans();
+      console.log("trans");
+    }
     
-      function micRecStart(){
-        recognition.start();
-        document.getElementById("recButton").value ="マイク入力許可してください";
+    function transByTimer(){
+      if(transWaitCnt>0){
+      //execTrans();
+        transWaitCnt -= 1;
+        setTimeout(transByTimer(), 3000);
       }
-      
-      // 音声合成
-      var uttr = new SpeechSynthesisUtterance();
-      function speak(text){
-        uttr.text = text;
-        uttr.lang = document.getElementById("toLang").value;
-        speechSynthesis.speak(uttr);
+    }
+    
+    // 音声認識
+    var recognition = new webkitSpeechRecognition();
+    recognition.lanh = "ja"; //初期の認識言語
+    recognition.onresult = function(event){
+      if(event.results.length > 0){
+        document.getElementById("input").value = event.results[0][0].transcript;
+        document.getElementById("recButton").value = "音声入力";
+        execTrans();
+        speaks=true;
+      }else{
+        document.getElementById("recButton").value = "認識失敗...";
       }
-      function transByEnter(e){
-        if(window.event.keyCode == 13 )execTrans();
+      recognition.stop();
+    }
+    recognition.onaudiostart = function(){
+      document.getElementById("recButton").value ="音声入力中...";
+    }
+    recognition.onspeechstart = function(){
+      document.getElementById("recButton").value ="音声認識中...";
+    }
+    recognition.onend = function(){
+      if(document.getElementById("recButton").value =="音声認識中...")
+        document.getElementById("recButton").value = "認識失敗...";
+    }
+  
+    function micRecStart(){
+      recognition.start();
+      document.getElementById("recButton").value ="マイク入力許可してください";
+    }
+    
+    // 音声合成
+    var uttr = new SpeechSynthesisUtterance();
+    function speak(text){
+      uttr.text = text;
+      uttr.lang = document.getElementById("toLang").value;
+      speechSynthesis.speak(uttr);
+    }
+    function transByEnter(e){
+      if(window.event.keyCode == 13 )execTrans();
+    }
+    function swapLang(swapsInput){
+      let fromLangElem   = document.getElementById("fromLang");
+      let toLangElem     = document.getElementById("toLang");
+      let tmpLang        = toLangElem.value;
+      toLangElem.value   = fromLangElem.value;
+      fromLangElem.value = tmpLang;
+      if(swapsInput){
+        let inputElem    = document.getElementById("input");
+        inputElem.value  = document.getElementById("translated").value;
+        execTrans();
       }
-    --></script>
+    }
+    function replyMicRecStart(){
+      swapLang();
+      micRecStart();
+    }
+  --></script>
   </head>
   <body>
   <header class="header">
@@ -180,21 +196,15 @@
   <section>
     <h1>　</h1>
     <h2>入力</h2>
-    <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
-    <input type="button" onclick="execTrans();" value="翻訳">
     <select id="fromLang">
       <option value="en"         >英</option>
       <option value="ja" selected>日</option>
       <option value="zh"         >中</option>
     </select>
-    <script type="text/javascript"><!-- // Chromeなら表示
-      console.log(window.navigator.userAgent);
-      if(window.navigator.userAgent.indexOf('Chrome')>=0)
-        document.getElementById("recButton").style.display = "inline-block";
-    --></script>
+    <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
+    <input type="button" onclick="execTrans();" value="翻訳">
     <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
-    onkeydown="transByEnter()">こんにちは．
-    </textarea>
+    onkeydown="transByEnter()">こんにちは．</textarea>
     
     <h2>翻訳結果</h2>
     <select id="toLang">
@@ -202,11 +212,22 @@
       <option value="ja"         >日</option>
       <option value="zh"         >中</option>
     </select>
+    <input type="button" onclick="swapLang(true);" value="▲▼">
+    <input type="button" id="repRecButton" value="返答音声入力" onclick="replyMicRecStart()">
     <textarea id="translated"   readonly>Hello.</textarea>
     
     <h2>再翻訳結果</h2>
     <textarea id="retranslated" readonly>こんにちは．</textarea>
   </section>
+  
+  <script type="text/javascript"><!-- // Chromeなら表示
+    console.log(window.navigator.userAgent);
+    if(window.navigator.userAgent.indexOf('Chrome')>=0){
+      document.getElementById("recButton").style.display = "inline-block";
+      document.getElementById("repRecButton").style.display = "inline-block";
+    }
+  --></script>
+  
   </body>
 </html>
 
