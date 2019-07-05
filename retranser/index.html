@@ -156,8 +156,8 @@
     }
   
     function micRecStart(){
-      recognition.start();
       recognition.lang = document.getElementById("fromLang").value;
+      recognition.start();
       document.getElementById("recButton").value ="マイク入力許可してください";
     }
     
