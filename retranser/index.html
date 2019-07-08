@@ -2,6 +2,9 @@
 <html>
   <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>再翻やくん</title>
   <style type="text/css">
     
@@ -20,11 +23,22 @@
       left:0;
       background: #EEE;
       color: #000;
+      height:4em;
+      text-align:center;
+    }
+    .headerR{
+      float:right;
+      margin-top:1rem;
+      height:2rem !important;
+    }
+    .headerL{
+      float: left;
     }
     h1{
       margin: .6em 0 .6em 0;
       padding:0;
       font-size:1.5em;
+      display:inline-block;
     }
     h2{
       margin: .5em 0 .5em 0;
@@ -58,7 +72,7 @@
     textarea::-webkit-scrollbar{
       display:none;
     }
-    div{
+    div.tArea{
       width : 24em;
       max-width:90%;
       height: 6em;
@@ -87,8 +101,7 @@
     
     transRequest.onload = function () {
       var data = this.response;
-      console.log(data.translatedText);
-      console.log(data.retranslatedText);
+      console.log(data);
       document.getElementById("translated"  ).innerHTML = data.translatedText;
       document.getElementById("retranslated").innerHTML = data.retranslatedText;
       if(speaks){
@@ -101,6 +114,12 @@
       let text     = document.getElementById("input").value;
       let fromLang = document.getElementById("fromLang").value;
       let toLang   = document.getElementById("toLang").value;
+      if(fromLang == toLang){ // 同じ言語には翻訳できないので翻訳先言語変更
+        let defLang                  = "ja";
+        if(toLang == defLang)defLang = "en";
+        document.getElementById("toLang").value = defLang;
+        toLang                                  = defLang;
+      }
       text         = encodeURIComponent(text);
      
       let url = "https://script.google.com/macros/s/"+
@@ -120,7 +139,7 @@
     function autoExecTrans(){
       isWaiting = false;
       execTrans();
-      console.log("trans");
+      console.log("Trans Execute Start");
     }
     
     function transByTimer(){
@@ -191,10 +210,13 @@
   </head>
   <body>
   <header class="header">
-  <section><h1>再翻やくん</h1></section>
+  <section>
+    <h1 class="headerL">再翻やくん</h1>
+    <input class="headerR" type="button" onclick="window.close();" value="閉じる">
+  </section>
   </header>
   <section>
-    <h1>　</h1>
+    <div style="height:4em;">　</div>
     <h2>入力</h2>
     <select id="fromLang">
       <option value="en"         >英</option>
