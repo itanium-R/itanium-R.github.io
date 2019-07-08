@@ -206,6 +206,16 @@
       swapLang();
       micRecStart();
     }
+
+    // 閉じるボタン
+    function closeWindow(){
+      window.open('','_self').close();
+      setTimeout("alertCannotClose()",500)
+    }
+    function alertCannotClose(){
+      alert("ブラウザを閉じようとしましたが失敗しました．"+
+            "ブラウザの閉じるボタンを押して閉じてください．");
+    }
   --></script>
   </head>
   <body>
@@ -213,7 +223,7 @@
   <section>
     <h1 class="headerL">再翻やくん</h1>
     <input class="headerR" type="button" value="閉じる"
-           onclick="if (/Chrome/i.test(navigator.userAgent)) { window.close(); } else { window.open('about:blank', '_self').close(); }">
+           onclick="closeWindow()">
   </section>
   </header>
   <section>
@@ -228,7 +238,6 @@
     <input type="button" onclick="execTrans();" value="翻訳">
     <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
     onkeydown="transByEnter()">こんにちは．</textarea>
-    
     <h2>翻訳結果</h2>
     <select id="toLang">
       <option value="en" selected>英</option>
