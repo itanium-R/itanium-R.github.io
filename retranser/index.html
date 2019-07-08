@@ -212,7 +212,8 @@
   <header class="header">
   <section>
     <h1 class="headerL">再翻やくん</h1>
-    <input class="headerR" type="button" onclick="window.open('','_self').close();" value="閉じる">
+    <input class="headerR" type="button" value="閉じる"
+           onclick="if (/Chrome/i.test(navigator.userAgent)) { window.close(); } else { window.open('about:blank', '_self').close(); }">
   </section>
   </header>
   <section>
