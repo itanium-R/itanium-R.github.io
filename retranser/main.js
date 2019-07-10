@@ -88,6 +88,7 @@
     // 音声合成
     var uttr = new SpeechSynthesisUtterance();
     function speak(text){
+      var text = text || document.getElementById("translated").value;
       uttr.text = text;
       uttr.lang = document.getElementById("toLang").value;
       speechSynthesis.speak(uttr);
