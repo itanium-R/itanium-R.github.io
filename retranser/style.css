@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
+
+body{
+    margin:0;
+    padding:0;
+    font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+    max-width:100%;
+}
+.header{
+    position: fixed;
+    top:0;
+    right: 0;
+    left:0;
+    background: #EEE;
+    color: #000;
+    height:4em;
+    text-align:center;
+}
+.headerR{
+    float:right;
+    margin-top:1rem;
+    height:2rem !important;
+}
+.headerL{
+    float: left;
+}
+h1{
+    margin: .6em 0 .6em 0;
+    padding:0;
+    font-size:1.5em;
+    display:inline-block;
+}
+h2{
+    margin: .5em 0 .5em 0;
+    padding:0;
+    font-size:1.2em;
+    display:inline-block;
+}
+input[type="button"],select{
+    font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+    background:#FEFEFE;
+    border:solid 1px #AAA;
+    border-radius: .2em;
+    height:1.5em;
+}
+#recButton,#repRecButton{
+    width:7.5em;
+    max-width:90%;
+    display:none;
+}
+textarea{
+    font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+    resize: none;
+    width : 24rem;
+    height: 6em;
+    max-width:100%;
+    border:solid 1px #AAA;
+    border-radius: .5em;
+    font-size:1.2em;
+    -ms-overflow-style:none;
+}
+textarea::-webkit-scrollbar{
+    display:none;
+}
+div.tArea{
+    width : 24em;
+    max-width:90%;
+    height: 6em;
+    
+    background:#FFF;
+    border:solid 1px #AAA;
+    border-radius: .5em;
+}
+section{
+    margin:auto;
+    padding:0;
+    width:24rem;
+    max-width:80%;
+    
+}
