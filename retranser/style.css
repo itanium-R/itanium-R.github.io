@@ -113,4 +113,5 @@ li:nth-child(2n-1){
 #tomain,#tofavorite{
     width: 4.2em;
     padding: 0;
+    display: none;
 }
