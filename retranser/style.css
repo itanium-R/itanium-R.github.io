@@ -15,6 +15,7 @@ body{
     color: #000;
     height:4em;
     text-align:center;
+    z-index:9;
 }
 .headerR{
     float:right;
@@ -24,6 +25,20 @@ body{
 .headerL{
     float: left;
 }
+#main{
+    display: none;
+    animation:         fadeIn .5s ease 0s 1 normal forwards;
+    -webkit-animation: fadeIn .5s ease 0s 1 normal forwards;
+}
+#favorite{
+    display: none;
+    animation:         fadeIn .5s ease 0s 1 normal forwards;
+    -webkit-animation: fadeIn .5s ease 0s 1 normal forwards;
+}
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+    }
 h1{
     margin: .6em 0 .6em 0;
     padding:0;
@@ -78,7 +93,7 @@ section{
     max-width:80%;
 }
 ul{
-    margin:.3em 0 .3em 0;
+    margin:.5em 0 .5em 0;
     padding:0;
 }
 li{

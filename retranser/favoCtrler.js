@@ -1,7 +1,3 @@
-function ElmId(id){
-  return document.getElementById(id); 
-}
-
 const vm = new Vue({
   el: '#favorite',
   data: {
@@ -9,6 +5,7 @@ const vm = new Vue({
   },
   methods: {
     addFavorite: function(newLang,newSentence){
+      alert("お気に入り登録しました\n"+newSentence);
       this.deleteFavorite(newSentence); // 被りは消す
       this.FavoData.unshift({
         lang:     newLang,
@@ -35,6 +32,7 @@ const vm = new Vue({
       ElmId("fromLang").value = favo.lang;
       ElmId("input").value    = favo.sentence;
       execTrans();
+      switchSection("main");
     }
   },
   mounted: function(){

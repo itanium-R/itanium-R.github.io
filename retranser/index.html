@@ -17,6 +17,8 @@
     <h1 class="headerL">再翻やくん</h1>
     <input class="headerR" type="button" value="閉じる"
            onclick="closeWindow()">
+    <input class="headerR" type="button" value="favorite"
+          onclick="switchSection('favorite')">
   </section>
   </header>
   <section id="main">
@@ -54,9 +56,13 @@
   </section>
 
   <section id="favorite">
+    <div style="height:4.5em;">　</div>
+    
+    <input value="←翻訳画面へ戻る" type="button"
+           onclick="switchSection('main')">
     <ul>
       <li v-for="favo in FavoData">
-        <input value="↑" type="button" class="radius50"
+        <input value="←" type="button" class="radius50"
                v-on:click="writeInput(favo)">
         <input value="✖"  type="button" class="radius50"
                v-on:click="deleteFavorite(favo.sentence)">
