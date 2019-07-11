@@ -133,7 +133,11 @@ window.onload=function(){
   switchSection("main");
 }
 function switchSection(id){
-  ids=["main","favorite"];
-  ids.forEach(aId => {ElmId(aId).style.display="none";});
-  ElmId(id).style.display="block";
+  ids=["main","favorite"]; // すべてのSectionを消す
+  ids.forEach(aId => {
+    ElmId(aId).style.display      = "none";
+    ElmId("to"+aId).style.display = "inline-block";
+  });
+  ElmId(id).style.display      = "block";
+  ElmId("to"+id).style.display = "none";
 }

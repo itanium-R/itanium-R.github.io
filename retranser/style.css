@@ -110,3 +110,7 @@ li:nth-child(2n-1){
     background: #F40 !important;
     color: #FFF;
 }
+#tomain,#tofavorite{
+    width: 4.2em;
+    padding: 0;
+}
