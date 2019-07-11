@@ -54,6 +54,7 @@
     <textarea id="translated"   readonly>Hello.</textarea>
     
     <h2>再翻訳結果</h2>
+    <input type="button" onclick="tweet();" value="Tweet">
     <textarea id="retranslated" readonly>こんにちは．</textarea>
   </section>
 
@@ -75,9 +76,9 @@
   
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="favoCtrler.js"></script>
+  <script src="tweet.js"></script>
   <script type="text/javascript"><!-- // Chromeなら表示
-    let userAgent;
-    console.log(userAgent = window.navigator.userAgent);
+    let userAgent = window.navigator.userAgent;
     if(userAgent.indexOf('Chrome')>=0||userAgent.indexOf('Safari')>=0){
       document.getElementById("recButton").style.display = "inline-block";
       document.getElementById("repRecButton").style.display = "inline-block";
