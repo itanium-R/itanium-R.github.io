@@ -10,7 +10,7 @@ const vm = new Vue({
   methods: {
     addFavorite: function(newLang,newSentence){
       this.deleteFavorite(newSentence); // 被りは消す
-      this.FavoData.push({
+      this.FavoData.unshift({
         lang:     newLang,
         sentence: newSentence,
       });

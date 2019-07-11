@@ -19,10 +19,10 @@
            onclick="closeWindow()">
   </section>
   </header>
-  <section>
+  <section id="main">
     <div style="height:4em;">　</div>
     <h2>入力</h2>
-    <select id="fromLang">
+    <select id="fromLang" onchange="execTrans()">
       <option value="en"         >英</option>
       <option value="ja" selected>日</option>
       <option value="zh"         >中</option>
@@ -38,7 +38,7 @@
     <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
     onkeydown="transByEnter()">こんにちは．</textarea>
     <h2>翻訳結果</h2>
-    <select id="toLang">
+    <select id="toLang" onchange="execTrans()">
       <option value="en" selected>英</option>
       <option value="ja"         >日</option>
       <option value="zh"         >中</option>
@@ -56,9 +56,9 @@
   <section id="favorite">
     <ul>
       <li v-for="favo in FavoData">
-        <input value="↑" type="button"
+        <input value="↑" type="button" class="radius50"
                v-on:click="writeInput(favo)">
-        <input value="×"  type="button"
+        <input value="✖"  type="button" class="radius50"
                v-on:click="deleteFavorite(favo.sentence)">
         {{ favo.lang }}:{{ favo.sentence }}        
       </li>

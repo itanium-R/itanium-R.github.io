@@ -41,7 +41,7 @@ input[type="button"],select{
     background:#FEFEFE;
     border:solid 1px #AAA;
     border-radius: .2em;
-    height:1.5em;
+    height:2em;
 }
 #recButton,#repRecButton{
     width:7.5em;
@@ -77,9 +77,21 @@ section{
     width:24rem;
     max-width:80%;
 }
+ul{
+    margin:.3em 0 .3em 0;
+    padding:0;
+}
 li{
     list-style-type: none;
+    padding:.3em 0 .3em 0;
 }
-li:nth-child(2n){
+li:nth-child(2n-1){
     background: #EEE;
+}
+.radius50{
+    border-radius:50% !important;
+}
+.redBack{
+    background: #F40 !important;
+    color: #FFF;
 }
