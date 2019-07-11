@@ -30,6 +30,11 @@
     </select>
     <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
     <input type="button" onclick="execTrans();" value="翻訳">
+    <input type="button" value="★"
+           onclick="var inp=ElmId('input'); 
+                    var langVal=ElmId('fromLang').value;
+                    vm.addFavorite(langVal,inp.value);
+                    inp.value='';">
     <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
     onkeydown="transByEnter()">こんにちは．</textarea>
     <h2>翻訳結果</h2>
@@ -48,7 +53,21 @@
     <textarea id="retranslated" readonly>こんにちは．</textarea>
   </section>
 
-  <script type="text/javascript"><!-- // Chrome,safariなら表示 //todo:safariの対応状況確認
+  <section id="favorite">
+    <ul>
+      <li v-for="favo in FavoData">
+        <input value="↑" type="button"
+               v-on:click="writeInput(favo)">
+        <input value="×"  type="button"
+               v-on:click="deleteFavorite(favo.sentence)">
+        {{ favo.lang }}:{{ favo.sentence }}        
+      </li>
+    </ul>     
+  </section>
+  
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="favoCtrler.js"></script>
+  <script type="text/javascript"><!-- // Chromeなら表示
     let userAgent;
     console.log(userAgent = window.navigator.userAgent);
     if(userAgent.indexOf('Chrome')>=0||userAgent.indexOf('Safari')>=0){

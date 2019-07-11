@@ -76,5 +76,10 @@ section{
     padding:0;
     width:24rem;
     max-width:80%;
-    
+}
+li{
+    list-style-type: none;
+}
+li:nth-child(2n){
+    background: #EEE;
 }
