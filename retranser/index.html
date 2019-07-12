@@ -15,7 +15,7 @@
   <header class="header">
   <section>
     <h1 class="headerL">再翻やくん</h1>
-    <input class="headerR" type="button" value="閉じる"
+    <input class="headerR" type="button" value="閉じる" id="closeB"
            onclick="closeWindow()">
     <input class="headerR" type="button" value="favorite" id="tofavorite"
           onclick="switchSection('favorite')">
@@ -48,14 +48,14 @@
       <option value="zh"         >中</option>
       <option value="ko"         >韓</option>
     </select>
-    <input type="button" onclick="swapLang(true);" value="▲▼">
-    <input type="button" onclick="speak();" value="TTS">
+    <input type="button" onclick="swapLang(true);" value="▲">
+    <input type="button" onclick="speak();" value="読">
     <input type="button" id="repRecButton" value="返答音声入力" onclick="replyMicRecStart()">
     <textarea id="translated"   readonly>Hello.</textarea>
     
     <h2>再翻訳結果</h2>
     <input type="button" onclick="tweet();" value="Tweet">
-    <textarea id="retranslated" readonly>こんにちは．</textarea>
+    <textarea id="retranslated" readonly></textarea>
   </section>
 
   <section id="favorite">

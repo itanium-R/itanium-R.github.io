@@ -129,9 +129,6 @@ function alertCannotClose(){
 }
 
 // section切り替え
-window.onload=function(){
-  switchSection("main");
-}
 function switchSection(id){
   ids=["main","favorite"]; // すべてのSectionを消す
   ids.forEach(aId => {
@@ -140,4 +137,33 @@ function switchSection(id){
   });
   ElmId(id).style.display      = "block";
   ElmId("to"+id).style.display = "none";
+}
+
+// URLパラメータ取得 cf)http://www-creators.com/archives/4463
+function getParam(name) {
+  let url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+// onload
+window.onload=function(){
+  switchSection("main");
+  if(getParam("showsCloseB")){
+    ElmId("closeB").style.display = "inline-block";
+  }
+  let inputVal,langVal;
+  if(langVal  = getParam("lang" )){
+    ElmId("fromLang").value = langVal;
+    console.log("URL param lang :" + langVal);
+  }
+  if(inputVal = getParam("input")){
+    ElmId("input").value = inputVal;
+    console.log("URL param input:" + inputVal);
+  }
+  execTrans();
 }
