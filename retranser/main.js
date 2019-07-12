@@ -156,10 +156,15 @@ window.onload=function(){
   if(getParam("showsCloseB")){
     ElmId("closeB").style.display = "inline-block";
   }
-  let inputVal,langVal;
-  if(langVal  = getParam("lang" )){
-    ElmId("fromLang").value = langVal;
-    console.log("URL param lang :" + langVal);
+  // URLパラメータ読取
+  let inputVal,fLangVal,tLangVal;
+  if(fLangVal = getParam("fromLang")){
+    ElmId("fromLang").value = fLangVal;
+    console.log("URL param fLang :" + fLangVal);
+  }
+  if(tLangVal = getParam("toLang")){
+    ElmId("toLang").value = tLangVal;
+    console.log("URL param fLang :" + tLangVal);
   }
   if(inputVal = getParam("input")){
     ElmId("input").value = inputVal;
