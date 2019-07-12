@@ -5,9 +5,7 @@ function tweet(){
     url += "&toLang="   + ElmId("toLang").value;
     url += "&input="    + ElmId("input").value.replace(" ","+");
     //url += "&input="    + ElmId("input").value;
-    alert(url);
     url = encodeURIComponent(url);
-    alert(url); 
     let message = document.getElementById("retranslated").value;
     message += "←";
     message += document.getElementById("translated").value;
