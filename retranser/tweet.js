@@ -1,4 +1,8 @@
 function tweet(){
+    if(ElmId("input").value==""){
+        alert("何も入力されていません");
+        return -1;
+    }
     let url = "https://itanium-r.github.io/retranser/index.html";
     url += "?fromLang=" + ElmId("fromLang").value;
     url += "&toLang="   + ElmId("toLang").value;

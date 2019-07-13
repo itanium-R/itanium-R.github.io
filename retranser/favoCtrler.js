@@ -5,6 +5,10 @@ const vm = new Vue({
   },
   methods: {
     addFavorite: function(newLang,newSentence){
+      if(!newSentence){
+        alert("何も入力されていません\n");
+        return -1;  
+      }
       alert("お気に入り登録しました\n"+newSentence);
       this.deleteFavorite(newSentence); // 被りは消す
       this.FavoData.unshift({
