@@ -60,27 +60,31 @@ function transByTimer(){
 }
 
 // 音声認識
-var recognition = new webkitSpeechRecognition();
-recognition.onresult = function(event){
-  if(event.results.length > 0){
-    ElmId("input").value = event.results[0][0].transcript;
-    ElmId("recButton").value = "音声入力";
-    execTrans();
-    speaks=true;
-  }else{
-    ElmId("recButton").value = "認識失敗...";
+try{
+  var recognition = new webkitSpeechRecognition();
+  recognition.onresult = function(event){
+    if(event.results.length > 0){
+      ElmId("input").value = event.results[0][0].transcript;
+      ElmId("recButton").value = "音声入力";
+      execTrans();
+      speaks=true;
+    }else{
+      ElmId("recButton").value = "認識失敗...";
+    }
+    recognition.stop();
   }
-  recognition.stop();
-}
-recognition.onaudiostart = function(){
-  ElmId("recButton").value ="音声入力中...";
-}
-recognition.onspeechstart = function(){
-  ElmId("recButton").value ="音声認識中...";
-}
-recognition.onend = function(){
-  if(ElmId("recButton").value =="音声認識中...")
-    ElmId("recButton").value = "認識失敗...";
+  recognition.onaudiostart = function(){
+    ElmId("recButton").value ="音声入力中...";
+  }
+  recognition.onspeechstart = function(){
+    ElmId("recButton").value ="音声認識中...";
+  }
+  recognition.onend = function(){
+    if(ElmId("recButton").value =="音声認識中...")
+      ElmId("recButton").value = "認識失敗...";
+  }
+}catch(e){
+  console.log(e);
 }
 
 function micRecStart(){
@@ -90,7 +94,11 @@ function micRecStart(){
 }
 
 // 音声合成
-var uttr = new SpeechSynthesisUtterance();
+try{
+  var uttr = new SpeechSynthesisUtterance();
+}catch(e){
+  console.log(e);
+}
 function speak(text){
   var text = text || ElmId("translated").value;
   uttr.text = text;
