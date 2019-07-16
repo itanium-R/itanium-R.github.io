@@ -19,6 +19,7 @@ transRequest.onload = function () {
   }
 };
 
+// 翻訳実行
 function execTrans(){
   let text     = ElmId("input").value;
   let fromLang = ElmId("fromLang").value;
@@ -27,9 +28,9 @@ function execTrans(){
     let defLang                  = "ja";
     if(toLang == defLang)defLang = "en";
     ElmId("toLang").value = defLang;
-    toLang                                  = defLang;
+    toLang  = defLang;
   }
-  text         = encodeURIComponent(text);
+  text      = encodeURIComponent(text);
   
   let url = "https://script.google.com/macros/s/"+
             "AKfycbz1e0JapH5dWB0LNI58Rs6xKhIBjmihigdFomU7HH61VLabbVs/"+
@@ -51,17 +52,10 @@ function autoExecTrans(){
   console.log("Trans Execute Start");
 }
 
-function transByTimer(){
-  if(transWaitCnt>0){
-  //execTrans();
-    transWaitCnt -= 1;
-    setTimeout(transByTimer(), 3000);
-  }
-}
-
 // 音声認識
 try{
-  var recognition = new webkitSpeechRecognition();
+  var recognition = new webkitSpeechRecognition() || 
+                    new SpeechRecognition();
   recognition.onresult = function(event){
     if(event.results.length > 0){
       ElmId("input").value = event.results[0][0].transcript;

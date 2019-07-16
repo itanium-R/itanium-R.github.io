@@ -49,7 +49,7 @@
       <option value="ko"         >韓</option>
     </select>
     <input type="button" onclick="swapLang(true);" value="▲">
-    <input type="button" onclick="speak();" value="読">
+    <input type="button" onclick="speak();" value="読" id="TTSSButton">
     <input type="button" id="repRecButton" value="返答音声入力" onclick="replyMicRecStart()">
     <textarea id="translated"   readonly></textarea>
     
@@ -75,11 +75,13 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="favoCtrler.js"></script>
   <script src="tweet.js"></script>
-  <script type="text/javascript"><!-- // Chromeなら表示
-    let userAgent = window.navigator.userAgent;
-    if(userAgent.indexOf('Chrome')>=0||userAgent.indexOf('Safari')>=0){
-      document.getElementById("recButton").style.display = "inline-block";
-      document.getElementById("repRecButton").style.display = "inline-block";
+  <script type="text/javascript"><!-- // 音声認識可能なら表示
+    if(recognition){
+      ElmId("recButton").style.display = "inline-block";
+      ElmId("repRecButton").style.display = "inline-block";
+    }
+    if(uttr){
+      ElmId("TTSSButton").style.display = "inline-block";
     }
   --></script>
   
