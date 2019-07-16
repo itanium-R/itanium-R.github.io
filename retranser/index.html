@@ -37,6 +37,7 @@
     <input type="button" value="★"
            onclick="vm.addFavorite(ElmId('fromLang').value,ElmId('input').value);
                     clearTextareas();">
+    <input type="button" onclick="clearTextareas();" value="消">
     <textarea id="input" oninput="autoTrans()"  
     onkeydown="transByEnter()"></textarea>
     <h2>翻訳結果</h2>
