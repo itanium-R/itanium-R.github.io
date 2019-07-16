@@ -4,6 +4,12 @@ var isWaiting = false,
 function ElmId(id){
   return document.getElementById(id); 
 }
+
+function clearTextareas(){
+  ElmId("input").value        = "";
+  ElmId("translated").value   = ""; 
+  ElmId("retranslated").value = "";
+}
     
 var transRequest = new XMLHttpRequest();
 transRequest.responseType = 'json';
@@ -11,8 +17,8 @@ transRequest.responseType = 'json';
 transRequest.onload = function () {
   var data = this.response;
   console.log(data);
-  ElmId("translated"  ).innerHTML = data.translatedText;
-  ElmId("retranslated").innerHTML = data.retranslatedText;
+  ElmId("translated"  ).value = data.translatedText;
+  ElmId("retranslated").value = data.retranslatedText;
   if(speaks){
     speak(data.translatedText);
     speaks=false;
@@ -22,6 +28,10 @@ transRequest.onload = function () {
 // 翻訳実行
 function execTrans(){
   let text     = ElmId("input").value;
+  if(text==""){ // 未入力ならAPIは叩かない
+    clearTextareas();
+    return 0;
+  }
   let fromLang = ElmId("fromLang").value;
   let toLang   = ElmId("toLang").value;
   if(fromLang == toLang){ // 同じ言語には翻訳できないので翻訳先言語変更
@@ -100,7 +110,7 @@ function speak(text){
   speechSynthesis.speak(uttr);
 }
 function transByEnter(e){
-  if(window.event.keyCode == 13 )execTrans();
+  if(window.event.keyCode == 13)execTrans();
 }
 function swapLang(swapsInput){
   let fromLangElem   = ElmId("fromLang");
@@ -123,7 +133,7 @@ function replyMicRecStart(){
 function closeWindow(){
   window.open('','_self').close();
   window.close();
-  setTimeout("alertCannotClose()",500)
+  setTimeout("alertCannotClose()",500);
 }
 function alertCannotClose(){
   alert("ブラウザを閉じようとしましたが失敗しました．"+

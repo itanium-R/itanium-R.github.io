@@ -33,6 +33,7 @@ const vm = new Vue({
       }
     },
     writeInput: function(favo){
+      clearTextareas();
       ElmId("fromLang").value = favo.lang;
       ElmId("input").value    = favo.sentence;
       execTrans();

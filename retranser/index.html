@@ -35,11 +35,9 @@
     <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
     <input type="button" onclick="execTrans();" value="翻訳">
     <input type="button" value="★"
-           onclick="var inp=ElmId('input'); 
-                    var langVal=ElmId('fromLang').value;
-                    vm.addFavorite(langVal,inp.value);
-                    inp.value='';">
-    <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
+           onclick="vm.addFavorite(ElmId('fromLang').value,ElmId('input').value);
+                    clearTextareas();">
+    <textarea id="input" oninput="autoTrans()"  
     onkeydown="transByEnter()"></textarea>
     <h2>翻訳結果</h2>
     <select id="toLang" onchange="execTrans()">
@@ -60,7 +58,6 @@
 
   <section id="favorite">
     <div style="height:4em;">　</div>
-    
     <ul>
       <li v-for="favo in FavoData">
         <input value="←" type="button" class="radius50"
