@@ -47,6 +47,8 @@ function execTrans(){
             "exec?text="+text+"&fromLang="+fromLang+"&toLang="+toLang;
   transRequest.open("GET",url, true);
   transRequest.send();
+
+  history.replaceState("","","?fromLang="+fromLang+"&toLang="+toLang+"&input="+text);
 }
 
 // 負荷対策：自動リアルタイム翻訳は1秒以上間隔をあける
