@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title></title>
+  <style type="text/css"><!--
+    
+    @import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP|Sawarabi+Mincho&display=swap');
+    
+    body{
+      margin:0;
+      padding:0;
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      max-width:100%;
+    }
+    .header{
+      position: fixed;
+      top:0;
+      right: 0;
+      left:0;
+      background: #EEE;
+      color: #000;
+    }
+    h1{
+      margin: .6em 0 .6em 0;
+      padding:0;
+      font-size:1.5em;
+    }
+    h2{
+      margin: .5em 0 .5em 0;
+      padding:0;
+      font-size:1.2em;
+      display:inline-block;
+    }
+    input[type="button"],select{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      background:#FEFEFE;
+      border:solid 1px #AAA;
+      border-radius: .2em;
+      height:1.5em;
+    }
+    #recButton{
+      width:8.5em;
+      max-width:90%;
+      display:none;
+    }
+    textarea{
+      font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
+      resize: none;
+      width : 24rem;
+      height: 6em;
+      max-width:100%;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+      font-size:1.2em;
+      -ms-overflow-style:none;
+    }
+    textarea::-webkit-scrollbar{
+      display:none;
+    }
+    div{
+      width : 24em;
+      max-width:90%;
+      height: 6em;
+      
+      background:#FFF;
+      border:solid 1px #AAA;
+      border-radius: .5em;
+    }
+    section{
+      margin:auto;
+      padding:0;
+      width:24rem;
+      max-width:80%;
+      
+    }
+    
+  --></style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript"><!--
+
+    var isWaiting = false;
+      
+    var transRequest = new XMLHttpRequest();
+    transRequest.responseType = 'json';
+    
+    transRequest.onload = function () {
+      var data = this.response;
+      console.log(data.translatedText);
+      console.log(data.retranslatedText);
+      document.getElementById("translated"  ).innerHTML = data.translatedText;
+      document.getElementById("retranslated").innerHTML = data.retranslatedText;
+      document.getElementById("tweet").data-text = "／再翻やくん";
+    };
+
+    function execTrans(){
+      let text     = document.getElementById("input").value;
+      let fromLang = document.getElementById("fromLang").value;
+      let toLang   = document.getElementById("toLang").value;
+      text         = encodeURIComponent(text);
+     
+      let url = "https://script.google.com/macros/s/"+
+                "AKfycbz1e0JapH5dWB0LNI58Rs6xKhIBjmihigdFomU7HH61VLabbVs/"+
+                "exec?text="+text+"&fromLang="+fromLang+"&toLang="+toLang;
+      transRequest.open("GET",url, true);
+      transRequest.send();
+    }
+ 
+      // 負荷対策：自動リアルタイム翻訳は1秒以上間隔をあける
+      function autoTrans(){
+        if(!isWaiting){
+          isWaiting = true;
+          setTimeout(autoExecTrans,1000);
+        }
+      }
+      function autoExecTrans(){
+        isWaiting = false;
+        execTrans();
+        console.log("trans");
+      }
+      
+      function transByTimer(){
+        if(transWaitCnt>0){
+        //execTrans();
+          transWaitCnt -= 1;
+          setTimeout(transByTimer(), 3000);
+        }
+      }
+      
+      // 音声認識
+      var recognition = new webkitSpeechRecognition();
+      recognition.lanh = "ja"; //初期の認識言語
+      recognition.onresult = function(event){
+        if(event.results.length > 0){
+          document.getElementById("input").value = event.results[0][0].transcript;
+          document.getElementById("recButton").value = "音声入力";
+          execTrans(true);
+        }else{
+          document.getElementById("recButton").value = "認識失敗...";
+        }
+        recognition.stop();
+      }
+      recognition.onaudiostart = function(){
+        document.getElementById("recButton").value ="音声入力中...";
+      }
+      recognition.onspeechstart = function(){
+        document.getElementById("recButton").value ="音声認識中...";
+      }
+      recognition.onend = function(){
+        if(document.getElementById("recButton").value =="音声認識中...")
+          document.getElementById("recButton").value = "認識失敗...";
+      }
+    
+      function micRecStart(){
+        recognition.start();
+        document.getElementById("recButton").value ="マイク入力許可してください";
+      }
+      
+      // 音声合成
+      var uttr = new SpeechSynthesisUtterance();
+      function speak(text){
+        uttr.text = text;
+        uttr.lang = document.getElementById("toLang").value;
+        speechSynthesis.speak(uttr);
+      }
+      function transByEnter(e){
+        if(window.event.keyCode == 13 )execTrans();
+      }
+    --></script>
+    </head>
+  <body>
+  <header class="header">
+  <section><h1>再翻やくん</h1></section>
+  </header>
+  <section>
+    <h1>　</h1>
+    <h2>入力</h2>
+    <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
+    <input type="button" onclick="execTrans();" value="翻訳">
+    <select id="fromLang">
+      <option value="en"         >英</option>
+      <option value="ja" selected>日</option>
+      <option value="zh"         >中</option>
+    </select>
+    <script type="text/javascript"><!-- // Chromeなら表示
+      console.log(window.navigator.userAgent);
+      if(window.navigator.userAgent.indexOf('Chrome')>=0)
+        document.getElementById("recButton").style.display = "inline-block";
+    --></script>
+    <textarea id="input" oninput="autoTrans()" onblur="execTrans()" 
+    onkeydown="transByEnter()">こんにちは．
+    </textarea>
+    
+    <h2>翻訳結果</h2>
+    <select id="toLang">
+      <option value="en" selected>英</option>
+      <option value="ja"         >日</option>
+      <option value="zh"         >中</option>
+    </select>
+    <textarea id="translated"   readonly>Hello.</textarea>
+    
+    <h2>再翻訳結果</h2><input type="button" onclick="tweet();" value="Tweet">
+    
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" id="tweet" class="twitter-share-button" data-show-count="false" data-text="こんにちは．／再翻やくん">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <textarea id="retranslated" readonly>こんにちは．</textarea>
+  </section>
+  <script type="text/javascript">
+</script>
+  </body>
+</html>
+
+
