@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RCCフォームビューア</title>
+<script type="text/javascript">
+    
+    // ▼ここのＵＲＬをＧＡＳで公開した時に得られるものに置換▼
+    var APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
+
+
+    window.onload = function(){
+        let token = getParam("token");
+        if(token){
+            console.log("login token:" + token);
+            window.open(APPURL+"?page=login&token="+token,"_mainFrame");
+            history.replaceState("","","?");
+            setTimeout(()=>{
+              window.open(APPURL,"_mainFrame");
+            },3000);
+        }else{
+            window.open(APPURL,"_mainFrame");
+        }
+    }
+
+    function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+
+    }
+    iframe{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border:0;
+    }
+</style>
+</head>
+<body>
+    <iframe name="_mainFrame"></iframe>
+</body>
+</html>
