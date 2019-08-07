@@ -15,9 +15,6 @@
             console.log("login token:" + token);
             window.open(APPURL+"?page=login&token="+token,"_mainFrame");
             history.replaceState("","","?");
-            setTimeout(()=>{
-              window.open(APPURL,"_mainFrame");
-            },3000);
         }else{
             window.open(APPURL,"_mainFrame");
         }
