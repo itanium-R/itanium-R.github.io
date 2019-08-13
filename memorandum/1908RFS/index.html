@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" type="text/css" href="./style.css">
 <title>RCCフォームビューア</title>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     
     // ▼ここのＵＲＬをＧＡＳで公開した時に得られるものに置換▼
     var APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
@@ -27,11 +28,6 @@
         }
     }
 
-    function loadDone(){
-        var subF=document.getElementById("_subF");
-        subF.parentNode.removeChild(subF);
-    }
-
     function getParam(name) {
         let url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -41,8 +37,13 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-</script>
-<style>
+    function loadDone(){
+        var loader = document.getElementById("loaderSec");
+        try{loader.style.display="none";}catch(e){console.log(e)};
+    }
+
+--></script>
+<style type="text/css"><!--
     body{
         margin: 0;
         padding: 0;
@@ -56,13 +57,16 @@
         height: 100%;
         border:0;
     }
-    #subF{
-        z-index: 9;
-    }
-</style>
+--></style>
 </head>
 <body>
     <iframe name="_mainFrame" onload="loadDone()"></iframe>
-    <iframe name="_subFrame"  id="_subF" src="./loader.html"></iframe>
+    <section id="loaderSec">
+        <div id="loader">    
+          <img src="./logo-w.png" >
+          <div class="loaderInner">Loading...</div>
+        </div>
+    </section>
+  
 </body>
 </html>
