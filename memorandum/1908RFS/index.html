@@ -37,9 +37,8 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-    function loadDone(){
-        var loader = document.getElementById("loaderSec");
-        try{loader.style.display="none";}catch(e){console.log(e)};
+    function hideElemId(id){
+        document.getElementById(id).style.display="none";
     }
 
 --></script>
@@ -60,8 +59,8 @@
 --></style>
 </head>
 <body>
-    <iframe name="_mainFrame" onload="loadDone()"></iframe>
-    <section id="loaderSec">
+    <iframe name="_mainFrame" onload="hideElemId('loaderSec')"></iframe>
+    <section id="loaderSec" style="display:flex;">
         <div id="loader">    
           <img src="./logo-w.png" >
           <div class="loaderInner">Loading...</div>
