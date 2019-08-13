@@ -27,11 +27,6 @@
         }
     }
 
-    function loadDone(){
-        var subF=document.getElementById("_subF");
-        subF.parentNode.removeChild(subF);
-    }
-
     function getParam(name) {
         let url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -56,13 +51,9 @@
         height: 100%;
         border:0;
     }
-    #subF{
-        z-index: 9;
-    }
 </style>
 </head>
 <body>
-    <iframe name="_mainFrame" onload="loadDone()"></iframe>
-    <iframe name="_subFrame"  id="_subF" src="./loader.html"></iframe>
+    <iframe name="_mainFrame"></iframe>
 </body>
 </html>
