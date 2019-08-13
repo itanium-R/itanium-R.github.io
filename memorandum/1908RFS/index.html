@@ -19,6 +19,7 @@
         }else{
             try{
                 token = document.cookie.split("userToken=")[1].split(";")[0];
+                window.open("./loader.html","_mainFrame");
                 window.open(APPURL+"?page=view&token="+token,"_mainFrame");
             }catch(e){
                 console.log(e);
