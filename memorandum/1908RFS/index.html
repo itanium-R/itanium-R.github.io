@@ -42,9 +42,6 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-    function hideElemId(id){
-        setTimeout(()=>{document.getElementById(id).style.display="none"},3000);
-    }
     
 
 --></script>
@@ -65,7 +62,7 @@
 --></style>
 </head>
 <body>
-    <iframe name="_mainFrame" onload="hideElemId('loaderSec')" id="_mainFrame"></iframe>
+    <iframe name="_mainFrame" id="_mainFrame"></iframe>
     <section id="loaderSec" style="display:flex;">
         <div id="loader">    
           <img src="./logo-w.png" >
