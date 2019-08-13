@@ -26,6 +26,11 @@
                 window.open(APPURL,"_mainFrame");
             }
         }
+        var iframe = document.getElementById("_mainFrame");
+        iframe.onload = function(){
+            console.log("frame load: done!");
+            setTimeout(()=>{document.getElementById("loaderSec").style.display="none"},100);
+        }
     }
 
     function getParam(name) {
@@ -40,6 +45,7 @@
     function hideElemId(id){
         setTimeout(()=>{document.getElementById(id).style.display="none"},3000);
     }
+    
 
 --></script>
 <style type="text/css"><!--
@@ -59,7 +65,7 @@
 --></style>
 </head>
 <body>
-    <iframe name="_mainFrame" onload="hideElemId('loaderSec')"></iframe>
+    <iframe name="_mainFrame" onload="hideElemId('loaderSec')" id="_mainFrame"></iframe>
     <section id="loaderSec" style="display:flex;">
         <div id="loader">    
           <img src="./logo-w.png" >
