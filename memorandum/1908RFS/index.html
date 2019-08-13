@@ -38,7 +38,7 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
     function hideElemId(id){
-        document.getElementById(id).style.display="none";
+        setTimeout(()=>{document.getElementById(id).style.display="none"},1000);
     }
 
 --></script>
