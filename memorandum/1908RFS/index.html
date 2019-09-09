@@ -7,11 +7,17 @@
 <script type="text/javascript"><!--
     
     // ▼ここのＵＲＬをＧＡＳで公開した時に得られるものに置換▼
-    var APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
-
+    const APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
+    const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
 
     window.onload = function(){
         let token = getParam("token");
+        if(isIOS){
+            let iosUrl = location.href.replace(/\?.*$/,"")+"forIosScroll.html";
+            if(token)iosUrl += "?token=" + token;
+            window.open(iosUrl,"_top");
+            return 0;
+        }
         if(token){
             document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
             console.log("login token:" + token);
