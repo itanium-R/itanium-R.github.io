@@ -8,6 +8,10 @@
       width: 10em;
       overflow: hidden;
       transition: 1s;
+      filter: drop-shadow(10px 10px 10px rgba(255,255,255,0.6));
+      -webkit-animation: jump 3.4s infinite ease;
+      animation:         jump 3.4s infinite ease;
+
     }
     img:hover{
       filter: drop-shadow(10px 10px 10px rgba(255,255,255,0.6));
@@ -15,8 +19,19 @@
       -webkit-transform: translateZ(0);
       -ms-transform: translateZ(0);
       transform: translateZ(0);
-      -webkit-animation: round 1.7s 1;
-      animation:         round 1.7s 1;
+      -webkit-animation: round 1.7s 1 ease;
+      animation:         round 1.7s 1 ease;
+    }
+
+    @keyframes jump {
+      0%, 100% {
+        -webkit-transform: translateY(1em);
+        transform: translateY(1em);
+      }
+      50% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
     }
 
     section{
