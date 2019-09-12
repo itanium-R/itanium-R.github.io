@@ -7,18 +7,10 @@
 <script type="text/javascript"><!--
     
     // ▼ここのＵＲＬをＧＡＳで公開した時に得られるものに置換▼
-    const APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
-    const isIOS = /iP(hone|(o|a)d)/.test(navigator.userAgent);
+    var APPURL = "https://script.google.com/macros/s/AKfycbyz35x3jy0PRyj7C4pLHHtFaUgnk7kQNX26oqFbzA5U-XcUVm4K/exec";
+
 
     window.onload = function(){
-		var link = document.createElement('link');
-		if(isIOS) link.href = 'frameForIos.css';  // IOS用CSS
-		else      link.href = 'frameDefault.css'; // デフォルトCSS
-		link.rel  = 'stylesheet';
-		link.type = 'text/css';
-        console.log("load: "+link.href);
-		document.getElementsByTagName('head')[0].appendChild(link);
-        
         let token = getParam("token");
         if(token){
             document.cookie = "userToken=" + encodeURIComponent(token)   + ";max-age=8640000";
@@ -53,6 +45,29 @@
     
 
 --></script>
+<style type="text/css"><!--
+    body{
+        margin:    0;
+        padding:   0;
+        width:  100%;
+        height: 100vh;
+        overflow: auto;
+    }
+    iframe{
+        width:100%;
+        height:100%;
+        border:none;
+        display:block;
+        overflow: auto;
+    }
+    .iframeWrapper{
+        width:  100%;
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        border: none;
+    }
+--></style>
 </head>
 <body>
     <div class="iframeWrapper"><iframe name="_mainFrame" id="_mainFrame"></iframe></div>
