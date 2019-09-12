@@ -1,0 +1,3 @@
+[submodule "memorandum/1909submodule-test"]
+	path = memorandum/1909submodule-test
+	url = https://github.com/itanium-R/submodule-test.git
