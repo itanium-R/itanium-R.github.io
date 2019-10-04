@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+  <textarea id="text">センテンス</textarea>
+  <button onclick="uttr();">uttr</button>
+  
+  <script type="text/javascript">
+    function uttr(){
+      var text     = document.getElementById('text').value;
+      const uttr = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(uttr);
+    }
+  </script>
+</body>
+</html>
