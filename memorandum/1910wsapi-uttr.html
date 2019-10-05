@@ -6,14 +6,20 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-  <textarea id="text">センテンス</textarea>
+  <textarea id="text">ここに文章を入力してuttrボタン押下</textarea>
   <button id="uttrBtn" onclick="uttr();">uttr</button>
   
   <script type="text/javascript">
+    
+    var synth = window.speechSynthesis;
+    var ssuttr = new SpeechSynthesisUtterance();
+    if (!ssuttr) {
+        alert('Your browser does not support Speech synthesis.');
+    }
     function uttr(){
-      var text     = document.getElementById('text').value;
-      const uttr = new SpeechSynthesisUtterance(text);
-      speechSynthesis.speak(uttr);
+      var text  = document.getElementById('text').value;
+      ssuttr.text = text;
+      synth.speak(ssuttr);
     }
   </script>
 </body>
