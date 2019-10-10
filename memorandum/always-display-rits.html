@@ -6,12 +6,49 @@
     function loadWeather(){
       window.open(
           "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=rits"
-          ,"fullSc");
+          ,"weather");
     }
+    function loadRStasus(){
+      window.open(
+          "http://www.ritsumei.ac.jp/academic-affairs/status/"
+          ,"rStatus");
+    }
+    
     window.onload = function(){
-      loadWeather();
+      loadWeather();loadRStasus();
       setInterval(loadWeather,1800000); // 30分ごとに更新
+      
+      var mainFrames = [
+        document.getElementById("weather"),
+        document.getElementById("rStatus")
+      ];
+      slideReady(mainFrames);
     };
+    var posX = 0,posXmax,stepCnt,slideStepInterval,
+        slideDur = 5000,stepDur = 20,stepIncrem = 1;
+    function slideReady(elmList){
+      for(var i=1;i<elmList.length;i++){
+        elmList[i].style.transform = `translateX(${i}00vw)`;
+      }
+      posXmax = (elmList.length - 1) * 100;
+      setInterval(()=>{slide(elmList)},slideDur)
+    }
+
+    function slide(elmList){
+      slideStepInterval = setInterval(()=>{slideStep(elmList)},stepDur);
+    }
+    
+    function slideStep(elmList){
+      posX += stepIncrem;
+      for(var i=0;i<elmList.length;i++){
+          elmList[i].style.transform = `translateX(${i*100-posX}vw)`;
+      }
+      if(posX % 100 == 0)clearInterval(slideStepInterval);
+      if(posX >= posXmax){
+        elmList[0].style.transform = `translateX(${posXmax+100-posX}vw)`;
+      }
+      if(posX >= posXmax+100)posX=0;
+    }
   </script>
 <title>always</title>
 <style>
@@ -31,7 +68,10 @@
 </style>
 </head>
 <body>
-  <iframe class="fullSc" id="fullSc" name="fullSc" allowusermedia="true"></iframe>
+  <section id="main">
+    <iframe class="fullSc" id="weather" name="weather" allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="rStatus" name="rStatus" allowusermedia="true"></iframe>
+  </section>
 
   <section id="trainTicker">
     <style>  
