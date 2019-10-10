@@ -8,19 +8,19 @@
           "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=rits"
           ,"weather");
     }
-    function loadRStasus(){
+    function loadRCCPage(){
       window.open(
-          "http://www.ritsumei.ac.jp/academic-affairs/status/"
-          ,"rStatus");
+          "http://www.rcc.ritsumei.ac.jp/about-rcc/"
+          ,"RCCPage");
     }
     
     window.onload = function(){
-      loadWeather();loadRStasus();
+      loadWeather();loadRCCPage();
       setInterval(loadWeather,1800000); // 30分ごとに更新
       
       var mainFrames = [
         document.getElementById("weather"),
-        document.getElementById("rStatus")
+        document.getElementById("RCCPage")
       ];
       slideReady(mainFrames);
     };
@@ -31,7 +31,7 @@
         elmList[i].style.transform = `translateX(${i}00vw)`;
       }
       posXmax = (elmList.length - 1) * 100;
-      setInterval(()=>{slide(elmList)},slideDur)
+      setInterval(()=>{slide(elmList)},slideDur+(stepDur*100/stepIncrem))
     }
 
     function slide(elmList){
@@ -69,8 +69,8 @@
 </head>
 <body>
   <section id="main">
-    <iframe class="fullSc" id="weather" name="weather" allowusermedia="true"></iframe>
-    <iframe class="fullSc" id="rStatus" name="rStatus" allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="weather"  name="weather"  allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="RCCPage" name="RCCPage" allowusermedia="true"></iframe>
   </section>
 
   <section id="trainTicker">
