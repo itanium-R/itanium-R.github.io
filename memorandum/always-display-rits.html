@@ -3,10 +3,14 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script>
+    function loadWeather(){
+      window.open(
+          "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=rits"
+          ,"fullSc");
+    }
     window.onload = function(){
-      setTimeout(function(){
-        window.open(location.href, "_top")
-      },600000);
+      loadWeather();
+      setInterval(loadWeather,1800000); // 30分ごとに更新
     };
   </script>
 <title>always</title>
@@ -16,7 +20,7 @@
     padding: 0;
     background: #235;
   }
-  iframe{
+  iframe.fullSc{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -27,6 +31,54 @@
 </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=rits" allowusermedia="true"></iframe>
+  <iframe class="fullSc" id="fullSc" name="fullSc" allowusermedia="true"></iframe>
+
+  <section id="trainTicker">
+    <style>  
+      .ticker{
+          position: fixed;
+          bottom: 2.5vh;
+          left: 5vw;
+          height: 10vh;
+          width:91vw;
+          border: none;
+          overflow: hidden;
+        }
+        .tickerOnepoint{
+          position: fixed;
+          bottom: 2.5vh;
+          left: 4.5vw;
+          height: 16vh;
+          width: 20vw;
+          border: none;
+          overflow: hidden;
+          background-color: rgb(32, 64, 170);
+          font-size:   2em;
+          font-weight: 900;
+          text-align: center;
+          color: #fff;
+        }
+        #tickerFrame{
+          width: 110%;
+          border: none;
+          overflow: hidden;
+        }
+    </style>
+    <div class="tickerOnepoint">JR線運行情報</div>
+    <div class="ticker">
+      <iframe id="tickerFrame" name="tickerFrame"></iframe>
+    </div>
+    <script>
+      function loadTrainTicker(){
+        window.open(
+          "https://script.google.com/macros/s/AKfycbyTVahu6ou_O8w0vTGkiSsHBYx7PGOWWsckaMuPxqI/exec?mode=ticker"
+          ,"tickerFrame");
+      }
+      loadTrainTicker();
+      setInterval(loadTrainTicker,600000); // 10分ごとに更新
+    </script>
+  </section>
+    
+
 </body>
 </html>
