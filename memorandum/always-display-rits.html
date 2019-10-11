@@ -35,7 +35,7 @@
     }
 
     function slide(elmList){
-      slideStepInterval = setInterval(()=>{slideStep(elmList)},stepDur);
+      if(!slideStepInterval) slideStepInterval = setInterval(()=>{slideStep(elmList)},stepDur);
     }
     
     function slideStep(elmList){
@@ -43,7 +43,10 @@
       for(var i=0;i<elmList.length;i++){
           elmList[i].style.transform = `translateX(${i*100-posX}vw)`;
       }
-      if(posX % 100 == 0)clearInterval(slideStepInterval);
+      if(posX % 100 == 0){
+        clearInterval(slideStepInterval);
+        slideStepInterval = null;
+      }
       if(posX >= posXmax){
         elmList[0].style.transform = `translateX(${posXmax+100-posX}vw)`;
       }
