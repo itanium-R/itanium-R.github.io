@@ -14,7 +14,7 @@
             border:0;
         }
 ---------------------------------------------------------------- */
-class fullScSlider{
+class FullScSlider{
     constructor(elmList){
         this.posX = 0;
         this.slideStepInterval = null;
