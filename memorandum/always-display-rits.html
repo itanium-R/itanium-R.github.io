@@ -24,7 +24,7 @@
         document.getElementById("rainRadar")
       ];
       
-      new fullScSlider(mainFrames);
+      new FullScSlider(mainFrames);
     };
   </script>
 <title>always</title>
@@ -53,40 +53,87 @@
   <section id="trainTicker">
     <style>  
       .ticker{
-          position: fixed;
-          bottom: 2.5vh;
-          left: 5vw;
-          height: 5.6vw;
-          width:91vw;
-          border: none;
-          overflow: hidden;
-        }
-        .tickerOnepoint{
-          position: fixed;
-          padding: 0.1vw;
-          bottom: 2.5vh;
-          left: 4.5vw;
-          height: 9vw;
-          width: 20vw;
-          border: none;
-          overflow: hidden;
-          background-color: rgb(32, 64, 170);
-          font-size:  2.5vw;
-          font-weight: 900;
-          text-align: center;
-          color: #fff;
-        }
-        #tickerFrame{
-          width: 110%;
-          border: none;
-          overflow: hidden;
-        }
+        position: fixed;
+        bottom: 2.5vh;
+        left: 1.8vw;
+        height: 5.6vw;
+        width: 88.2vw;
+        border: none;
+        overflow: hidden;
+      }
+      .tickerOnepoint{
+        position: fixed;
+        padding: 0.1vw;
+        bottom: 2.5vh;
+        left: 1vw;
+        height: 9vw;
+        width: 20vw;
+        border: none;
+        overflow: hidden;
+        background-color: rgb(32, 64, 170);
+        font-size:  2.5vw;
+        font-weight: 900;
+        text-align: center;
+        color: #fff;
+      }
+      .tickerClock{
+        position: fixed;
+        padding: 0.1vw;
+        bottom: 2.5vh;
+        right:    1vw;
+        height:   9vw;
+        width:   8vw;
+        border: none;
+        overflow: hidden;
+        background-color: #EEE;
+        font-size:  2.5vw;
+        font-weight: 900;
+        text-align: center;
+        color: rgb(32, 64, 170);
+      }
+      #tickerFrame{
+        width: 110%;
+        border: none;
+        overflow: hidden;
+      }
+      .t_logo{
+        height:6vw;
+        line-height:3vw;
+      }
+
     </style>
     <div class="tickerOnepoint">JR線運行情報</div>
     <div class="ticker">
       <iframe id="tickerFrame" name="tickerFrame"></iframe>
     </div>
+    <div class="tickerClock">
+      <div class="t_logo">現在<br>時刻</div>
+      <div id="t_clock" />
+    </div>
+    
     <script>
+      class Clock{
+        constructor(clockElm){
+          this.clockElm = clockElm;
+          setInterval(()=>{this.updateClock();},1000);
+        }
+        getNowTime(){
+          var nowTime = new Date();
+          this.h = nowTime.getHours();
+          this.m = nowTime.getMinutes();
+        }
+        writeClock(){
+          console.log(this.h,this.m);
+          this.clockElm.innerHTML = (
+            `${("00" + this.h).slice(-2)}:${("00" + this.m).slice(-2)}`
+          );
+        }
+        updateClock(){
+          this.getNowTime();
+          this.writeClock();
+        }
+      }
+
       function loadTrainTicker(){
         window.open(
           "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=ticker"
@@ -94,9 +141,11 @@
       }
       loadTrainTicker();
       setInterval(loadTrainTicker,600000); // 10分ごとに更新
+
+      var clockElm = document.getElementById("t_clock");
+      new Clock(clockElm);
     </script>
   </section>
-    
 
 </body>
 </html>
