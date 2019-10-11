@@ -8,24 +8,24 @@
           "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=rits"
           ,"weather");
     }
-    function loadRCCPage(){
+    function loadRainRadar(){
       window.open(
           "https://tenki.jp/map/"
-          ,"RCCPage");
+          ,"rainRadar");
     }
     
     window.onload = function(){
-      loadWeather();loadRCCPage();
+      loadWeather();loadRainRadar();
       setInterval(loadWeather,1800000); // 30分ごとに更新
       
       var mainFrames = [
         document.getElementById("weather"),
-        document.getElementById("RCCPage")
+        document.getElementById("rainRadar")
       ];
       slideReady(mainFrames);
     };
     var posX = 0,posXmax,stepCnt,slideStepInterval,
-        slideDur = 5000,stepDur = 20,stepIncrem = 1;
+        slideDur = 10000,stepDur = 20,stepIncrem = 1;
     function slideReady(elmList){
       for(var i=1;i<elmList.length;i++){
         elmList[i].style.transform = `translateX(${i}00vw)`;
@@ -70,7 +70,7 @@
 <body>
   <section id="main">
     <iframe class="fullSc" id="weather"  name="weather"  allowusermedia="true"></iframe>
-    <iframe class="fullSc" id="RCCPage" name="RCCPage" allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="rainRadar" name="rainRadar" allowusermedia="true"></iframe>
   </section>
 
   <section id="trainTicker">
