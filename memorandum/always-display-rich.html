@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="./fullScSlider/fullScSlider.js"></script>
+  <script>
+    var area,NS;
+    function loadWeather(){
+      window.open(
+          `https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=${area}&NS=${NS}`
+          ,"weather");
+    }
+    function loadRainRadar(){
+      window.open(
+          "https://tenki.jp/map/"
+          ,"rainRadar");
+    }
+    function loadAdvisory(){
+      window.open(
+          "https://weathernews.jp/s/warn/kinki.html"
+          ,"advisory");
+    }
+    window.onload = function(){
+      area     = getParam("area");
+      NS       = getParam("NS");
+      slideDur = getParam("slideDur");
+      if(!area)     area     = 333;
+      if(!NS)       NS       = "S";
+      if(!slideDur) slideDur = 10;
+
+      loadWeather();loadRainRadar();loadAdvisory();
+      setInterval(loadWeather, 1800000); // 30分ごとに更新
+      setInterval(loadAdvisory, 600000); // 10分ごとに更新
+      
+      var mainFrames = [
+        document.getElementById("weather"),
+        document.getElementById("rainRadar"),
+        document.getElementById("advisory")
+      ];
+      
+      new FullScSlider(mainFrames,slideDur,5);
+    };
+    
+    function getParam(name) {
+      let url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+  </script>
+<title>always</title>
+<style>
+  body{
+    margin:  0;
+    padding: 0;
+    background: #235;
+  }
+  iframe.fullSc{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border:0;
+  }
+</style>
+</head>
+<body>
+  <section id="main">
+    <iframe class="fullSc" id="weather"   name="weather"   allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="rainRadar" name="rainRadar" allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="advisory"  name="advisory"  allowusermedia="true"></iframe>
+  </section>
+
+  <section id="trainTicker">
+    <style>  
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:800&display=swap');
+      .fixedTicker{
+        position: fixed;
+        bottom: 1.8vh;
+        border: none;
+        overflow: hidden;
+      }
+      .ticker{
+        left: 1.8vw;
+        height: 5.2vw;
+        width: 88.2vw;
+      }
+      .tickerOnepoint{
+        padding: 0.1vw;
+        left: 1vw;
+        height: 9vw;
+        width: 20vw;
+        background-color: rgb(32, 64, 170);
+        font-size:  2.8vw;
+        font-weight: 550;
+        text-align: center;
+        color: #fff;
+      }
+      .tickerClock{
+        padding: 0.1vw;
+        right:    1vw;
+        height:   9vw;
+        width:   8vw;
+        background-color: #EEE;
+        font-size:  2.8vw;
+        text-align: center;
+        color: rgb(32, 64, 170);
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 900;
+      }
+      #tickerFrame{
+        width: 105%;
+        border: none;
+        overflow: hidden;
+      }
+      .t_logo{
+        height:      6vw;
+        line-height: 3vw;
+      }
+      #t_clock{
+        margin: -0.5vw 0 0 -0.1vw;
+        font-size: 3vw;
+        transform: scaleX(0.9);
+      }
+
+    </style>
+    <div class="fixedTicker tickerOnepoint">JR線運行情報</div>
+    <div class="fixedTicker ticker">
+      <iframe id="tickerFrame" name="tickerFrame"></iframe>
+    </div>
+    <div class="fixedTicker tickerClock">
+      <div class="t_logo">現在<br>時刻</div>
+      <div id="t_clock" />
+    </div>
+    
+    <script>
+      class Clock{
+        constructor(clockElm){
+          this.clockElm = clockElm;
+          setInterval(()=>{this.updateClock();},1000);
+        }
+        getNowTime(){
+          var nowTime = new Date();
+          this.h = nowTime.getHours();
+          this.m = nowTime.getMinutes();
+        }
+        writeClock(){
+          this.clockElm.innerHTML = (
+            `${("00" + this.h).slice(-2)}:${("00" + this.m).slice(-2)}`
+          );
+        }
+        updateClock(){
+          this.getNowTime();
+          this.writeClock();
+        }
+      }
+
+      function loadTrainTicker(){
+        window.open(
+          "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=ticker"
+          ,"tickerFrame");
+      }
+      loadTrainTicker();
+      setInterval(loadTrainTicker,600000); // 10分ごとに更新
+
+      var clockElm = document.getElementById("t_clock");
+      new Clock(clockElm);
+    </script>
+  </section>
+
+</body>
+</html>
