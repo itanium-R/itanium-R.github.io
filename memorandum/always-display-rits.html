@@ -52,61 +52,62 @@
 
   <section id="trainTicker">
     <style>  
-      .ticker{
+      @import url('https://fonts.googleapis.com/css?family=Open+Sans:800&display=swap');
+      .fixedTicker{
         position: fixed;
         bottom: 2.5vh;
-        left: 1.8vw;
-        height: 5.6vw;
-        width: 88.2vw;
         border: none;
         overflow: hidden;
       }
+      .ticker{
+        left: 1.8vw;
+        height: 5.2vw;
+        width: 88.2vw;
+      }
       .tickerOnepoint{
-        position: fixed;
         padding: 0.1vw;
-        bottom: 2.5vh;
         left: 1vw;
         height: 9vw;
         width: 20vw;
-        border: none;
-        overflow: hidden;
         background-color: rgb(32, 64, 170);
-        font-size:  2.5vw;
-        font-weight: 900;
+        font-size:  2.8vw;
+        font-weight: 550;
         text-align: center;
         color: #fff;
       }
       .tickerClock{
-        position: fixed;
         padding: 0.1vw;
-        bottom: 2.5vh;
         right:    1vw;
         height:   9vw;
         width:   8vw;
-        border: none;
-        overflow: hidden;
         background-color: #EEE;
-        font-size:  2.5vw;
-        font-weight: 900;
+        font-size:  2.8vw;
         text-align: center;
         color: rgb(32, 64, 170);
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 900;
       }
       #tickerFrame{
-        width: 110%;
+        width: 105%;
         border: none;
         overflow: hidden;
       }
       .t_logo{
-        height:6vw;
-        line-height:3vw;
+        height:      6vw;
+        line-height: 3vw;
+      }
+      #t_clock{
+        margin: -0.5vw 0 0 -0.1vw;
+        font-size: 3vw;
+        transform: scaleX(0.9);
       }
 
     </style>
-    <div class="tickerOnepoint">JR線運行情報</div>
-    <div class="ticker">
+    <div class="fixedTicker tickerOnepoint">JR線運行情報</div>
+    <div class="fixedTicker ticker">
       <iframe id="tickerFrame" name="tickerFrame"></iframe>
     </div>
-    <div class="tickerClock">
+    <div class="fixedTicker tickerClock">
       <div class="t_logo">現在<br>時刻</div>
       <div id="t_clock" />
     </div>
