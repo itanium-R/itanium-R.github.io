@@ -2,8 +2,10 @@
     fullScSlider.js
     (c) itanium-R 2019
 
-    @param : フルスクリーンなdivやiframeのElementを格納した配列
-
+    @param elmList    フルスクリーンなdivやiframeのElementを格納した配列
+    @param slideDur   スライドする間隔[秒]
+    @param slideSpeed スライドする速度[推奨:1~10 標準:5]
+    
     ※フルスクリーンな要素作成には以下のCSSを利用         
         .fullSc{
             position: fixed;
