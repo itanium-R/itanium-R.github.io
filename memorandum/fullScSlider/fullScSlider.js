@@ -15,11 +15,11 @@
         }
 ---------------------------------------------------------------- */
 class FullScSlider{
-    constructor(elmList){
+    constructor(elmList,slideDur,slideSpeed){
         this.posX = 0;
         this.slideStepInterval = null;
-        this.slideDur = 10000;
-        this.stepDur = 20;
+        slideDur   ? this.slideDur = (slideDur * 1000)  : this.slideDur = 10000;
+        slideSpeed ? this.stepDur  = (100 / slideSpeed) : this.stepDur = 20;
         this.stepIncrem = 1;  
         this.elmList = elmList;
         for(var i=1;i<this.elmList.length;i++){
