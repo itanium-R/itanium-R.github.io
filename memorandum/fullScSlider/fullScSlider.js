@@ -17,36 +17,44 @@
         }
 ---------------------------------------------------------------- */
 class FullScSlider{
-    constructor(elmList,slideDur,slideSpeed){
-        this.posX = 0;
-        this.slideStepInterval = null;
-        slideDur   ? this.slideDur = (slideDur * 1000)  : this.slideDur = 10000;
-        slideSpeed ? this.stepDur  = (100 / slideSpeed) : this.stepDur = 20;
-        this.stepIncrem = 1;  
-        this.elmList = elmList;
-        for(var i=1;i<this.elmList.length;i++){
-        this.elmList[i].style.transform = `translateX(${i}00vw)`;
-        }
-        this.posXmax = (this.elmList.length - 1) * 100;
-        setInterval(()=>{this.slide()},this.slideDur+(this.stepDur*100/this.stepIncrem));
+  constructor(elmList,slideDur,slideSpeed){
+    this.posX = 0;
+    this.slideStepInterval = null;
+    slideDur   ? this.slideDur = (slideDur * 1000)  : this.slideDur = 10000;
+    slideSpeed ? this.stepDur  = (100 / slideSpeed) : this.stepDur = 20;
+    this.stepIncrem = 1;  
+    this.elmList = elmList;
+    for(var i=1;i<this.elmList.length;i++){
+    this.elmList[i].style.transform = `translateX(${i}00vw)`;
     }
+    this.posXmax = (this.elmList.length - 1) * 100;
+    setInterval(()=>{this.slide()},this.slideDur+(this.stepDur*100/this.stepIncrem));
+  }
 
-    slide(){
-        if(!this.slideStepInterval) this.slideStepInterval = setInterval(()=>{this.slideStep()},this.stepDur);
-    }
+  slide(){
+    this.preFrameIndex = parseInt(this.posX/100);
+    console.log(this.preFrameIndex);
+    if(!this.slideStepInterval) this.slideStepInterval = setInterval(()=>{this.slideStep()},this.stepDur);
+  }
     
-    slideStep(){
-        this.posX += this.stepIncrem;
-        for(var i=0;i<this.elmList.length;i++){
-            this.elmList[i].style.transform = `translateX(${i*100-this.posX}vw)`;
-        }
-        if(this.posX % 100 == 0){
+  slideStep(){
+  this.posX += this.stepIncrem;
+      
+    if(this.posX <= this.posXmax){  
+      for(var i=this.preFrameIndex;i<=this.preFrameIndex+1;i++){
+        this.elmList[i].style.transform = `translateX(${i*100-this.posX}vw)`;
+      }   
+    }else{
+      this.elmList[0].style.transform = `translateX(${this.posXmax+100-this.posX}vw)`;
+      var i = this.preFrameIndex;
+      this.elmList[i].style.transform = `translateX(${i*100-this.posX}vw)`;
+    }
+    if(this.posX % 100 == 0){
         clearInterval(this.slideStepInterval);
         this.slideStepInterval = null;
-        }
-        if(this.posX >= this.posXmax){
-        this.elmList[0].style.transform = `translateX(${this.posXmax+100-this.posX}vw)`;
-        }
-        if(this.posX >= this.posXmax+100)this.posX=0;
     }
+    if(this.posX >= this.posXmax+100){
+      this.posX=0;
+    }
+  }
 }
