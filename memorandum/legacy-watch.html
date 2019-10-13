@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang = "ja">
+<head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>SchoolWatch</title>
+    <!--▽CSSここから▽-->
+    <style>
+        h1{
+            font-size: 512%;
+            font-family: "游ゴシック",sans-serif;
+            text-align: center;
+            color: #CCC; 
+            margin : 0px;
+        }
+        h2{
+            font-size: 512%;
+            font-family: "DSEG7 Classic","Times New Roman","Segoe",sans-serif;
+            text-align: right;
+            margin : 0px;
+        }
+        h3{
+            font-size: 300%;
+            font-family: "游ゴシック",sans-serif;
+            text-align: right;
+            margin : 0px;
+        }
+        h4{
+            font-size: 300%;
+            font-family: "游ゴシック",sans-serif;
+            text-align: right;
+            margin : 0px;
+        }
+        input{
+            width:  192px;
+            font-size: 256%;
+            font-family: "Arial",sans-serif;
+            background-color: #CCC;
+            color: #FFF; 
+            border : 0px;
+        }
+        input.long{
+            width: 600px;
+        }
+body{
+ background-color:#AAA;
+
+}
+
+.full_img {
+    width: 100vw;
+    height: 100vh;
+    text-align:center; 
+    position: fixed;  right: 0; left: 0;
+    background-position:center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    </style>
+<!--△CSSここまで△-->
+
+
+
+<!--▽JavaScriptここから▽-->
+<script type="text/javascript"><!--
+function set2fig(num) {
+    // 桁数が1桁だったら先頭に0を加えて2桁に調整する(zero padding)
+    var ret;
+    if( num < 10 ) { ret = "0" + num; }
+    else { ret = num; }
+    return ret;
+}
+function ClockF() {
+    var Time = new Date();
+    var Hour = set2fig( Time.getHours()  ); //Time.getHours()
+    var Min = set2fig( Time.getMinutes() ); //Time.getMinutes()
+    var Sec = set2fig( Time.getSeconds() );
+    var msg =  Hour + ":" + Min + ":" + Sec;
+    
+    var time = Hour*100 + (Min-0)
+    
+
+    document.getElementById("Clock").innerHTML = msg;
+
+
+}
+setInterval('ClockF()',1000);
+
+
+
+
+
+    // --></script>
+
+
+<!--△JavaScriptここまで△-->
+
+
+
+<head>
+
+<body>
+<center>
+    <div class="full_img">
+    <table border="0" bordercolor=#FFFFFF" style="color:#FFFFFF" bgcolor="#AAA"><tr><td>
+        <center><h2><div id="Clock">00:00:00</div></h2></center>
+    </td></tr>
+    </table>
+    </div>
+
+</center>
+</body>
+
+</html>
