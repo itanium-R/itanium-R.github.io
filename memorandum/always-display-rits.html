@@ -42,6 +42,7 @@
       loadSchoolWatch(); loadBusTime();
       setInterval(loadWeather, 1800000); // 30分ごとに更新
       setInterval(loadAdvisory, 600000); // 10分ごとに更新
+      setInterval(loadBusTime,  300000); //  5分ごとに更新
       
       var mainFrames = [
         document.getElementById("weather"),
