@@ -42,6 +42,14 @@
         input.long{
             width: 600px;
         }
+        div.inline{
+            display:inline-block;
+            vertical-align: middle;
+        }
+        body{
+            height: 100px;
+            line-height: 100px;
+        }
     </style>
 <!--△CSSここまで△-->
 
@@ -324,12 +332,15 @@ setInterval('ClockF()',1000);
 
 <body>
 <center>
-    <table border="0" bordercolor=#FFFFFF" style="color:#FFFFFF" width="640"><tr><td>
+    <div class="inline">
+    <table border="0" style="color:#FFFFFF" width="640"><tr><td>
         <center><h2><div id="Clock">00:00:00</div></h2></center>
         <h4><div id="SSM"></div><div id="SM">Now Loading...</div></h4>
     </td></tr>
-    </table><br>
-    <table border="0" bordercolor=#FFFFFF" style="color:#FFFFFF" width="640">
+    </table>
+    </div>
+    <div class="inline">
+    <table border="0" style="color:#FFFFFF" width="640">
     <tr><td>
     <h3 id="TT1">１限目　0900～1030</h3>
     </td></tr>
@@ -350,6 +361,7 @@ setInterval('ClockF()',1000);
     </td></tr>
     
     </table>
+    </div>
 
 </center>
 </body>
