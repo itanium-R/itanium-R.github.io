@@ -25,6 +25,11 @@
           "./schoolWatch.html"
           ,"schoolWatch");
     }
+    function loadBusTime(){
+      window.open(
+          "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=bus"
+          ,"busTime");
+    }
     window.onload = function(){
       area     = getParam("area");
       NS       = getParam("NS");
@@ -33,7 +38,8 @@
       if(!NS)       NS       = "S";
       if(!slideDur) slideDur = 10;
 
-      loadWeather();loadRainRadar();loadAdvisory();loadSchoolWatch();
+      loadWeather(); loadRainRadar(); loadAdvisory();
+      loadSchoolWatch(); loadBusTime();
       setInterval(loadWeather, 1800000); // 30分ごとに更新
       setInterval(loadAdvisory, 600000); // 10分ごとに更新
       
@@ -41,7 +47,8 @@
         document.getElementById("weather"),
         document.getElementById("rainRadar"),
         document.getElementById("advisory"),
-        document.getElementById("schoolWatch")
+        document.getElementById("schoolWatch"),
+        document.getElementById("busTime")
       ];
       
       new FullScSlider(mainFrames,slideDur,5);
@@ -80,6 +87,7 @@
     <iframe class="fullSc" id="rainRadar"    name="rainRadar"    allowusermedia="true"></iframe>
     <iframe class="fullSc" id="advisory"     name="advisory"     allowusermedia="true"></iframe>
     <iframe class="fullSc" id="schoolWatch"  name="schoolWatch"  allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="busTime"      name="busTime"      allowusermedia="true"></iframe>
   </section>
 
   <section id="trainTicker">
