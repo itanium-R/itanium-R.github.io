@@ -30,6 +30,11 @@
           "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=bus"
           ,"busTime");
     }
+    function loadKeijiDelay(){
+      window.open(
+          "https://script.google.com/macros/s/AKfycbwHoR46AvOLLN9lvKsh0lyt2PX1hhypieHqILVBenWDpKf1yvY/exec"
+          ,"keijiDelay");
+    }
     window.onload = function(){
       area     = getParam("area");
       NS       = getParam("NS");
@@ -39,17 +44,19 @@
       if(!slideDur) slideDur = 10;
 
       loadWeather(); loadRainRadar(); loadAdvisory();
-      loadSchoolWatch(); loadBusTime();
-      setInterval(loadWeather, 1800000); // 30分ごとに更新
-      setInterval(loadAdvisory, 600000); // 10分ごとに更新
-      setInterval(loadBusTime,  300000); //  5分ごとに更新
+      loadSchoolWatch(); loadBusTime(); loadKeijiDelay();
+      setInterval(loadWeather,   1800000); // 30分ごとに更新
+      setInterval(loadAdvisory,   600000); // 10分ごとに更新
+      setInterval(loadBusTime,    300000); //  5分ごとに更新
+      setInterval(loadKeijiDelay, 300000); //  5分ごとに更新
       
       var mainFrames = [
         document.getElementById("weather"),
         document.getElementById("rainRadar"),
         document.getElementById("advisory"),
         document.getElementById("schoolWatch"),
-        document.getElementById("busTime")
+        document.getElementById("busTime"),
+        document.getElementById("keijiDelay"),
       ];
       
       new FullScSlider(mainFrames,slideDur,5);
@@ -89,6 +96,7 @@
     <iframe class="fullSc" id="advisory"     name="advisory"     allowusermedia="true"></iframe>
     <iframe class="fullSc" id="schoolWatch"  name="schoolWatch"  allowusermedia="true"></iframe>
     <iframe class="fullSc" id="busTime"      name="busTime"      allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="keijiDelay"   name="keijiDelay"   allowusermedia="true"></iframe>
   </section>
 
   <section id="trainTicker">
