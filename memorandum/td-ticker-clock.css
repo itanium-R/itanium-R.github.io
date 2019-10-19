@@ -4,11 +4,13 @@
   bottom: 1.8vh;
   border: none;
   overflow: hidden;
+  z-index: 5;
 }
 .ticker{
   left: 1.8vw;
   height: 5.2vw;
   width: 88.2vw;
+  z-index: 6;
 }
 .tickerOnepoint{
   padding: 0.1vw;
