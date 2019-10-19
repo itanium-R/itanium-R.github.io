@@ -3,10 +3,14 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <script>
+      function loadWeather(){
+        window.open(
+            `https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec`
+            ,"weather");
+      }
     window.onload = function(){
-      setTimeout(function(){
-        window.open(location.href, "_top")
-      },600000);
+      loadWeather();
+      setInterval(loadWeather,30 * 60 * 1000);
     };
   </script>
 <title>always</title>
@@ -26,6 +30,6 @@
 </style>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec" allowusermedia="true"></iframe>
+    <iframe class="fullSc" id="weather"   name="weather"   allowusermedia="true"></iframe>
 </body>
 </html>
