@@ -28,7 +28,9 @@ class FullScSlider{
     this.elmList[i].style.transform = `translateX(${i}00vw)`;
     }
     this.posXmax = (this.elmList.length - 1) * 100;
-    setInterval(()=>{this.slide()},this.slideDur+(this.stepDur*100/this.stepIncrem));
+    if(elmList.length>1){
+      setInterval(()=>{this.slide()},this.slideDur+(this.stepDur*100/this.stepIncrem));
+    }
   }
 
   slide(){

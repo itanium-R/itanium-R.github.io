@@ -4,9 +4,9 @@ document.write(
   '<div class="fixedTicker ticker"> ' +
   '  <iframe id="tickerFrame" name="tickerFrame"></iframe>' +
   '</div> ' +
-  '<div class="fixedTicker tickerClock">' +
+  '<div class="fixedTicker tickerClock" onclick="showSettingSec();">' +
   '  <div class="t_logo">現在<br>時刻</div>' +
-  '  <div id="t_clock" />' +
+  '  <div id="t_clock"></div>' +
   '</div>');
 class Clock{
   constructor(clockElm){

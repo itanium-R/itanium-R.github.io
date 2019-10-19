@@ -4,34 +4,45 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script src="./fullScSlider/fullScSlider.js"></script>
-  <script>
-    var pages = [
-      {
-        "url"      : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=333&NS=S",
-        "iframeId" : "weather",
-        "reloadDur": 30 * 60
-      },{
-        "url"      : "https://tenki.jp/map/",
-        "iframeId" : "rainRadar",
-        "reloadDur": 0
-      },{
-        "url"      : "https://weathernews.jp/s/warn/kinki.html",
-        "iframeId" : "advisory",
-        "reloadDur": 5 * 60
-      },{
-        "url"      : "https://script.google.com/macros/s/AKfycbwHoR46AvOLLN9lvKsh0lyt2PX1hhypieHqILVBenWDpKf1yvY/exec",
-        "iframeId" : "kinkiDelay",
-        "reloadDur": 5 * 60
-      },
-
-    ];
-  </script>  
   <script src="./always-main.js"></script>
   <title>always</title>
   <link href="./always-style.css" rel="stylesheet" type="text/css">
+  <link href="./always-setting.css" rel="stylesheet" type="text/css">
   <link href="./td-ticker-clock.css" rel="stylesheet" type="text/css">
 </head>
 <body>
   <script src="./td-ticker.js"></script>
+  
+  <section class="modal" id="settingSec" onclick="hideSettingSec();">
+    <div class="modal" id="settingSecInner" onclick="event.stopPropagation();">
+      <div class="modal" id="settingSecText" >
+        <table>
+          <thead>
+            <tr>
+              <td>iframe ID</td><td>URL</td><td>更新間隔[秒]</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="page in pages">
+                <td><input type="text" v-model="page.iframeId"></td>
+              <td><input type="text" v-model="page.url"></td>
+              <td><input type="text" v-model="page.reloadDur"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ctrlPageNum">
+          <input type="button" v-on:click="rmPage();" value="-">
+          <input type="button" v-on:click="addPage();" value="+">
+        </div>
+      </div>
+      <div class="modal">
+      <input type="button" value="閉じる" onclick="hideSettingSec()">
+      <input type="button" value="適用"  v-on:click="saveAndReload();">
+      </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+  <script src="./always-setting.js"></script>
 </body>
 </html>
