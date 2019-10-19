@@ -1,84 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <script src="./fullScSlider/fullScSlider.js"></script>
-  <script>
-    var area,NS;
-    function loadWeather(){
-      window.open(
-          `https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=${area}&NS=${NS}`
-          ,"weather");
-    }
-    function loadRainRadar(){
-      window.open(
-          "https://tenki.jp/map/"
-          ,"rainRadar");
-    }
-    function loadAdvisory(){
-      window.open(
-          "https://weathernews.jp/s/warn/kinki.html"
-          ,"advisory");
-    }
-    window.onload = function(){
-      area     = getParam("area");
-      NS       = getParam("NS");
-      slideDur = getParam("slideDur");
-      if(!area)     area     = 333;
-      if(!NS)       NS       = "S";
-      if(!slideDur) slideDur = 10;
-
-      loadWeather();loadRainRadar();loadAdvisory();
-      setInterval(loadWeather, 1800000); // 30分ごとに更新
-      setInterval(loadAdvisory, 600000); // 10分ごとに更新
-      
-      var mainFrames = [
-        document.getElementById("weather"),
-        document.getElementById("rainRadar"),
-        document.getElementById("advisory")
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./fullScSlider/fullScSlider.js"></script>
+    <script>
+      var pages = [
+        {
+          "url"      : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=333&NS=S",
+          "iframeId" : "weather",
+          "reloadDur": 30 * 60
+        },{
+          "url"      : "https://tenki.jp/map/",
+          "iframeId" : "rainRadar",
+          "reloadDur": 0
+        },{
+          "url"      : "https://weathernews.jp/s/warn/kinki.html",
+          "iframeId" : "advisory",
+          "reloadDur": 5 * 60
+        },{
+          "url"      : "https://script.google.com/macros/s/AKfycbwHoR46AvOLLN9lvKsh0lyt2PX1hhypieHqILVBenWDpKf1yvY/exec",
+          "iframeId" : "kinkiDelay",
+          "reloadDur": 5 * 60
+        },
       ];
-      
-      new FullScSlider(mainFrames,slideDur,5);
-    };
-    
-    function getParam(name) {
-      let url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-  </script>
-<title>always</title>
-<style>
-  body{
-    margin:  0;
-    padding: 0;
-    background: #235;
-  }
-  iframe.fullSc{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    border:0;
-  }
-</style>
+    </script>  
+    <script src="./always-main.js"></script>
+    <title>always</title>
+    <link href="./always-style.css" rel="stylesheet" type="text/css">
+    <link href="./td-ticker-clock-b.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <section id="main">
-    <iframe class="fullSc" id="weather"   name="weather"   allowusermedia="true"></iframe>
-    <iframe class="fullSc" id="rainRadar" name="rainRadar" allowusermedia="true"></iframe>
-    <iframe class="fullSc" id="advisory"  name="advisory"  allowusermedia="true"></iframe>
-  </section>
-
-  <section id="trainTicker">
-    <link href="./td-ticker-clock-b.css" rel="stylesheet" type="text/css">
-    <script src="./td-ticker-b.js"></script>
-  </section>
-
+  <script src="./td-ticker-b.js"></script>
 </body>
 </html>
