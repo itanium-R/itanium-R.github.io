@@ -9,7 +9,7 @@
       {
         "url"      : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=333&NS=S",
         "iframeId" : "weather",
-        "reloadDur": 0
+        "reloadDur": 30 * 60
       },{
         "url"      : "https://tenki.jp/map/",
         "iframeId" : "rainRadar",
@@ -17,15 +17,19 @@
       },{
         "url"      : "https://weathernews.jp/s/warn/kinki.html",
         "iframeId" : "advisory",
-        "reloadDur": 0
+        "reloadDur": 5 * 60
+      },{
+        "url"      : "https://script.google.com/macros/s/AKfycbwHoR46AvOLLN9lvKsh0lyt2PX1hhypieHqILVBenWDpKf1yvY/exec",
+        "iframeId" : "kinkiDelay",
+        "reloadDur": 5 * 60
       },
 
     ];
   </script>  
   <script src="./always-main.js"></script>
-<title>always</title>
-<link href="./always-style.css" rel="stylesheet" type="text/css">
-<link href="./td-ticker-clock.css" rel="stylesheet" type="text/css">
+  <title>always</title>
+  <link href="./always-style.css" rel="stylesheet" type="text/css">
+  <link href="./td-ticker-clock.css" rel="stylesheet" type="text/css">
 </head>
 <body>
   <script src="./td-ticker.js"></script>
