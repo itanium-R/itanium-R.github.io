@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:800&display=swap');
+.fixedTicker{
+  position: fixed;
+  bottom: 1.8vh;
+  border: none;
+  overflow: hidden;
+  z-index: 5;
+  font-family: 'Noto Sans JP', sans-serif;      
+}
+.ticker{
+  left: 1.8vw;
+  height: 5.2vw;
+  width: 88.2vw;
+  z-index: 6;
+}
+.tickerOnepoint{
+  padding: 0 0.1vw 0.8vw 0.1vw;
+  left: 1vw;
+  height: 9vw;
+  width: 20vw;
+  background-color: rgb(32, 64, 170);
+  font-size:  3vw;
+  font-weight: 500;
+  text-align: center;
+  color: #fff;
+}
+.tickerClock{
+  padding: 0.1vw;
+  right:    1vw;
+  height:   9vw;
+  width:   8vw;
+  background-color: #EEE;
+  font-size:  2.8vw;
+  text-align: center;
+  color: rgb(32, 64, 170);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 900;
+}
+#tickerFrame{
+  width: 105%;
+  border: none;
+  overflow: hidden;
+}
+.t_logo{
+  height:      6vw;
+  line-height: 3vw;
+}
+#t_clock{
+  margin: -0.5vw 0 0 -0.1vw;
+  font-size: 3vw;
+  transform: scaleX(0.9);
+}
+
+.marquee{
+  width:    100vw;
+  overflow: hidden;
+  position: relative;
+  height:      10.5vw;
+  background-color: #EEE;
+}
+/* cf)https://on-ze.com/archives/648 */
+.marquee p:after{
+  content:     "";
+  white-space: nowrap;
+  padding-right: 50px;
+}
+
+#marqueeStr{
+  margin:        0;
+  padding-left:  100vw;
+  margin-top:   -0.6vw;
+  font-size:     4.2vw;
+  font-weight:     700;
+  display:        inline-block;
+  white-space:    nowrap;
+  transform: translate(0%);        
+  animation-name:marquee;
+  animation-timing-function:linear;
+  animation-duration:10s;
+  animation-iteration-count:infinite;
+}
+
+@keyframes marquee{
+  from   { transform: translate(0%);}
+  99%,to { transform: translate(-100%);}
+}

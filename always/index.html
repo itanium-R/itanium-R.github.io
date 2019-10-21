@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script src="./fullScSlider/fullScSlider.js"></script>
+  <script src="./always-main.js"></script>
+  <title>always</title>
+  <link href="./always-style.css" rel="stylesheet" type="text/css">
+  <link href="./always-setting.css" rel="stylesheet" type="text/css">
+  <link href="./td-ticker-clock.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <script src="./td-ticker.js"></script>
+  
+  <section class="modal" id="settingSec" onclick="hideSettingSec();">
+    <div class="modal" id="settingSecInner" onclick="event.stopPropagation();">
+      <div class="modal" id="settingSecText" >
+        <table>
+          <thead>
+            <tr>
+              <td>iframe ID</td><td>URL</td><td>更新間隔[秒]</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="page in pages">
+              <td><input type="text" v-model="page.iframeId"  class="iframeId"></td>
+              <td><input type="text" v-model="page.url"       class="url"></td>
+              <td><input type="text" v-model="page.reloadDur" class="reloadDur"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ctrlPageNum">
+          <input type="button" v-on:click="rmPage();" value="-">
+          <input type="button" v-on:click="addPage();" value="+">
+        </div>
+      </div>
+      <div class="modal">
+      <input type="button" value="閉じる" onclick="hideSettingSec()">
+      <input type="button" value="適用"  v-on:click="saveAndReload();">
+      </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+  <script src="./always-setting.js"></script>
+</body>
+</html>
