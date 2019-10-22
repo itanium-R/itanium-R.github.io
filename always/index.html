@@ -40,16 +40,20 @@
         <hr>
         <div class="tickerConfig">
           <div>
+            <label>Ticker Title : </label>
+            <input type="text"   v-model="tickerProp.title">
+          </div>
+          <div>
             <label>Ticker URL : </label>
-            <input type="text"   id="tickerUrl">
+            <input type="text"   v-model="tickerProp.url">
           </div>
           <div>
             <label>Field Name : </label>
-            <input type="text"   id="tickerFieldName">
+            <input type="text"   v-model="tickerProp.fieldName">
           </div>
           <div>
-            <label>Reload Dur[s] : </label>
-            <input type="text"   id="tickerReloadDur">
+            <label>更新間隔[秒] : </label>
+            <input type="text"   v-model="tickerProp.reloadDur" class="reloadDur">
           </div>
         </div>
       </div>

@@ -9,12 +9,13 @@ class PresetLoader{
           console.log(this.request.status);
         }else{
           // 送信成功
-          let pagesJson = this.request.responseText;
-          if(JSON.parse(pagesJson).error){
-            alert(JSON.parse(pagesJson).error);
+          let pagesJson = JSON.parse(this.request.responseText);
+          if(pagesJson.error){
+            alert(pagesJson.error);
             return -1;
           }
-          localStorage.setItem('pages', pagesJson);
+          localStorage.setItem('pages', JSON.stringify(pagesJson.pages));
+          localStorage.setItem('tprop', JSON.stringify(pagesJson.tprop));
           reload();
         }
       }
@@ -32,11 +33,13 @@ class PresetLoader{
 const vm = new Vue({
   el: '#settingSec',
   data: {
-    pages: []
+    pages: [],
+    tickerProp: [],
   },
   methods: {
     load: function(){
       this.pages = pages;
+      this.tickerProp = tickerProp;
     },
     addPage: function(){
       let newPage = {
@@ -51,7 +54,9 @@ const vm = new Vue({
     },
     saveAndReload: function(){
       let pagesJson = JSON.stringify(this.pages);
+      let tpropJson = JSON.stringify(this.tickerProp);
       localStorage.setItem('pages', pagesJson);
+      localStorage.setItem('tprop', tpropJson);
       reload();
     },
     loadPreset: function(){

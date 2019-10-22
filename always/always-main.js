@@ -1,6 +1,13 @@
 var pages =  JSON.parse(localStorage.getItem("pages")) || pages || 
             [{"url" : "https://itanium-r.github.io/memorandum/schoolWatch.html","iframeId" : "id","reloadDur": 0}];
 
+var tickerProp = JSON.parse(localStorage.getItem("tprop")) || tickerProp ||
+                  {
+                    "title"     : "TICKER",
+                    "url"       : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=json_test",
+                    "reloadDur" : 0,
+                    "fieldName" : "msg",
+                  };
 
 function loadIframe(page){
   window.open(page.url,page.iframeId);

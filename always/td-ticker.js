@@ -1,9 +1,3 @@
-var tickerProp = {
-  "title"     : "TICKER",
-  "url"       : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=json_test",
-  "fieldName" : "msg"
-}
-
 document.write(
   '<div class="fixedTicker tickerOnepoint">' + tickerProp.title + '</div>' +
   '<div class="fixedTicker ticker"> ' +
@@ -36,10 +30,11 @@ class Clock{
 }
 
 class Marquee{
-  constructor(url,fieldName){
+  constructor(tickerProp){
     this.request   = new XMLHttpRequest();
-    this.url       = url;
-    this.fieldName = fieldName;
+    this.url       = tickerProp.url;
+    this.fieldName = tickerProp.fieldName;
+    this.reloadDur = tickerProp.reloadDur;
 
     this.request.onreadystatechange = () => {
       if (this.request.readyState == 4 ){
@@ -63,7 +58,7 @@ class Marquee{
       }
     }
     
-    setInterval(()=>{this.get()},3 * 60 * 1000);
+    setInterval(()=>{this.get()},this.reloadDur * 1000);
     this.get();
   }
 
@@ -76,4 +71,4 @@ class Marquee{
 
 var clockElm = document.getElementById("t_clock");
 new Clock(clockElm);
-new Marquee(tickerProp.url,tickerProp.fieldName);
+new Marquee(tickerProp);
