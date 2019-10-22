@@ -31,13 +31,31 @@
           </tbody>
         </table>
         <div class="ctrlPageNum">
+          <label>preset : </label>
+          <input type="text"   id="presetName">
+          <input type="button" v-on:click="loadPreset();" value="loadPreset">
           <input type="button" v-on:click="rmPage();" value="-">
           <input type="button" v-on:click="addPage();" value="+">
         </div>
+        <hr>
+        <div class="tickerConfig">
+          <div>
+            <label>Ticker URL : </label>
+            <input type="text"   id="tickerUrl">
+          </div>
+          <div>
+            <label>Field Name : </label>
+            <input type="text"   id="tickerFieldName">
+          </div>
+          <div>
+            <label>Reload Dur[s] : </label>
+            <input type="text"   id="tickerReloadDur">
+          </div>
+        </div>
       </div>
       <div class="modal">
-      <input type="button" value="閉じる" onclick="hideSettingSec()">
-      <input type="button" value="適用"  v-on:click="saveAndReload();">
+        <input type="button" value="閉じる" onclick="hideSettingSec()">
+        <input type="button" value="適用"  v-on:click="saveAndReload();">
       </div>
       </div>
     </div>

@@ -41,17 +41,16 @@ input[type="button"]:disabled{
 }     
 input[type="button"]{
     display    : inline-block;
-    height     : 2.5em;
-    width      :  8em;  max-width   : 35%; max-width:24em;
-    padding    : 0.1em;
-    margin     : 3px; 
     font-weight: bold; 
-    font-size  : .8em;
+    font-size  : 1em;
     text-align : center;
     background : #EEE;
     color      : #000;
     border     : 0em solid #EEE;
     border-radius: 0.5em;
+    margin: 0 0 0 0;
+    width: auto; 
+    padding    : 0.6em;
 }
 #settingSec{
   position:fixed;
@@ -90,11 +89,7 @@ input[type="button"]{
   z-index:9;
 }
 
-div.ctrlPageNum{
+div.ctrlPageNum,div.tickerConfig{
   width: 100%;
   text-align: right; 
-}
-div.ctrlPageNum > input[type="button"]{
-  margin: 0 0 0 0;
-  width: 2em; 
 }

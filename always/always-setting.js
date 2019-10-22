@@ -1,3 +1,34 @@
+class PresetLoader{
+  constructor(){
+    let presetName = document.getElementById("presetName").value;
+    this.request   = new XMLHttpRequest();
+    this.url       = "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=json_preset&preset=" + presetName;
+    this.request.onreadystatechange = () => {
+      if (this.request.readyState == 4 ){
+        if(this.request.status != 200){
+          console.log(this.request.status);
+        }else{
+          // 送信成功
+          let pagesJson = this.request.responseText;
+          if(JSON.parse(pagesJson).error){
+            alert(JSON.parse(pagesJson).error);
+            return -1;
+          }
+          localStorage.setItem('pages', pagesJson);
+          reload();
+        }
+      }
+    }
+    this.get();
+  }
+  get(){
+    this.request.open('GET', this.url);
+    this.request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    this.request.send();
+  }
+}
+
+
 const vm = new Vue({
   el: '#settingSec',
   data: {
@@ -9,7 +40,7 @@ const vm = new Vue({
     },
     addPage: function(){
       let newPage = {
-        "url"      : "https://github.com/",
+        "url"      : "https://",
         "iframeId" : this.pages.length,
         "reloadDur": 0 
       };
@@ -23,6 +54,9 @@ const vm = new Vue({
       localStorage.setItem('pages', pagesJson);
       reload();
     },
+    loadPreset: function(){
+      new PresetLoader();
+    }
   },
   mounted: function(){
     this.load();
