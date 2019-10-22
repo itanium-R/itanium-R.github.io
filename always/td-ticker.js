@@ -58,7 +58,7 @@ class Marquee{
       }
     }
     
-    setInterval(()=>{this.get()},this.reloadDur * 1000);
+    if(this.reloadDur>0) setInterval(()=>{this.get()},this.reloadDur * 1000);
     this.get();
   }
 
