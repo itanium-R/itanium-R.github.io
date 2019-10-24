@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:700&display=swap');
+      body{
+        background-color: #000;
+        font-size: 12vw;
+        font-weight: 800;
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      img{
+        height: 50vh;
+        margin-top: 5vh; 
+  
+        filter: drop-shadow(0px 0px 50px rgba(255,255,255,1));
+      }
+
+      .l-top{
+        position: fixed;
+        top:  0;
+        left: 0;
+        width:       70vw;
+        height:      70vh;
+        line-height: 70vh;
+        text-align: center;
+        background: #000;
+        z-index: 0;
+        color: #FFF;
+  padding: 40px 0;
+   -webkit-text-stroke: 1px #FFF;
+      }
+      
+      .l-btm{
+        position: fixed;
+        left:   0;
+        bottom: 0;
+        width:       70vw;
+        height:      29vh;
+        line-height: 29vh;
+        text-align: center;
+        background: #FFF;
+        z-index: 0;
+      }
+
+      .r{
+        position: fixed;
+        top:    0;
+        right:  0;
+        width:       29.5vw;
+        height:      100vh;
+        line-height:  25vh;
+        text-align: center;
+        background: #EE0;
+        z-index: 0;
+      }
+
+      #buil{
+        font-size:30vw;
+        transform:scale(0.7,0.5);
+      }
+
+      .l-idou{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:        70vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #000;
+        color: #FFF;
+        z-index: 2;
+      }
+      .l-idou2{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:        70vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #FFF;
+        color: #000;
+        z-index: 2;
+      }
+      #idou{
+        display: none;
+      }
+
+      
+    </style>
+  </head>
+  <body onclick="this.parentNode.removeChild(this);">
+    <div class="l-top">
+      <img src="https://ritscc.github.io/formviewer/logo-w.png">
+    </div>
+    <div class="l-btm">
+      定例会議
+    </div>
+    <div class="r"><br>
+        <div id="buil">
+          F
+        </div>
+        <div id="room">
+          110
+        </div>
+    </div>
+    
+    <div class="l-idou" id="idou">
+        移動
+    </div>
+
+    <script>
+      var building = "F",
+          roomNum  = "110",
+          roomUttr = roomNum.replace(1,"いち").replace(2,"に").replace(3,"さん").replace(4,"し").replace(5,"ご")
+                            .replace(6,"ろく").replace(7,"なな").replace(8,"はち").replace(9,"きゅう").replace(0,"まる");
+
+      function showIdou(){
+        let idou = document.getElementById("idou");
+        if(idou){
+          idou.style.display="block";
+          if(parseInt(new Date()/1000) % 2){
+            idou.className = "l-idou";
+            speak(building + roomUttr + "、移動");
+          }else{
+            idou.className = "l-idou2";
+          }
+        }
+      }
+      setTimeout(()=>{
+        setInterval(showIdou,1000);
+      },10 * 1000);
+
+      try{
+        var uttr = new SpeechSynthesisUtterance();
+      }catch(e){
+        console.log(e);
+      }
+      function speak(text){
+        var text = text;
+        uttr.text = text;
+        uttr.lang = "ja";
+        speechSynthesis.speak(uttr);
+      }
+      speak("次は、定例会議、移動。");
+
+    </script>
+            
+  </body>
+</html>

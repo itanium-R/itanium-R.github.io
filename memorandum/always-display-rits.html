@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <script src="./fullScSlider/fullScSlider.js"></script>
+  <script src="../always/fullScSlider/fullScSlider.js"></script>
   <script>
     var pages = [
       {
@@ -32,13 +32,110 @@
         "reloadDur": 5 * 60
       },
     ];
+    var tickerProp = {
+      "title" : "JR線運行情報",
+      "url"   : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=json_jrwd",
+      "reloadDur" : 180,
+      "fieldName" : "JRWestDelay"
+    };
+    var reikai = {
+      "day"  : 4, //1:月 ~ 5:金
+      "hour" : 10, // 鳴動開始時刻（時）
+      "min"  : 36, // 鳴動開始時刻（分）
+    }
   </script>  
-  <script src="./always-main.js"></script>
+  <script src="../always/always-main.js"></script>
   <title>always</title>
-  <link href="./always-style.css" rel="stylesheet" type="text/css">
-  <link href="./td-ticker-clock.css" rel="stylesheet" type="text/css">
+  <link href="../always/always-style.css" rel="stylesheet" type="text/css">
+  <link href="../always/td-ticker-clock.css" rel="stylesheet" type="text/css">
+  <link href="../always/always-setting.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <script src="./td-ticker.js"></script>
+  <script src="../always/td-ticker.js"></script>
+  
+  <section class="modal" id="settingSec" onclick="hideSettingSec();">
+    <div class="modal" id="settingSecInner" onclick="event.stopPropagation();">
+      <div class="modal" id="settingSecText" >
+        <table>
+          <thead>
+            <tr>
+              <td>iframe ID</td><td>URL</td><td>更新間隔[秒]</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="page in pages">
+              <td><input type="text" v-model="page.iframeId"  class="iframeId" disabled></td>
+              <td><input type="text" v-model="page.url"       class="url" disabled></td>
+              <td><input type="text" v-model="page.reloadDur" class="reloadDur" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ctrlPageNum">
+          <label>preset : </label>
+          <input type="text"   id="presetName" disabled>
+          <input type="button" v-on:click="loadPreset();" value="loadPreset" disabled>
+          <input type="button" v-on:click="rmPage();" value="-" disabled>
+          <input type="button" v-on:click="addPage();" value="+" disabled>
+        </div>
+        <hr>
+        <div class="tickerConfig">
+          <div>
+            <label>Ticker Title : </label>
+            <input type="text"   v-model="tickerProp.title" disabled>
+          </div>
+          <div>
+            <label>Ticker URL : </label>
+            <input type="text"   v-model="tickerProp.url" disabled>
+          </div>
+          <div>
+            <label>Field Name : </label>
+            <input type="text"   v-model="tickerProp.fieldName" disabled>
+          </div>
+          <div>
+            <label>更新間隔[秒] : </label>
+            <input type="text"   v-model="tickerProp.reloadDur" class="reloadDur" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="modal">
+        <input type="button" value="閉じる" onclick="hideSettingSec()">
+        <input type="button" value="適用"  v-on:click="saveAndReload();">
+      </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+  <script src="../always/always-setting.js"></script>
+  
+  <iframe id="reikaiAlert" class="fullSc" name="reikaiAlert" style="display:none;" onclick="hideReikaiAlert();"></iframe>
+  
+  <script>
+    function showReikaiAlert(){
+      if(document.getElementById("reikaiAlert").style.display=="none"){
+        document.getElementById("reikaiAlert").style.display="block";
+        document.getElementById("reikaiAlert").style.zIndex = 8 ;
+        window.open("./a-r-reikai.html","reikaiAlert");
+        setTimeout(hideReikaiAlert, 8 * 60 * 1000);
+      }
+    }
+    function hideReikaiAlert(){
+      document.getElementById("reikaiAlert").style.display="none";
+      window.open("about:blank","reikaiAlert");
+    }
+    function reikaiAlertLancher(){
+      let now = new Date();
+      if(now.getDay()     == reikai.day  &&
+         now.getHours()   == reikai.hour &&
+         now.getMinutes() == reikai.min){
+        showReikaiAlert();
+      }
+    }
+    setInterval(reikaiAlertLancher,10 * 1000);
+    if(new Date().getDay() == reikai.day){
+      document.write('<div style="z-index: 9;background: #FA3;color: #FFF;display: block;position: fixed;bottom: 10vw;' + 
+                     'right: 5vw;padding: 1em;border-radius: 1em;font-weight: bold;font-size: 2em;"" ' + 
+                     'onclick="this.parentNode.removeChild(this);">今日は例会の日です！　<input type="button" value="確認" ></div>');
+    }
+  </script>
 </body>
 </html>
