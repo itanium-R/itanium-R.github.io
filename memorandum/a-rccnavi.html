@@ -49,15 +49,12 @@
         width:       29.5vw;
         height:      100vh;
         line-height:  25vh;
+        font-size: 15vw;
         text-align: center;
         background: #EE0;
         z-index: 0;
       }
 
-      #buil{
-        font-size:30vw;
-        transform:scale(0.7,0.5);
-      }
 
       .l-act{
         position: fixed;
@@ -87,6 +84,23 @@
         display: none;
         font-size:30vw;
       }
+      .full{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:       100vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #FFF;
+        color: #000;
+        z-index: 2;
+      }
+      #sc2{
+        display: none;
+        font-size:25vw;
+        z-index: 9;
+      }
 
       
     </style>
@@ -99,51 +113,67 @@
       
     </div>
     <div class="r"><br>
-      <div id="buil">
+      <div id="room1">
           
       </div>
-      <div id="room">
+      <div id="room2">
           
       </div>
     </div>
     
     <div class="l-act" id="act">
-      移動
     </div>
 
+    <div class="full"  id="sc2">
+    </div>
+
+    <audio id="chime" preload="auto">
+      <source src="./a-chime.wav" type="audio/wav">
+    </audio>
+
     <script>
-      var building = getParam("building") || "";
-      var roomNum  = getParam("roomNum")  || "";
-      var act      = getParam("act")      || "移動";
-      var event    = getParam("event")    || "定例会議";
-      var isNext   = getParam("next")     || true;
-      var switchScreenTime = getParam("time") || 10;
-      var roomUttr = roomNum.replace(1,"いち").replace(2,"に").replace(3,"さん").replace(4,"し").replace(5,"ご")
-                            .replace(6,"ろく").replace(7,"なな").replace(8,"はち").replace(9,"きゅう").replace(0,"まる");
+      var room1    = getParam("room1") || "";
+      var room2    = getParam("room2") || "";
+      var act      = getParam("act")   || "移動";
+      var event    = getParam("event") || "定例会議";
+      var isNext   = getParam("next")  || true;
+      var switchScreen1Time = getParam("time1") || 20;
+      var switchScreen2Time = getParam("time2") || 60;
+      var roomUttr = (room1 + room2).replace(/1/g,"いち").replace(/2/g,"に").replace(/3/g,"さん").replace(/4/g,"し").replace(/5/g,"ご")
+                      .replace(/6/g,"ろく").replace(/7/g,"なな").replace(/8/g,"はち").replace(/9/g,"きゅう").replace(/0/g,"まる");
       
-      document.getElementById("buil").innerHTML = building;
-      document.getElementById("buil").style.transform = `scale(${(0.6/(building.length*0.8))},0.5)`;
-      document.getElementById("buil").style.marginRight = `${(building.length-1)*10}vw`;
-      document.getElementById("room" ).innerHTML = roomNum;
+      document.getElementById("room1").innerHTML = room1;
+      document.getElementById("room2").innerHTML = room2;
       document.getElementById("event").innerHTML = event;
       document.getElementById("act"  ).innerHTML = act;
       
-
       function showact(){
-        let act = document.getElementById("act");
+        let actElm = document.getElementById("act");
         if(act){
-          act.style.display="block";
+          actElm.style.display="block";
           if(parseInt(new Date()/1000) % 2){
-            act.className = "l-act";
-            speak(building + roomUttr + "、" + act);
+            actElm.className = "l-act";
           }else{
-            act.className = "l-act2";
+            actElm.className = "l-act2";
           }
         }
       }
       setTimeout(()=>{
+        setTimeout(()=>{
+        	document.getElementById("chime").play();
+        },2000);
+        setTimeout(()=>{
+          speak(act + "。。" + act + "。。" + act);
+        },4000);
         setInterval(showact,1000);
-      },switchScreenTime * 1000);
+      },switchScreen1Time * 1000);
+
+      setTimeout(()=>{
+        let sc2Elm = document.getElementById("sc2");
+        sc2Elm.style.display = "block";
+        sc2Elm.innerHTML     = (room1 + room2)
+        speak("場所。" + roomUttr + "。場所。" + roomUttr + "。場所。" + roomUttr);
+      },switchScreen2Time * 1000);
 
       try{
         var uttr  = new SpeechSynthesisUtterance();
@@ -152,7 +182,7 @@
         console.log(e);
       }
       function speak(text){
-        var text = text;
+        var text  = text;
         uttr.text = text;
         uttr.lang = "ja";
         synth.speak(uttr);
