@@ -28,8 +28,6 @@
         background: #000;
         z-index: 0;
         color: #FFF;
-  padding: 40px 0;
-   -webkit-text-stroke: 1px #FFF;
       }
       
       .l-btm{
@@ -87,12 +85,13 @@
       }
       #idou{
         display: none;
+        font-size:30vw;
       }
 
       
     </style>
   </head>
-  <body onclick="this.parentNode.removeChild(this);">
+  <body onclick="synth.cancel(); this.parentNode.removeChild(this);">
     <div class="l-top">
       <img src="https://ritscc.github.io/formviewer/logo-w.png">
     </div>
@@ -135,7 +134,8 @@
       },10 * 1000);
 
       try{
-        var uttr = new SpeechSynthesisUtterance();
+        var uttr  = new SpeechSynthesisUtterance();
+        var synth = window.speechSynthesis;
       }catch(e){
         console.log(e);
       }
@@ -143,7 +143,7 @@
         var text = text;
         uttr.text = text;
         uttr.lang = "ja";
-        speechSynthesis.speak(uttr);
+        synth.speak(uttr);
       }
       speak("次は、定例会議、移動。");
 
