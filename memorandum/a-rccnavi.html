@@ -143,6 +143,7 @@
       var switchScreen2Time = getParam("time2") || 60;
       var roomUttr = (room1 + room2).replace(/1/g,"いち").replace(/2/g,"に").replace(/3/g,"さん").replace(/4/g,"し").replace(/5/g,"ご")
                       .replace(/6/g,"ろく").replace(/7/g,"なな").replace(/8/g,"はち").replace(/9/g,"きゅう").replace(/0/g,"まる");
+      var eventUttr = event.replace(/限/g,"げん");
       
       document.getElementById("room1").innerHTML = room1;
       document.getElementById("room2").innerHTML = room2;
@@ -208,7 +209,7 @@
       var uttrStr;
       if(isNext) uttrStr = "次は、";
       else       uttrStr = "";
-      uttrStr += event + "、" + act;
+      uttrStr += eventUttr + "、" + act;
       speak(uttrStr);
       
       function getParam(name) {
