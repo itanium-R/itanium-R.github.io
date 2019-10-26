@@ -38,11 +38,56 @@
       "reloadDur" : 180,
       "fieldName" : "JRWestDelay"
     };
-    var reikai = {
-      "day"  : 4, //1:月 ~ 5:金
-      "hour" : 17, // 鳴動開始時刻（時）
-      "min"  : 50, // 鳴動開始時刻（分）
-    }
+    var rccNaviProp = [
+      { // [0] : 例会情報
+        "day"  : 4 , // 1:月 ~ 5:金
+        "hour" : 17, // 鳴動開始時刻（時）
+        "min"  : 50, // 鳴動開始時刻（分）
+        "dur"  : 8,  // 鳴動継続時間（分間）
+        "queryParam" : "?room1=Ｆ&room2=110" // rccNaviに渡すクエリパラメータ
+      },
+      { // [1] : １限
+        "day"  : "*" , // 1:月 ~ 5:金
+        "hour" : 8, // 鳴動開始時刻（時）
+        "min"  : 50, // 鳴動開始時刻（分
+        "dur"  : 1,  // 鳴動継続時間（分間）
+        "queryParam" : "?event=１限&act=教室確認&time2=999&dur1=10&room1=部&room2=室" // rccNaviに渡すクエリパラメータ
+      },
+      { // [2] : ２限
+        "day"  : "*" , // 1:月 ~ 5:金
+        "hour" : 10, // 鳴動開始時刻（時）
+        "min"  : 30, // 鳴動開始時刻（分
+        "dur"  : 1,  // 鳴動継続時間（分間）
+        "queryParam" : "?event=２限&act=教室確認&time2=999&dur1=10&room1=部&room2=室" // rccNaviに渡すクエリパラメータ
+      },
+      { // [3] : ３限
+        "day"  : "*" , // 1:月 ~ 5:金
+        "hour" : 12, // 鳴動開始時刻（時）
+        "min"  : 50, // 鳴動開始時刻（分
+        "dur"  : 1,  // 鳴動継続時間（分間）
+        "queryParam" : "?event=３限&act=教室確認&time2=999&dur1=10&room1=部&room2=室" // rccNaviに渡すクエリパラメータ
+      },
+      { // [4] : ４限
+        "day"  : "*" , // 1:月 ~ 5:金
+        "hour" : 14, // 鳴動開始時刻（時）
+        "min"  : 30, // 鳴動開始時刻（分
+        "dur"  : 1,  // 鳴動継続時間（分間）
+        "queryParam" : "?event=４限&act=教室確認&time2=999&dur1=10&room1=部&room2=室" // rccNaviに渡すクエリパラメータ
+      },
+      { // [5] : ５限
+        "day"  : "*" , // 1:月 ~ 5:金
+        "hour" : 16, // 鳴動開始時刻（時）
+        "min"  : 10, // 鳴動開始時刻（分
+        "dur"  : 1,  // 鳴動継続時間（分間）
+        "queryParam" : "?event=５限&act=教室確認&time2=999&dur1=10&room1=部&room2=室" // rccNaviに渡すクエリパラメータ
+      },{ // [6] : 上回生会議情報
+        "day"  : 2 , // 1:月 ~ 5:金
+        "hour" : 17, // 鳴動開始時刻（時）
+        "min"  : 50, // 鳴動開始時刻（分）
+        "dur"  : 8,  // 鳴動継続時間（分間）
+        "queryParam" : "?room1=Ｆ&room2=110" // rccNaviに渡すクエリパラメータ
+      },
+    ];
   </script>  
   <script src="../always/always-main.js"></script>
   <title>always</title>
@@ -107,31 +152,33 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
   <script src="../always/always-setting.js"></script>
   
-  <iframe id="reikaiAlert" class="fullSc" name="reikaiAlert" style="display:none;" onclick="hideReikaiAlert();"></iframe>
+  <iframe id="rccNavi" class="fullSc" name="rccNavi" style="display:none;" onclick="hideRccNavi();"></iframe>
   
   <script>
-    function showReikaiAlert(){
-      if(document.getElementById("reikaiAlert").style.display=="none"){
-        document.getElementById("reikaiAlert").style.display="block";
-        document.getElementById("reikaiAlert").style.zIndex = 8 ;
-        window.open("./a-r-reikai.html","reikaiAlert");
-        setTimeout(hideReikaiAlert, 8 * 60 * 1000);
+    function showRccNavi(queryParam,dur){
+      if(document.getElementById("rccNavi").style.display=="none"){
+        document.getElementById("rccNavi").style.display="block";
+        document.getElementById("rccNavi").style.zIndex = 8 ;
+        window.open("./a-rccnavi.html" + queryParam, "rccNavi");
+        setTimeout(hideRccNavi, dur * 60 * 1000);
       }
     }
-    function hideReikaiAlert(){
-      document.getElementById("reikaiAlert").style.display="none";
-      window.open("about:blank","reikaiAlert");
+    function hideRccNavi(){
+      document.getElementById("rccNavi").style.display="none";
+      window.open("about:blank","rccNavi");
     }
-    function reikaiAlertLancher(){
+    function rccNaviLancher(){
       let now = new Date();
-      if(now.getDay()     == reikai.day  &&
-         now.getHours()   == reikai.hour &&
-         now.getMinutes() == reikai.min){
-        showReikaiAlert();
+      for(prop of rccNaviProp){
+        if((now.getDay()     == prop.day  || prop.day  == "*") &&
+           (now.getHours()   == prop.hour || prop.hour == "*") &&
+           (now.getMinutes() == prop.min  || prop.min  == "*") ){
+          showRccNavi(prop.queryParam,prop.dur);
+        }
       }
     }
-    setInterval(reikaiAlertLancher,10 * 1000);
-    if(new Date().getDay() == reikai.day){
+    setInterval(rccNaviLancher,10 * 1000);
+    if(new Date().getDay() == rccNaviProp[0].day){
       document.write('<div style="z-index: 9;background: #FA3;color: #FFF;display: block;position: fixed;bottom: 10vw;' + 
                      'right: 5vw;padding: 1em;border-radius: 1em;font-weight: bold;font-size: 2em;"" ' + 
                      'onclick="this.parentNode.removeChild(this);">今日は例会の日です！　<input type="button" value="確認" ></div>');
