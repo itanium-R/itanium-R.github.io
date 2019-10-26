@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script>
+    var tNaviProp = [
+      { 
+        "launchSec" : 0, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&time1=99999999" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 10, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=大阪城北詰&time1=50" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 1*60 + 50, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=大阪天満宮&time1=70" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 3*60 + 50, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=北新地&time1=70" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 5*60 + 50, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=新福島&time1=60" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 7*60 + 40, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=海老江&time1=90" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 9*60 + 30, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=御幣島&time1=85" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 12*60 + 10, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=加島&time1=90" // tNaviに渡すクエリパラメータ
+      },
+      { 
+        "launchSec" : 14*60 + 30, // 鳴動開始時刻（秒）
+        "queryParam" : "?carLen=7&sta=尼崎&time1=110" // tNaviに渡すクエリパラメータ
+      },
+    ];
+  </script>  
+  <title>BVEJRTOZAITNAVI</title>
+  <style>
+    .fullSc{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:       100vw;
+        height:      100vh;
+        border: none;
+    }
+    
+  
+  </style>
+</head>
+<body>
+  <iframe id="tNavi" class="fullSc" name="tNavi" style="display:none;" onclick="hidetNavi();"></iframe>
+  <button onclick="start();">スタート</button> 
+  <script>
+    function showtNavi(queryParam){
+      document.getElementById("tNavi").style.display="block";
+      document.getElementById("tNavi").style.zIndex = 8 ;
+      window.open("./trainNaviSimulator.html" + queryParam, "tNavi");
+    }
+    function hidetNavi(){
+      document.getElementById("tNavi").style.display="none";
+      window.open("about:blank","tNavi");
+    }
+    var startPoint;
+    function start(){
+      for(prop of tNaviProp){
+        let param = prop.queryParam;
+        setTimeout(()=>{showtNavi(param);console.log(param);},1000 * prop.launchSec);
+      }
+    }
+  </script>
+</body>
+</html>

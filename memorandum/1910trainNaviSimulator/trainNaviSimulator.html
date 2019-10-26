@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      @font-face {
+        font-family: 'houkoumaku';
+        font-style: normal;
+        font-weight: 500;
+        src: url(./jrwhlogo.woff) format('woff');
+      }
+
+      body{
+        background-color: #000;
+        font-size: 12vw;
+        font-weight: 800;
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      img{
+        height: 50vh;
+        margin-top: 5vh; 
+  
+        filter: drop-shadow(0px 0px 50px rgba(255,255,255,1));
+      }
+
+      .l-top{
+        position: fixed;
+        top:  0;
+        left: 0;
+        width:       70vw;
+        height:      60vh;
+        line-height: 60vh;
+        font-size:   20vw;
+        text-align: center;
+        background: #000;
+        z-index: 0;
+      }
+      .logo{
+        color: #FFF;
+        font-family: 'houkoumaku', sans-serif;
+        font-weight: 300;
+        margin-left: -35vw;
+      }
+      
+      .l-btm{
+        position: fixed;
+        left:   0;
+        bottom: 0;
+        width:       70vw;
+        height:      39vh;
+        line-height: 39vh;
+        text-align: center;
+        background: #FFF;
+        z-index: 0;
+      }
+
+      .r{
+        position: fixed;
+        top:    0;
+        right:  0;
+        width:       29.5vw;
+        height:      100vh;
+        line-height:  33.3vh;
+        font-size: 20vw;
+        text-align: center;
+        background: #EE0;
+        z-index: 0;
+      }
+
+
+      .l-act{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:        70vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #000;
+        color: #FFF;
+        z-index: 2;
+      }
+      .l-act2{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:        70vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #FFF;
+        color: #000;
+        z-index: 2;
+      }
+      #act{
+        display: none;
+        font-size:30vw;
+      }
+      .full{
+        position: fixed;
+        top:    0;
+        left:   0;
+        width:       100vw;
+        height:      100vh;
+        line-height: 100vh;
+        text-align: center;
+        background: #FFF;
+        color: #000;
+        z-index: 2;
+      }
+      #sc2{
+        display: none;
+        font-size:25vw;
+        z-index: 9;
+      }
+      .unit{
+        font-size: .5em;
+        vertical-align: bottom;
+        font-weight: 400;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div class="l-top">
+      <span class="logo">②</span>
+    </div>
+    <div class="l-btm" id="sta">
+      
+    </div>
+    <div class="r"><br>
+      <span id="carLen"></span>
+    </div>
+    
+    <div class="l-act" id="act">
+    </div>
+
+    <div class="full"  id="sc2">
+      <span id="carLen2"></span>
+      <span class="unit">両</span>
+    </div>
+
+    <audio id="chime" preload="auto">
+      <source src="../a-chime.wav" type="audio/wav">
+    </audio>
+
+    <script>
+      var carLen   = getParam("carLen") || "";
+      var act      = getParam("act")    || "停車";
+      var sta      = getParam("sta")    || "";
+      var isNext   = getParam("next")   || true;
+      var sTarget  = getParam("stg")    || "ばつ";
+      var screen1Dur        = getParam("dur1")  || 15;
+      var screen2Dur        = getParam("dur2")  || 15;
+      var switchScreen1Time = getParam("time1") ||  5;
+      var switchScreen2Time = getParam("time2") || switchScreen1Time - 0 + 15;
+
+      document.getElementById("carLen").innerHTML   = carLen;
+      document.getElementById("carLen2").innerHTML  = carLen;
+      document.getElementById("sta").innerHTML      = sta;
+      document.getElementById("act").innerHTML      = act;
+      document.getElementById("act").style.fontSize = (60/act.length) + "vw";
+      
+      
+      function showact(){
+        let actElm = document.getElementById("act");
+        if(act){
+          actElm.style.display="block";
+          if(parseInt(new Date()/1000) % 2){
+            actElm.className = "l-act";
+          }else{
+            actElm.className = "l-act2";
+          }
+        }
+      }
+
+      var interv1;
+      setTimeout(()=>{
+        setTimeout(()=>{
+        	document.getElementById("chime").play();
+        },2000);
+        
+        for(let i=4;i<7;i++){
+          setTimeout(()=>{
+            speak(act);
+          },i*1000)
+        }
+        interv1 = setInterval(()=>{
+          try{
+            showact();
+          }catch(e){
+            clearInterval(interv1);
+          }} ,1000);
+        setTimeout(()=>{clearInterval(interv1); hideElm(document.getElementById("act"));}, screen1Dur * 1000);
+      },switchScreen1Time * 1000);
+
+
+      setTimeout(()=>{
+        let sc2Elm = document.getElementById("sc2");
+        sc2Elm.style.display = "block";
+        for(let i=0;i<3;i++){
+          setTimeout(()=>{
+            speak("ｼｮﾃｲﾃｲﾓｸ。、" + sTarget);
+          },i*2500)
+        }
+        setTimeout(()=>{hideElm(sc2Elm);}, screen2Dur * 1000);
+      },switchScreen2Time * 1000);
+
+      function hideElm(elm){
+        elm.style.display = "none";
+      }
+
+      try{
+        var uttr  = new SpeechSynthesisUtterance();
+        var synth = window.speechSynthesis;
+      }catch(e){
+        console.log(e);
+      }
+      function speak(text){
+        var text  = text;
+        uttr.text = text;
+        uttr.lang = "ja";
+        synth.speak(uttr);
+      }
+      var uttrStr;
+      if(isNext) uttrStr = "次は、";
+      else       uttrStr = "";
+      uttrStr += sta + "、" + act;
+      if(sta != "")speak(uttrStr);
+      
+      function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+    </script>
+            
+  </body>
+</html>
