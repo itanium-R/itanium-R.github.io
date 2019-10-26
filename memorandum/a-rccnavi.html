@@ -22,8 +22,8 @@
         top:  0;
         left: 0;
         width:       70vw;
-        height:      70vh;
-        line-height: 70vh;
+        height:      60vh;
+        line-height: 60vh;
         text-align: center;
         background: #000;
         z-index: 0;
@@ -35,8 +35,8 @@
         left:   0;
         bottom: 0;
         width:       70vw;
-        height:      29vh;
-        line-height: 29vh;
+        height:      39vh;
+        line-height: 39vh;
         text-align: center;
         background: #FFF;
         z-index: 0;
@@ -137,7 +137,9 @@
       var act      = getParam("act")   || "移動";
       var event    = getParam("event") || "定例会議";
       var isNext   = getParam("next")  || true;
-      var switchScreen1Time = getParam("time1") || 20;
+      var screen1Dur        = getParam("dur1")  || 30;
+      var screen2Dur        = getParam("dur2")  || 30;
+      var switchScreen1Time = getParam("time1") || 25;
       var switchScreen2Time = getParam("time2") || 60;
       var roomUttr = (room1 + room2).replace(/1/g,"いち").replace(/2/g,"に").replace(/3/g,"さん").replace(/4/g,"し").replace(/5/g,"ご")
                       .replace(/6/g,"ろく").replace(/7/g,"なな").replace(/8/g,"はち").replace(/9/g,"きゅう").replace(/0/g,"まる");
@@ -158,6 +160,8 @@
           }
         }
       }
+
+      var interv1;
       setTimeout(()=>{
         setTimeout(()=>{
         	document.getElementById("chime").play();
@@ -165,15 +169,22 @@
         setTimeout(()=>{
           speak(act + "。。" + act + "。。" + act);
         },4000);
-        setInterval(showact,1000);
+        interv1 = setInterval(showact,1000);
+        setTimeout(()=>{clearInterval(interv1); hideElm(document.getElementById("act"));}, screen1Dur * 1000);
       },switchScreen1Time * 1000);
+
 
       setTimeout(()=>{
         let sc2Elm = document.getElementById("sc2");
         sc2Elm.style.display = "block";
-        sc2Elm.innerHTML     = (room1 + room2)
+        sc2Elm.innerHTML     = (room1 + room2);
         speak("場所。" + roomUttr + "。場所。" + roomUttr + "。場所。" + roomUttr);
+        setTimeout(()=>{hideElm(sc2Elm);}, screen2Dur * 1000);
       },switchScreen2Time * 1000);
+
+      function hideElm(elm){
+        elm.style.display = "none";
+      }
 
       try{
         var uttr  = new SpeechSynthesisUtterance();
