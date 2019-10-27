@@ -15,7 +15,7 @@ var transRequest = new XMLHttpRequest();
 transRequest.responseType = 'json';
 
 transRequest.onload = function () {
-  var data = this.response;
+  let data = this.response;
   console.log(data);
   ElmId("translated"  ).value = data.translatedText;
   ElmId("retranslated").value = data.retranslatedText;
@@ -157,7 +157,7 @@ function switchSection(id){
 function getParam(name) {
   let url = window.location.href;
   name = name.replace(/[\[\]]/g, "\\$&");
-  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+  let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
       results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';

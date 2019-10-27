@@ -25,41 +25,53 @@
   </header>
   <section id="main">
     <div style="height:4em;">　</div>
-    <h2>入力</h2>
-    <select id="fromLang" onchange="execTrans()">
-      <option value="en"         >英</option>
-      <option value="ja" selected>日</option>
-      <option value="zh"         >中</option>
-      <option value="ko"         >韓</option>
-    </select>
-    <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
-    <input type="button" onclick="execTrans();" value="翻訳">
-    <input type="button" value="★"
-           onclick="vm.addFavorite(ElmId('fromLang').value,ElmId('input').value);
-                    clearTextareas();">
-    <input type="button" onclick="clearTextareas();" value="消">
-    <textarea id="input" oninput="autoTrans()"  
-    onkeydown="transByEnter()"></textarea>
-    <h2>翻訳結果</h2>
-    <select id="toLang" onchange="execTrans()">
-      <option value="en" selected>英</option>
-      <option value="ja"         >日</option>
-      <option value="zh"         >中</option>
-      <option value="ko"         >韓</option>
-    </select>
-    <input type="button" onclick="swapLang(true);" value="▲">
-    <input type="button" onclick="speak();" value="読" id="TTSSButton">
-    <input type="button" id="repRecButton" value="返答音声入力" onclick="replyMicRecStart()">
-    <textarea id="translated"   readonly></textarea>
-    
-    <h2>再翻訳結果</h2>
-    <input type="button" onclick="tweet();" value="Tweet">
-    <textarea id="retranslated" readonly></textarea>
+    <div class="left">
+      <div  class="titleAndButtons">
+        <h2>入力</h2>
+        <select id="fromLang" onchange="execTrans()">
+          <option value="en"         >英</option>
+          <option value="ja" selected>日</option>
+          <option value="zh"         >中</option>
+          <option value="ko"         >韓</option>
+        <input type="button" id="recButton" value="音声入力" onclick="micRecStart()">
+        <input type="button" onclick="execTrans();" value="翻訳">
+        <input type="button" value="★"
+              onclick="vm.addFavorite(ElmId('fromLang').value,ElmId('input').value);
+                        clearTextareas();">
+        <input type="button" onclick="clearTextareas();" value="消">
+      </div>
+      <textarea id="input" oninput="autoTrans()"  
+      onkeydown="transByEnter()"></textarea>
+    </div>
+    <div class="right">
+      <div  class="titleAndButtons">
+      <h2>翻訳結果</h2>
+        <select id="toLang" onchange="execTrans()">
+          <option value="en" selected>英</option>
+          <option value="ja"         >日</option>
+          <option value="zh"         >中</option>
+          <option value="ko"         >韓</option>
+        </select>
+        <input type="button" onclick="swapLang(true);" value="▲">
+        <input type="button" onclick="speak();" value="読" id="TTSSButton">
+        <input type="button" id="repRecButton" value="返答音声入力" onclick="replyMicRecStart()">
+      </div>
+      <textarea id="translated"   readonly></textarea>
+      
+      <div class="titleAndButtons">
+        <h2>再翻訳結果</h2>
+        <input type="button" onclick="tweet();" value="Tweet">
+      </div>
+      <textarea id="retranslated" readonly></textarea>
+    </div>
   </section>
 
   <section id="favorite">
     <div style="height:4em;">　</div>
     <ul>
+      <li v-if="FavoData.length == 0">
+        ★に登録されているデータはありません。<br>入力欄の★ボタンでお気に入り登録できます。
+      </li>
       <li v-for="favo in FavoData">
         <input value="←" type="button" class="radius50"
                v-on:click="writeInput(favo)">

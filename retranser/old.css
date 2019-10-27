@@ -47,8 +47,7 @@ h1{
 }
 h2{
     margin: .5em 0 .5em 0;
-    padding: 0;
-    margin: 0;
+    padding:0;
     font-size:1.2em;
     display:inline-block;
 }
@@ -61,20 +60,19 @@ input[type="button"],select{
 }
 #recButton,#repRecButton{
     width:7.5em;
-    max-width:25%;
+    max-width:90%;
     display:none;
 }
 textarea{
     font-family: 'Sawarabi Mincho','Noto Serif JP', sans-serif;
     resize: none;
     width : 24rem;
-    height: 20vh;
+    height: 6em;
     max-width:100%;
     border:solid 1px #AAA;
     border-radius: .5em;
     font-size:1.2em;
     -ms-overflow-style:none;
-    padding: 0;
 }
 textarea::-webkit-scrollbar{
     display:none;
@@ -119,36 +117,4 @@ li:nth-child(2n-1){
 }
 #closeB,#TTSSButton{
     display: none;
-}
-.titleAndButtons{
-    overflow: hidden;
-    height: 3rem;
-    width: 24em;
-    max-width: 100%;
-    line-height: 2rem;
-    padding: 0;
-}
-
-@media (min-width:66.25rem) {
-    #main{
-        width: 53rem;
-        vertical-align: top;
-    }
-    .titleAndButtons{
-        padding: 2vh 0 0 0;
-        height: 5vh;
-    }
-    #input{
-        height: 82vh;
-    }
-    #translated, #retranslated{
-        height: 37.5vh;
-    }
-    .right, .left{
-        display: inline-flex;
-        flex-direction: column;
-        width:   24rem;
-        margin: 0 1rem;
-        
-    }
 }
