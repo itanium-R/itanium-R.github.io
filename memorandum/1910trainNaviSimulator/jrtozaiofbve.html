@@ -5,42 +5,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <script>
     var tNaviProp = [
-      { 
-        "launchSec" : 0, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&time1=99999999" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 10, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=大阪城北詰&time1=50" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 1*60 + 50, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=大阪天満宮&time1=70" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 3*60 + 50, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=北新地&time1=70" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 5*60 + 50, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=新福島&time1=60" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 7*60 + 40, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=海老江&time1=90" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 9*60 + 30, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=御幣島&time1=85" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 12*60 + 10, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=加島&time1=90" // tNaviに渡すクエリパラメータ
-      },
-      { 
-        "launchSec" : 14*60 + 30, // 鳴動開始時刻（秒）
-        "queryParam" : "?carLen=7&sta=尼崎&time1=110" // tNaviに渡すクエリパラメータ
-      },
     ];
   </script>  
   <title>BVEJRTOZAITNAVI</title>
@@ -53,12 +17,27 @@
         height:      100vh;
         border: none;
     }
+    .shortTxt{
+      width:4em;
+    }
+    .longTxt{
+      width: 30em;
+    }
     
   
   </style>
 </head>
 <body>
   <iframe id="tNavi" class="fullSc" name="tNavi" style="display:none;" onclick="hidetNavi();"></iframe>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+  <table id="eventsTable">
+    <tbody>
+      <tr v-for="event of events">
+          <td><input v-model="event.launchSec"  class="shortTxt"></td>
+          <td><input v-model="event.queryParam" class="longTxt"></td>
+      </tr>
+    </tbody>
+  </table>
   <button onclick="start();">スタート</button> 
   <script>
     function showtNavi(queryParam){
@@ -70,13 +49,81 @@
       document.getElementById("tNavi").style.display="none";
       window.open("about:blank","tNavi");
     }
-    var startPoint;
     function start(){
-      for(prop of tNaviProp){
+      for(prop of vm.events){
         let param = prop.queryParam;
         setTimeout(()=>{showtNavi(param);console.log(param);},1000 * prop.launchSec);
       }
     }
+        
+    const vm = new Vue({
+      el: '#eventsTable',
+      data: {
+        events: [
+          { 
+            "launchSec" : 0, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&time1=99999999" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 10, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=大阪城北詰&time1=40&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 1*60 + 50, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=大阪天満宮&time1=50&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 3*60 + 50, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=北新地&time1=50&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 5*60 + 55, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=新福島&time1=30&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 7*60 + 50, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=海老江&time1=35&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 9*60 + 40, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=御幣島&time1=90&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 12*60 + 20, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=加島&time1=60&stg=7" // tNaviに渡すクエリパラメータ
+          },
+          { 
+            "launchSec" : 14*60 + 30, // 鳴動開始時刻（秒）
+            "queryParam" : "?carLen=7&sta=尼崎&time1=90&stg=10" // tNaviに渡すクエリパラメータ
+          },
+        ]
+      },
+      methods: {
+        load: function(){
+          this.pages = pages;
+        },
+        addPage: function(){
+          let newPage = {
+            "url"      : "https://github.com/",
+            "iframeId" : this.pages.length,
+            "reloadDur": 0 
+          };
+          this.pages.push(newPage);
+        },
+        rmPage: function(){
+          this.pages.pop();
+        },
+        saveAndReload: function(){
+          let pagesJson = JSON.stringify(this.pages);
+          localStorage.setItem('pages', pagesJson);
+          reload();
+        },
+      },
+      mounted: function(){
+        this.load();
+      },
+    });
+
   </script>
 </body>
 </html>
