@@ -63,12 +63,21 @@ function buildParsedTxt(){
     }
     return parsedTxtObj;
 }
+function enBold(){
+    document.execCommand ("bold", false, false);
+    console.log("ok");
+}
+
+function doCmd(cmdId, param){
+    document.execCommand (cmdId, false, param);
+  }
 </script>
 <!--△JavaScriptここまで△-->
 <head>
 
 <body>
   <div contentEditable="true" class="txt_input" id="input">txt_input</div>
+  <input type="button" value="BOLD" onclick="enBold();">
 </body>
 
 </html>
