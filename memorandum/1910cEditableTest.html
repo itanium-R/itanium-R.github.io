@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang = "ja">
+<head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ContentEditableTest</title>
+    <!--▽CSSここから▽-->
+    <style>
+        #input{
+            width:24rem;
+            height: 10rem;
+            font-weight: 500;
+            font-size: 1rem;
+            font-style: normal;
+        }
+        #input > b{
+            font-size: 2em;
+        }
+        #input > div > b{
+            font-size: 2em;
+        }/*
+        .txt_input > i{
+            font-weight: 500;
+            font-size: 3rem;
+        }*/
+    </style>
+<!--△CSSここまで△-->
+
+
+
+<!--▽JavaScriptここから▽-->
+<script type="text/javascript">
+function test(){
+    var parsedTxtObj = buildParsedTxt();
+    for(txt of parsedTxtObj){
+        console.log(txt.size,txt.text);
+    }
+}
+function buildParsedTxt(){
+    var txt = document.getElementById("input").innerHTML;
+    txt = txt.replace(/<div([\s\S]*?)>/g, "\n").replace(/<(span|i|u|strong|br)([\s\S]*?)>|<\/(div|span|i|u|strong)>/g, "");
+    console.log(txt);
+    if(!txt){
+        alert("txtarea is null. To print, input something");
+        return -1;
+    }
+    var parsedTxtObj = [];
+    var txtList = txt.split("<b>");
+    parsedTxtObj.push({
+        "size" : 1,
+        "text" : txtList[0] 
+    });
+    for(var i = 1; i < txtList.length; i++){
+        var theTxtList = txtList[i].split("</b>");
+        parsedTxtObj.push({
+            "size" : 2,
+            "text" : theTxtList[0] 
+        });
+        parsedTxtObj.push({
+            "size" : 1,
+            "text" : theTxtList[1] 
+        });
+    }
+    return parsedTxtObj;
+}
+</script>
+<!--△JavaScriptここまで△-->
+<head>
+
+<body>
+  <div contentEditable="true" class="txt_input" id="input">txt_input</div>
+</body>
+
+</html>
