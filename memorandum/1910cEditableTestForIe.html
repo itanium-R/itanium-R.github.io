@@ -45,14 +45,14 @@ function test2(){
 function buildParsedTxtObj(){
     clearBNest();
     var txt = document.getElementById("input").innerHTML;
-    txt = txt.replace(/<br>/g, "\n");
+    txt = txt.replace(/<br>/g, "\n").replace(/<b([\s\S]*?)>/g, "<b>");
     console.log(txt);
     if(!txt){
         alert("txtarea is null. To print, input something");
         return -1;
     }
     var parsedTxtObj = [];
-    var txtList = txt.split("<b>");
+    var txtList = txt.split(/<b>/);
     parsedTxtObj.push({
         "size" : 1,
         "text" : txtList[0] 
@@ -99,7 +99,7 @@ function getElementNode(node) {
 
 function clearBNest(){
   var input = document.getElementById("input").innerHTML;
-  input = input.replace(/   |\n/g, "")
+  input = input.replace(/   |\n|&nbsp;| style="([\s\S]*?)"/g, "")
                .replace(/<\/(div|p)><br><(div|p)>/g, "\n")
                .replace(/<(div|p|br)([\s\S]*?)>/g, "\n")
                .replace(/<(span|i|u|strong|font)([\s\S]*?)>|<\/(div|span|i|u|strong|p|font)>/g, "")
