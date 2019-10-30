@@ -102,8 +102,8 @@ function clearBNest(){
   input = input.replace(/   |\n/g, "")
                .replace(/<\/(div|p)><br><(div|p)>/g, "\n")
                .replace(/<(div|p|br)([\s\S]*?)>/g, "\n")
-               .replace(/<(span|i|u|strong)([\s\S]*?)>|<\/(div|span|i|u|strong|p)>/g, "")
-               .replace(/<b><b>/g, "")
+               .replace(/<(span|i|u|strong|font)([\s\S]*?)>|<\/(div|span|i|u|strong|p|font)>/g, "")
+               .replace(/<b([\s\S]*?)><b([\s\S]*?)>/g, "")
                .replace(/<\/b><\/b>/g, "")
                .replace(/\n/g, "<br>");
   console.log(input);
@@ -115,8 +115,8 @@ function clearB(){
   input = input.replace(/   |\n/g, "")
                .replace(/<\/(div|p)><br><(div|p)>/g, "\n")
                .replace(/<(div|p|br)([\s\S]*?)>/g, "\n")
-               .replace(/<(span|i|u|strong)([\s\S]*?)>|<\/(div|span|i|u|strong|p)>/g, "")
-               .replace(/<b>/g, "")
+               .replace(/<(span|i|u|strong|font)([\s\S]*?)>|<\/(div|span|i|u|strong|p|font)>/g, "")
+               .replace(/<b([\s\S]*?)>/g, "")
                .replace(/<\/b>/g, "")
                .replace(/\n/g, "<br>");
   console.log(input);
