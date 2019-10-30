@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang = "ja">
+<head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ContentEditableTest</title>
+    <!--▽CSSここから▽-->
+    <style>
+        #input{
+            width:24rem;
+            height: 10rem;
+            font-weight: 500;
+            font-size: 1rem;
+            font-style: normal;
+        }
+        #input > b{
+            font-size: 2em;
+        }
+        #input > div > b{
+            font-size: 2em;
+        }/*
+        .txt_input > i{
+            font-weight: 500;
+            font-size: 3rem;
+        }*/
+    </style>
+<!--△CSSここまで△-->
+
+
+
+<!--▽JavaScriptここから▽-->
+<script type="text/javascript">
+function test(){
+    var parsedTxtObj = buildParsedTxtObj();
+    parsedTxtObj.forEach(function(txt){
+        console.log(txt.size,txt.text);
+    });
+}
+function test2(){
+    var parsedTxtObj = buildParsedTxtObj();
+    parsedTxtObj.forEach(function(txt){
+        alert(txt.size+" : "+txt.text);
+    });
+}
+function buildParsedTxtObj(){
+    clearBNest();
+    var txt = document.getElementById("input").innerHTML;
+    txt = txt.replace(/<br>/g, "\n");
+    console.log(txt);
+    if(!txt){
+        alert("txtarea is null. To print, input something");
+        return -1;
+    }
+    var parsedTxtObj = [];
+    var txtList = txt.split("<b>");
+    parsedTxtObj.push({
+        "size" : 1,
+        "text" : txtList[0] 
+    });
+    for(var i = 1; i < txtList.length; i++){
+        var theTxtList = txtList[i].split("</b>");
+        parsedTxtObj.push({
+            "size" : 2,
+            "text" : theTxtList[0] 
+        });
+        parsedTxtObj.push({
+            "size" : 1,
+            "text" : theTxtList[1] 
+        });
+    }
+    return parsedTxtObj;
+}
+function enBold(){
+  try{
+    var selection = document.getSelection();
+    var range = selection.getRangeAt(0);
+    // console.log(selection)
+    // console.log(range.commonAncestorContainer);
+    if (range.startOffset　==　range.endOffset) {
+      alert("正常な範囲を選択してください");
+      return;
+    }
+    var newNode = document.createElement('b');
+    range.surroundContents(newNode);
+    range.selectNodeContents(newNode);
+    selection.removeAllRanges();
+
+    // document.execCommand ("bold", false, false);
+    console.log("enBorlded.");
+  }catch(e){
+    alert("選択範囲が異常です\n"+e)
+  }
+}
+
+
+function getElementNode(node) {
+  return node.nodeType === Node.ELEMENT_NODE ? node : node.parentNode;
+}
+
+function clearBNest(){
+  var input = document.getElementById("input").innerHTML;
+  input = input.replace(/   |\n/g, "")
+               .replace(/<\/(div|p)><br><(div|p)>/g, "\n")
+               .replace(/<(div|p|br)([\s\S]*?)>/g, "\n")
+               .replace(/<(span|i|u|strong)([\s\S]*?)>|<\/(div|span|i|u|strong|p)>/g, "")
+               .replace(/<b><b>/g, "")
+               .replace(/<\/b><\/b>/g, "")
+               .replace(/\n/g, "<br>");
+  console.log(input);
+  document.getElementById("input").innerHTML  = input;
+}
+
+function clearB(){
+  var input = document.getElementById("input").innerHTML;
+  input = input.replace(/   |\n/g, "")
+               .replace(/<\/(div|p)><br><(div|p)>/g, "\n")
+               .replace(/<(div|p|br)([\s\S]*?)>/g, "\n")
+               .replace(/<(span|i|u|strong)([\s\S]*?)>|<\/(div|span|i|u|strong|p)>/g, "")
+               .replace(/<b>/g, "")
+               .replace(/<\/b>/g, "")
+               .replace(/\n/g, "<br>");
+  console.log(input);
+  document.getElementById("input").innerHTML  = input;
+}
+</script>
+<!--△JavaScriptここまで△-->
+</head>
+
+<body>
+  <div contentEditable="true" class="txt_input" id="input">txt_input</div>
+  <input type="button" value="選択範囲大文字" onclick="enBold();clearBNest();">
+  <input type="button" value="部分大文字解除" onclick="clearB();">
+  <input type="button" value="生成パラメータを表示" onclick="test2();">
+</body>
+
+</html>
