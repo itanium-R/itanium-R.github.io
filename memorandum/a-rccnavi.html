@@ -210,11 +210,14 @@
         if(googleJPN) uttr.voice = googleJPN;
         synth.speak(uttr);
       }
-      var uttrStr;
-      if(isNext) uttrStr = "次は、";
-      else       uttrStr = "";
-      uttrStr += eventUttr + "、" + act;
-      speak(uttrStr);
+
+      setTimeout(()=>{
+        var uttrStr;
+        if(isNext) uttrStr = "次は、";
+        else       uttrStr = "";
+        uttrStr += eventUttr + "、" + act;
+        speak(uttrStr);
+      },1000);
       
       function getParam(name) {
         let url = window.location.href;
