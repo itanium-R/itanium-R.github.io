@@ -170,7 +170,7 @@
         	document.getElementById("chime").play();
         },2000);
         setTimeout(()=>{
-          speak(act + "。。" + act + "。。" + act);
+          speak(act + "。　、。" + act + "。　、。" + act);
         },4000);
         interv1 = setInterval(()=>{
           try{
@@ -186,7 +186,7 @@
         let sc2Elm = document.getElementById("sc2");
         sc2Elm.style.display = "block";
         sc2Elm.innerHTML     = (room1 + room2);
-        speak("場所。" + roomUttr + "。場所。" + roomUttr + "。場所。" + roomUttr);
+        speak("場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr);
         setTimeout(()=>{hideElm(sc2Elm);}, screen2Dur * 1000);
       },switchScreen2Time * 1000);
 
@@ -203,7 +203,11 @@
       function speak(text){
         var text  = text;
         uttr.text = text;
-        uttr.lang = "ja";
+        uttr.lang = "ja"
+        uttr.rate = 0.75;
+        var googleJPN = synth.getVoices().filter(
+                          voice => voice.name === "Google 日本語")[0];
+        if(googleJPN) uttr.voice = googleJPN;
         synth.speak(uttr);
       }
       var uttrStr;
