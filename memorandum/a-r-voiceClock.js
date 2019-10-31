@@ -68,23 +68,26 @@ voices = [
   },
 ];
 
-
-
 function voiceStarter(){
   let now = new Date();
-  console.log(now.getHours(),now.getMinutes());
+  let isPlayed = false;
   for(v of voices){
     if((now.getHours()   == v.startup.hour    || v.startup.hour == "*") &&
        (now.getMinutes() == v.startup.minute  || v.startup.minute  == "*") ){
         console.log(v);
         playVoice(v.url);
+        isPlayed = true;
+        break;
     }
+  }
+  if(isPlayed){
+    setTimeout(voiceStarter, 60 * 1000);
+  }else{
+    setTimeout(voiceStarter, 10 * 1000);
   }
 }
 
-setInterval(voiceStarter,60 * 1000);
-
-
+voiceStarter();
 function playVoice(url){
   var audio = new Audio();
   audio.src = url;
