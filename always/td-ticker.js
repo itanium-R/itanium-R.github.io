@@ -4,7 +4,7 @@ document.write(
   '<div class="marquee"><p id="marqueeStr"></p></div>' +
   '</div> ' +
   '<div class="fixedTicker tickerClock" onclick="showSettingSec();">' +
-  '  <div class="t_logo">現在<br>時刻</div>' +
+  '  <div class="t_logo" id="t_logo">現在<br>時刻</div>' +
   '  <div id="t_clock"></div>' +
   '</div>');
 
