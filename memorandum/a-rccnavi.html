@@ -137,6 +137,8 @@
       var act      = getParam("act")   || "移動";
       var event    = getParam("event") || "定例会議";
       var isNext   = getParam("next")  || true;
+      var uttrs    = getParam("uttrs") || true;
+      if(uttrs === "false") uttrs = false;
       var screen1Dur        = getParam("dur1")  || 35;
       var screen2Dur        = getParam("dur2")  || 15;
       var switchScreen1Time = getParam("time1") || 20;
@@ -149,7 +151,7 @@
       document.getElementById("room2").innerHTML = room2;
       document.getElementById("event").innerHTML = event;
       document.getElementById("act"  ).innerHTML = act;
-      document.getElementById("act"  ).style.fontSize = (70/act.length) + "vw";
+      document.getElementById("act"  ).style.fontSize = (60/act.length) + "vw";
       
       
       function showact(){
@@ -170,7 +172,7 @@
         	document.getElementById("chime").play();
         },2000);
         setTimeout(()=>{
-          speak(act + "。　、。" + act + "。　、。" + act);
+          if(uttrs)speak(act + "。　、。" + act + "。　、。" + act);
         },4000);
         interv1 = setInterval(()=>{
           try{
@@ -181,43 +183,45 @@
         setTimeout(()=>{clearInterval(interv1); hideElm(document.getElementById("act"));}, screen1Dur * 1000);
       },switchScreen1Time * 1000);
 
-
-      setTimeout(()=>{
-        let sc2Elm = document.getElementById("sc2");
-        sc2Elm.style.display = "block";
-        sc2Elm.innerHTML     = (room1 + room2);
-        speak("場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr);
-        setTimeout(()=>{hideElm(sc2Elm);}, screen2Dur * 1000);
-      },switchScreen2Time * 1000);
-
       function hideElm(elm){
         elm.style.display = "none";
       }
 
-      try{
-        var uttr  = new SpeechSynthesisUtterance();
-        var synth = window.speechSynthesis;
-      }catch(e){
-        console.log(e);
-      }
-      function speak(text){
-        var text  = text;
-        uttr.text = text;
-        uttr.lang = "ja"
-        uttr.rate = 0.75;
-        var googleJPN = synth.getVoices().filter(
-                          voice => voice.name === "Google 日本語")[0];
-        if(googleJPN) uttr.voice = googleJPN;
-        synth.speak(uttr);
-      }
+      if(uttrs){
+        try{
+          var uttr  = new SpeechSynthesisUtterance();
+          var synth = window.speechSynthesis;
+        }catch(e){
+          console.log(e);
+        }
+        function speak(text){
+          var text  = text;
+          uttr.text = text;
+          uttr.lang = "ja"
+          uttr.rate = 0.8;
+          var googleJPN = synth.getVoices().filter(
+                            voice => voice.name === "Google 日本語")[0];
+          if(googleJPN) uttr.voice = googleJPN;
+          synth.speak(uttr);
+          console.log(uttr);
+        }
 
-      setTimeout(()=>{
-        var uttrStr;
-        if(isNext) uttrStr = "次は、";
-        else       uttrStr = "";
-        uttrStr += eventUttr + "、" + act;
-        speak(uttrStr);
-      },1000);
+        setTimeout(()=>{
+          var uttrStr;
+          if(isNext) uttrStr = "次は、";
+          else       uttrStr = "";
+          uttrStr += eventUttr + "、" + act;
+          speak(uttrStr);
+        },1000);
+
+        setTimeout(()=>{
+          let sc2Elm = document.getElementById("sc2");
+          sc2Elm.style.display = "block";
+          sc2Elm.innerHTML     = (room1 + room2);
+          speak("場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr + "。　、。場所。　、。" + roomUttr);
+          setTimeout(()=>{hideElm(sc2Elm);}, screen2Dur * 1000);
+        },switchScreen2Time * 1000);
+      }
       
       function getParam(name) {
         let url = window.location.href;
