@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html><head>
+  <meta name="viewport" content="width=device-width">
+  <style>
+  </style>
+</head>
+<body>
+  <section>
+    <h1>P2P地震速報fetchテスト</h1>
+    <input type="button" onclick="a.showQuakeInfo(a.p2pJson[0]);" value="show">
+    <div id="eewInfoDiv">
+  </section>
+  <script>
+      const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=1";
+      const lineCharNum = 30;
+      class p2pQuakeListener{
+        constructor(fetchDur = 3,dispDur = 2){
+          this.fetchDur = fetchDur;
+          this.dispDur  = dispDur;
+          this.init();
+        }
+        run(){
+          if(this.runInterv){
+            console.log("aleady runnning.");
+            return -1;
+          }
+          console.log(this.fetchDur);
+          this.runInterv = setTimeout(() => {
+              this.fetchP2pJson()
+
+            },this.fetchDur * 1000);
+        }
+
+        stop(){
+          if(this.runInterv){
+            console.log("aleady runnning.");
+            clearInterval(this.runInterv);
+            this.runInterv = null;
+          }else{
+            console.log("not runnning.");
+          }
+        }
+
+        fetchP2pJson(){
+          fetch(P2PURL)
+          .then((response) => {
+            return response.json();
+          })
+          .then((gotJson) => {
+            this.checkP2pJsonUpdate(gotJson);
+            
+          });
+        }
+        init(){
+          this.p2pJson=[];
+          this.runInterv = null;
+        }
+        checkP2pJsonUpdate(gotJson){
+          if(this.p2pJson.length == 0){
+            this.p2pJson = gotJson;
+            console.log("first access : p2pJson got success.");
+          }else if(JSON.stringify(this.p2pJson) != JSON.stringify(gotJson)){
+            this.p2pJson = gotJson;
+            console.log("p2pJson update found.");
+            this.showQuakeInfo(gotJson[0]);
+          }else{
+            // console.log("p2pJson update is NOT found.");
+          }
+        }
+
+        parseShindo(scale){
+            switch(scale){
+              case 45:
+                return "５弱";
+              case 50: 
+                return "５強";
+              case 55:
+                return "６弱";
+              case 60: 
+                return "６強";
+              default:
+                return String.fromCharCode(String(scale / 10).charCodeAt(0) + 65248) + "　"; 
+            }
+        }
+
+        showQuakeInfo(p2pJsonNewPart){
+          let str = "";
+          if(p2pJsonNewPart.code == 551){
+            let time    = p2pJsonNewPart.earthquake.time;
+            let maxScl  = p2pJsonNewPart.earthquake.maxScale;
+            let shindo  = this.parseShindo(maxScl);
+            let epicent = p2pJsonNewPart.earthquake.hypocenter.name;
+            let depth   = p2pJsonNewPart.earthquake.hypocenter.depth;
+            let magunit = p2pJsonNewPart.earthquake.hypocenter.magnitude;
+            let points  = p2pJsonNewPart.points;
+
+            let sclList = [70,60,55,50,45,40,30,20,10];
+
+            str += `■　地震速報　■<br>　<br>`
+            str += `${time}頃、${epicent}を震源とする地震がありました。<br>`;
+            str += `最大震度${shindo}深さ${depth}　マグニチュード${magunit}<br>`;
+            if(maxScl > 40 || magunit > 5){
+              str += "今後の津波の情報に注意してください。<br>";
+              str += "震度１以上を観測した地域は次のとおりです。<br>";
+            }else{
+              str += "震度１以上を観測した地域は次のとおりです。<br>";
+              str += "　<br>";
+            }            
+
+            sclList.forEach(scl => {
+              let theSclAddrStr = `震度${this.parseShindo(scl)}　`;
+              points.forEach(p => {
+                if(scl == p.scale){
+                  let theSclAddrList = theSclAddrStr.split("<br>");
+                  let offset = 0;
+                  // if(theSclAddrList.length == 1) offset = 5;
+                  if(theSclAddrList[theSclAddrList.length-1].length + p.addr.length + offset > lineCharNum){
+                    theSclAddrStr += `<br>震度${this.parseShindo(scl)}　`
+                  }
+                  theSclAddrStr += `${p.addr}　`;
+                }
+              });
+              if(theSclAddrStr != `震度${this.parseShindo(scl)}　`){
+                str += `${theSclAddrStr}<br>`;
+              }
+
+            });
+          }
+
+          str = str.split("<br>");
+          for(let i = 0;i < (str.length);i += 2){
+            if(str[i+1] && str[i].slice(0,4) == str[i+1].slice(0,4)){
+              str[i+1] = "　　　　" + str[i].slice(4);
+            }
+          }
+          console.log(str);
+          for(let i = 0;i < (str.length);i += 2){
+            setTimeout(() => {
+              let s = str[i] + "<br>";
+              if(str[i+1]) s += str[i+1];
+              document.getElementById("eewInfoDiv").innerHTML = s;
+            },this.dispDur*1000*i);
+          }
+
+          setTimeout(() => {
+              document.getElementById("eewInfoDiv").innerHTML = "■　地震速報　終■";
+            },this.dispDur*1000*str.length);
+          setTimeout(() => {
+              document.getElementById("eewInfoDiv").innerHTML = "";
+            },this.dispDur*1000*(str.length+1));
+        }
+      }
+      const a = new p2pQuakeListener();
+      a.run();
+    </script>
+  </body>
+</html>
