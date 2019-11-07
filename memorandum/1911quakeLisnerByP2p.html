@@ -24,16 +24,18 @@
             console.log("aleady runnning.");
             return -1;
           }
-          console.log(this.fetchDur);
-          this.runInterv = setTimeout(() => {
-              this.fetchP2pJson()
+          if(!(1<=this.fetchDur && this.fetchDur <= 99999)){
+            console.log("invalid fetchDur");
+            return -1;
+          }
 
+          this.runInterv = setInterval(() => {
+              this.fetchP2pJson()
             },this.fetchDur * 1000);
         }
 
         stop(){
           if(this.runInterv){
-            console.log("aleady runnning.");
             clearInterval(this.runInterv);
             this.runInterv = null;
           }else{
@@ -42,6 +44,7 @@
         }
 
         fetchP2pJson(){
+          console.log("accessing ...");
           fetch(P2PURL)
           .then((response) => {
             return response.json();
@@ -84,6 +87,7 @@
         }
 
         showQuakeInfo(p2pJsonNewPart){
+          this.stop();
           let str = "";
           if(p2pJsonNewPart.code == 551){
             let time    = p2pJsonNewPart.earthquake.time;
@@ -112,9 +116,7 @@
               points.forEach(p => {
                 if(scl == p.scale){
                   let theSclAddrList = theSclAddrStr.split("<br>");
-                  let offset = 0;
-                  // if(theSclAddrList.length == 1) offset = 5;
-                  if(theSclAddrList[theSclAddrList.length-1].length + p.addr.length + offset > lineCharNum){
+                  if(theSclAddrList[theSclAddrList.length-1].length + p.addr.length > lineCharNum){
                     theSclAddrStr += `<br>震度${this.parseShindo(scl)}　`
                   }
                   theSclAddrStr += `${p.addr}　`;
@@ -133,7 +135,6 @@
               str[i+1] = "　　　　" + str[i].slice(4);
             }
           }
-          console.log(str);
           for(let i = 0;i < (str.length);i += 2){
             setTimeout(() => {
               let s = str[i] + "<br>";
@@ -147,7 +148,8 @@
             },this.dispDur*1000*str.length);
           setTimeout(() => {
               document.getElementById("eewInfoDiv").innerHTML = "";
-            },this.dispDur*1000*(str.length+1));
+              this.run();
+            },this.dispDur*1000*(str.length+2));
         }
       }
       const a = new p2pQuakeListener();
