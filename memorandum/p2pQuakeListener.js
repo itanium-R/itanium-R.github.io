@@ -53,7 +53,7 @@ class p2pQuakeListener{
     }else if(JSON.stringify(this.p2pJson) != JSON.stringify(gotJson)){
       this.p2pJson = gotJson;
       console.log("p2pJson update found.");
-      switch(this.p2pJson.code){
+      switch(this.p2pJson[0].code){
         case 551:
           this.showLatestQuakeInfo();
           break;
@@ -81,6 +81,7 @@ class p2pQuakeListener{
       qtElm.style.fontSize   = "3vw";
       qtElm.style.fontWeight = "900";
       qtElm.style.display    = "none";
+      qtElm.style.zIndex     = "20" ;
       qtElm.style.position   = "fixed";
       qtElm.style.top        = "3vh";
       qtElm.style.left       = "20vw";
