@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./fullScSlider/fullScSlider.js"></script>
+    <script src="./p2pQuakeListener.js"></script>
+    <script>
+      var p2pQL;
+      setTimeout(() =>  {        
+          p2pQL = new p2pQuakeListener(6,3);
+          p2pQL.run();
+        },2500);
+    </script>
+    <script>
+      var pages = [
+        {
+          "url"      : "https://script.google.com/macros/s/AKfycbxOBOfpSsnApd0GMwPm2xCLlBmnksqqUkLMICRFldFDBLt7Uv8/exec?mode=w&area=333&NS=S",
+          "iframeId" : "weather",
+          "reloadDur": 30 * 60
+        },{
+          "url"      : "https://weathernews.jp/s/warn/kinki.html",
+          "iframeId" : "advisory",
+          "reloadDur": 5 * 60
+        },{
+          "url"      : "https://script.google.com/macros/s/AKfycbwHoR46AvOLLN9lvKsh0lyt2PX1hhypieHqILVBenWDpKf1yvY/exec",
+          "iframeId" : "kinkiDelay",
+          "reloadDur": 5 * 60
+        },
+      ];
+    </script>  
+    <script src="./always-main.js"></script>
+    <title>always</title>
+    <link href="./always-style.css" rel="stylesheet" type="text/css">
+    <link href="./td-ticker-clock-b.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <script src="./td-ticker-b.js"></script>
+</body>
+</html>
