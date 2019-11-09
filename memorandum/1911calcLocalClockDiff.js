@@ -6,6 +6,7 @@ class LocalClockDiffCalculator{
     this.init();
     this.run();
   }
+
   run(){
     fetch(NTPURL)
       .then((response) => {
@@ -19,6 +20,7 @@ class LocalClockDiffCalculator{
         document.write("NTPとlocalの時間差 : " + this.localClockDiff + "[ms]");
       });
   }
+  
   init(){
     this.localClockDiff = 0;    
   }
