@@ -86,8 +86,9 @@ class p2pQuakeListener{
       qtElm.style.top        = "3vh";
       qtElm.style.left       = "20vw";
       qtElm.style.color      = "#FFF";
-      qtElm.style.webkitTextStroke = "0.15vw #235";
-      qtElm.style.textStroke       = "0.15vw #235";
+      // qtElm.style.webkitTextStroke = "0.05vw #235"; qtElm.style.textStroke       = "0.05vw #235";
+      qtElm.style.textShadow = ".2vw 0px 0px #235, .2vw -.2vw 0px #235,  .2vw  .2vw 0px #235, 0px -.2vw 0px #235," + 
+                               "0px .2vw 0px #235, -.2vw .2vw 0px #235, -.2vw -.2vw 0px #235, -.2vw 0px 0px #235 ";
     }
   }
 
