@@ -18,8 +18,9 @@ class p2pQuakeListener{
       return -1;
     }
 
+    console.log("p2pQuakeListener : run started.");
     this.runInterv = setInterval(() => {
-        this.fetchP2pJson()
+        this.fetchP2pJson();
       },this.fetchDur * 1000);
   }
 
@@ -38,8 +39,7 @@ class p2pQuakeListener{
       return response.json();
     })
     .then((gotJson) => {
-      this.checkP2pJsonUpdate(gotJson);
-      
+      this.checkP2pJsonUpdate(gotJson);      
     });
   }
   init(){
@@ -52,13 +52,17 @@ class p2pQuakeListener{
       console.log("first access : p2pJson got success.");
     }else if(JSON.stringify(this.p2pJson) != JSON.stringify(gotJson)){
       this.p2pJson = gotJson;
+      let latestP2pJson = gotJson[0]; 
       console.log("p2pJson update found.");
-      switch(this.p2pJson[0].code){
+      switch(latestP2pJson.code){
         case 551:
-          this.showLatestQuakeInfo();
+          this.showQuakeInfo(latestP2pJson);
+          break;
+        case 5610:
+          this.showP2pQuakePromptNews(latestP2pJson);
           break;
         default:
-          console.log("unknown p2pJson.code : " + this.p2pJson.code);
+          console.log("unknown p2pJson.code : " + this.p2pJson[0].code);
       }
     }else{
       // console.log("p2pJson update is NOT found.");
@@ -107,12 +111,31 @@ class p2pQuakeListener{
       }
   }
 
+  showP2pQuakePromptNews(p2pJsonNewPart){
+    try{
+      let regions  = Object.keys(p2pJsonNewPart.regions);
+      let str = "Ｐ２Ｐ地震速報　以下の地域で揺れに警戒<br>";
+      let repCnt = 3;
+      regions.forEach((r) => {
+        str += r + "　";
+      });
+      console.log(str.replace(/<br>/g,"\n"));
+      let strList = str.split("<br>");
+      strList.push("");
+      console.log(strList);
+      this.showTelop(strList, repCnt); 
+    }catch(e){
+      console.log(e);
+      this.run();
+    }
+  }
+    
+
   showLatestQuakeInfo(){
     this.showQuakeInfo(this.p2pJson[0]);
   }
 
   showQuakeInfo(p2pJsonNewPart){
-    this.stop();
     try{
       let str = "";
       let time    = p2pJsonNewPart.earthquake.time;
@@ -124,6 +147,7 @@ class p2pQuakeListener{
       let points  = p2pJsonNewPart.points;
 
       let sclList = [70,60,55,50,45,40,30,20,10];
+      let repCnt = 2;
 
       str += `　　　　　　■　地震速報　■<br>　<br>`
       str += `${time}ごろ、${epicent}で<br>地震がありました。<br>`;
@@ -156,11 +180,7 @@ class p2pQuakeListener{
           strList[i+1] = "　　　　" + strList[i+1].slice(4);
         }
       }
-      
-      this.showTelop(strList);
-      setTimeout(() => {
-          this.run();
-        },this.dispDur*1000*(str.length+2));
+      this.showTelop(strList, repCnt);
     }catch(e){
       console.log(e);
       this.run();
@@ -168,6 +188,7 @@ class p2pQuakeListener{
   }
 
   showTelop(strList,repCnt= 2){
+    this.stop();
     document.getElementById("quakeInfoTelop").style.display = "flex";
     this.playChime();
     for(let i = 0;i < (strList.length);i += 2){
@@ -178,9 +199,9 @@ class p2pQuakeListener{
       };
       
       for(let rep = 0;rep < repCnt;rep ++){
-        setTimeout(showPart,(i + (strList.length * rep)) * this.dispDur * 1000);
+        setTimeout(showPart, (i + (strList.length * rep)) * this.dispDur * 1000);
       }
-      setTimeout(showPart,this.dispDur*1000*i);
+      setTimeout(showPart, this.dispDur * 1000 * i);
     }
 
     setTimeout(() => {
