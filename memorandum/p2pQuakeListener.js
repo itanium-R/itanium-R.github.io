@@ -122,7 +122,6 @@ class p2pQuakeListener{
       console.log(str.replace(/<br>/g,"\n"));
       let strList = str.split("<br>");
       strList.push("");
-      console.log(strList);
       this.showTelop(strList, repCnt); 
     }catch(e){
       console.log(e);
@@ -153,7 +152,7 @@ class p2pQuakeListener{
       str += `${time}ごろ、${epicent}で<br>地震がありました。<br>`;
       str += `震源地は${epicent}<br>`;
       str += `深さ${depth}　マグニチュード${magunit}<br>`;
-      if(maxScl > 40 || magunit > 5){
+      if(maxScl >= 40 || magunit >= 5){
         str += "揺れが大きかったため、海岸付近の地域では<br>今後の津波の情報に注意してください。<br>";
       }         
 
