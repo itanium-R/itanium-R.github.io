@@ -11,9 +11,18 @@ var tickerProp = tickerProp || JSON.parse(localStorage.getItem("tprop")) ||
                     "fieldName" : "msg",
                   };
 
+var isClockBig         = isClockBig         || localStorage.getItem("isBCl") || false;
 var usesP2pQuakeNotice = usesP2pQuakeNotice || localStorage.getItem("usP2p") || false;
-if(usesP2pQuakeNotice === "false") usesP2pQuakeNotice = false;
-if(usesP2pQuakeNotice === "true")  usesP2pQuakeNotice = true;
+
+function parseFlg(a){
+  if(a === "true")  a = true;
+  if(a === "false") a = false;
+  return a;
+}
+
+isClockBig         = parseFlg(isClockBig);
+usesP2pQuakeNotice = parseFlg(usesP2pQuakeNotice);
+
 if(usesP2pQuakeNotice){
   var p2pQL;
   setTimeout(() =>  {        
@@ -21,6 +30,7 @@ if(usesP2pQuakeNotice){
       p2pQL.run();
     },2500); // 起動直後の負荷対策・ロード時間差対策で少し時間をおいてから起動
 }
+
 
 function loadIframe(page){
   window.open(page.url,page.iframeId);

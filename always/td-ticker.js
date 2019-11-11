@@ -1,12 +1,21 @@
 document.write(
   '<div class="fixedTicker tickerOnepoint">' + tickerProp.title + '</div>' +
-  '<div class="fixedTicker ticker"> ' +
+  '<div class="fixedTicker ticker" id="ticker"> ' +
   '<div class="marquee"><p id="marqueeStr"></p></div>' +
   '</div> ' +
-  '<div class="fixedTicker tickerClock" onclick="showSettingSec();">' +
+  '<div class="fixedTicker tickerClock" onclick="showSettingSec();" id="t_clock_wrap">' +
   '  <div class="t_logo" id="t_logo">現在<br>時刻</div>' +
   '  <div id="t_clock"></div>' +
   '</div>');
+
+  setTimeout(() => {
+      if(isClockBig){
+        document.getElementById("ticker"      ).className = "fixedTicker tickerC";
+        document.getElementById("t_clock_wrap").className = "tickerClockC";
+        document.getElementById("t_logo"      ).className = "t_logoC";
+        document.getElementById("t_clock"     ).className = "t_clockC";
+      }
+    }, 2000);
 
 class Clock{
   constructor(clockElm){

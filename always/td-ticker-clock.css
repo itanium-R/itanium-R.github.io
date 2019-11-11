@@ -25,6 +25,7 @@
   text-align: center;
   color: #fff;
 }
+
 .tickerClock{
   padding: 0.1vw;
   right:    1vw;
@@ -50,7 +51,7 @@
   margin: -0.5vw 0 0 -0.1vw;
   font-size: 3vw;
   transform: scaleX(0.9);
-}
+} 
 
 .marquee{
   width:    100vw;
@@ -84,4 +85,34 @@
 @keyframes marquee{
   from   { transform: translate(0%);}
   99%,to { transform: translate(-100%);}
+}
+
+/* -- clock版用 -- */
+
+.tickerClockC{
+  right:    0vw;
+  bottom:   7vw;
+  width:   36vw;
+  line-height: 12vw;
+  text-align: right;
+  background: rbga(0,0,0,0);
+  color: #FFF;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 900;
+  z-index: 5;
+  position: fixed;
+  -webkit-text-stroke: #235 .5vw;
+}
+.t_logoC{
+  display: none;
+}
+.t_clockC{
+  font-size: 15vw        !important;
+  transform: scaleX(0.8) !important;
+}
+.tickerC{
+  left: 1.8vw;
+  height: 5.2vw;
+  width: 97.2vw;
+  z-index: 6;
 }

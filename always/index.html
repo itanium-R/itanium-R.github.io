@@ -58,10 +58,14 @@
             <input type="text"   v-model="tickerProp.reloadDur" class="reloadDur">
           </div>
         </div>
-        <div class="pluginsConfig">
-          <div>
-              <label for="usesP2pQuakeNotice">P2P地震速報有効</label>
-              <input v-model="usesP2pQuakeNotice" type="checkbox">
+        <div class="optionConfig">
+          <div class="option">
+            <label for="usesP2pQuakeNotice">P2P地震速報有効</label>
+            <input v-model="usesP2pQuakeNotice" type="checkbox">
+          </div>
+          <div class="option">
+            <label for="isClockBig">デカ時計</label>
+            <input v-model="isClockBig" type="checkbox">
           </div>
         </div>
       </div>
