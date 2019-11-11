@@ -187,10 +187,10 @@ class p2pQuakeListener{
     }
   }
 
-  showTelop(strList,repCnt= 2){
+  showTelop(strList,repCnt= 2,rings=true){
     this.stop();
     document.getElementById("quakeInfoTelop").style.display = "flex";
-    this.playChime();
+    if(rings) this.playChime();
     for(let i = 0;i < (strList.length);i += 2){
       let showPart = () => {
         let s = strList[i] + "<br>";
