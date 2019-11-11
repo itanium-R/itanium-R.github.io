@@ -19,6 +19,7 @@ class p2pQuakeListener{
     }
 
     console.log("p2pQuakeListener : run started.");
+    this.fetchP2pJson();
     this.runInterv = setInterval(() => {
         this.fetchP2pJson();
       },this.fetchDur * 1000);
