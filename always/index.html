@@ -3,6 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <script src="./plugins/p2pQuakeListener.js"></script>
   <script src="./fullScSlider/fullScSlider.js"></script>
   <script src="./always-main.js"></script>
   <title>always</title>
@@ -13,6 +14,7 @@
 <body>
   <script src="./td-ticker.js"></script>
   
+  <!-- 設定画面ここから -->
   <section class="modal" id="settingSec" onclick="hideSettingSec();">
     <div class="modal" id="settingSecInner" onclick="event.stopPropagation();">
       <div class="modal" id="settingSecText" >
@@ -56,9 +58,15 @@
             <input type="text"   v-model="tickerProp.reloadDur" class="reloadDur">
           </div>
         </div>
+        <div class="pluginsConfig">
+          <div>
+              <label for="usesP2pQuakeNotice">P2P地震速報有効</label>
+              <input v-model="usesP2pQuakeNotice" type="checkbox">
+          </div>
+        </div>
       </div>
       <div class="modal">
-        <input type="button" value="閉じる" onclick="hideSettingSec()">
+        <input type="button" value="キャンセル" onclick="hideSettingSec();">
         <input type="button" value="適用"  v-on:click="saveAndReload();">
       </div>
       </div>
@@ -66,5 +74,7 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
   <script src="./always-setting.js"></script>
+  <!-- 設定画面ここまで -->
+
 </body>
 </html>

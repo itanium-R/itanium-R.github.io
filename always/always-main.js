@@ -11,6 +11,17 @@ var tickerProp = tickerProp || JSON.parse(localStorage.getItem("tprop")) ||
                     "fieldName" : "msg",
                   };
 
+var usesP2pQuakeNotice = usesP2pQuakeNotice || localStorage.getItem("usP2p") || false;
+if(usesP2pQuakeNotice === "false") usesP2pQuakeNotice = false;
+if(usesP2pQuakeNotice === "true")  usesP2pQuakeNotice = true;
+if(usesP2pQuakeNotice){
+  var p2pQL;
+  setTimeout(() =>  {        
+      p2pQL = new p2pQuakeListener(3,3);
+      p2pQL.run();
+    },2500); // 起動直後の負荷対策・ロード時間差対策で少し時間をおいてから起動
+}
+
 function loadIframe(page){
   window.open(page.url,page.iframeId);
   if(page.reloadDur > 0){

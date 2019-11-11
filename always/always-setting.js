@@ -35,11 +35,13 @@ const vm = new Vue({
   data: {
     pages: [],
     tickerProp: [],
+    usesP2pQuakeNotice : false,
   },
   methods: {
     load: function(){
       this.pages = pages;
       this.tickerProp = tickerProp;
+      this.usesP2pQuakeNotice = usesP2pQuakeNotice;
     },
     addPage: function(){
       let newPage = {
@@ -53,14 +55,22 @@ const vm = new Vue({
       this.pages.pop();
     },
     saveAndReload: function(){
-      let pagesJson = JSON.stringify(this.pages);
-      let tpropJson = JSON.stringify(this.tickerProp);
-      localStorage.setItem('pages', pagesJson);
-      localStorage.setItem('tprop', tpropJson);
-      reload();
+      try{
+        let pagesJson = JSON.stringify(this.pages);
+        let tpropJson = JSON.stringify(this.tickerProp);
+        localStorage.setItem('pages', pagesJson);
+        localStorage.setItem('tprop', tpropJson);
+        localStorage.setItem('usP2p', this.usesP2pQuakeNotice);
+        reload();
+      }catch(e){
+        alert(e);
+      }
     },
     loadPreset: function(){
       new PresetLoader();
+    },
+    toggleButton: function(valName){
+      this[valName] = !this[valName];
     }
   },
   mounted: function(){
