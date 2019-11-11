@@ -1,6 +1,6 @@
 const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=1";
 const lineCharNum = 20; // 1行の文字数
-const CHIMEURL = "./a-chime.wav"; 
+const CHIMEURL = "./a-r-voice/ring_quakeNotify01_(c)aonr.wav"; 
 class p2pQuakeListener{
   constructor(fetchDur = 3,dispDur = 1){
     this.fetchDur = fetchDur;
