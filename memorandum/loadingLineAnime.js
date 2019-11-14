@@ -1,5 +1,5 @@
 class loadingLineAnime{
-  constructor(dur = 1, divN = 50, h = 2, color="#C00"){
+  constructor(dur = 0.6, divN = 30, h = 1, color="#C00"){
     this.dur        = dur;  // [s]
     this.divNum     = divN;
     this.lineHeight = h;    // [vw]
@@ -18,7 +18,7 @@ class loadingLineAnime{
     if(this.currentPer != this.targetPer){
       let diff = this.targetPer - this.currentPer;
       let step = diff / this.divNum;
-      if(this.intervCnt > 0){
+      if(this.interv){
         clearInterval(this.interv);
         this.intervCnt = 0;
       }
@@ -29,6 +29,7 @@ class loadingLineAnime{
           this.draw();
         }else{
           clearInterval(this.interv);
+          this.interv = null;
           this.intervCnt = 0;
           this.currentPer = this.targetPer;
           if(this.currentPer >= 1){
