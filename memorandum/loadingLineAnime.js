@@ -38,11 +38,7 @@ class loadingLineAnime{
       }, this.dur * 1000 / this.divNum); 
     };
   }
-  showPer(){
-    document.getElementById("perOut").value=this.currentPer;
-  }
   draw(){
-    this.showPer();
     this.lineElm.style.width = `${this.currentPer * 100}vw`;
   }
   
