@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width">
+  <style>
+  </style>
+</head>
+<body>
+  <section>
+    <h1>線でロード状態を表すアニメ</h1>
+    <input type="text" id="perOut" readonly>
+    <input type="number" id="perIn">
+    <input type="button" onclick="a.setPer(document.getElementById('perIn').value);" value="show">
+  </section>
+  <script src="./loadingLineAnime.js"></script>
+  <script>
+    const a = new loadingLineAnime();
+  </script>
+</body>
+</html>
