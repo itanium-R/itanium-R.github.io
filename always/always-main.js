@@ -26,7 +26,8 @@ usesP2pQuakeNotice = parseFlg(usesP2pQuakeNotice);
 if(usesP2pQuakeNotice){
   var p2pQL;
   setTimeout(() =>  {        
-      p2pQL = new p2pQuakeListener(3,3);
+      let chimeUrl = "./plugins/sounds/o26_(c)maoudamashii.wav"; // 効果音著作：魔王魂
+      p2pQL = new p2pQuakeListener(3, 3, chimeUrl);
       p2pQL.run();
     },2500); // 起動直後の負荷対策・ロード時間差対策で少し時間をおいてから起動
 }

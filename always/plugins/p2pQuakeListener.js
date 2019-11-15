@@ -1,10 +1,11 @@
 const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=1";
 const lineCharNum = 20; // 1行の文字数
-const CHIMEURL = "./plugins/sounds/ring_quakeNotify01_(c)aonr.wav"; 
+const DEFCHIMEURL = "./plugins/sounds/ring_quakeNotify01_(c)aonr.wav"; 
 class p2pQuakeListener{
-  constructor(fetchDur = 3,dispDur = 1){
+  constructor(fetchDur = 3, dispDur = 1, chimeUrl){
     this.fetchDur = fetchDur;
     this.dispDur  = dispDur;
+    this.chimeUrl = chimeUrl || DEFCHIMEURL
     this.init();
     this.initQtElm();
   }
@@ -213,7 +214,7 @@ class p2pQuakeListener{
   
   playChime(){
     var audio = new Audio();
-    audio.src = CHIMEURL;
+    audio.src = this.chimeUrl;
     audio.play();
   }
 }
