@@ -2,10 +2,12 @@ const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=1";
 const lineCharNum = 20; // 1行の文字数
 const DEFCHIMEURL = "./plugins/sounds/ring_quakeNotify01_(c)aonr.wav"; 
 class p2pQuakeListener{
-  constructor(fetchDur = 3, dispDur = 1, chimeUrl){
+  constructor(fetchDur = 3, dispDur = 1, chimeUrl, allCntThr = 10, areaCntThr = 3){
     this.fetchDur = fetchDur;
     this.dispDur  = dispDur;
     this.chimeUrl = chimeUrl || DEFCHIMEURL
+    this.allCntThr  = allCntThr;
+    this.areaCntThr = areaCntThr;
     this.init();
     this.initQtElm();
   }
@@ -61,6 +63,7 @@ class p2pQuakeListener{
           this.showQuakeInfo(latestP2pJson);
           break;
         case 5610:
+          if(latestP2pJson.count > this.allCntThr)
           this.showP2pQuakePromptNews(latestP2pJson);
           break;
         default:
@@ -117,14 +120,20 @@ class p2pQuakeListener{
     try{
       let regions  = Object.keys(p2pJsonNewPart.regions);
       let str = "Ｐ２Ｐ地震速報　以下の地域で揺れに警戒<br>";
+      let areaStr = "";
       let repCnt = 3;
       regions.forEach((r) => {
-        str += r + "　";
+        if(p2pJsonNewPart.regions[r] > this.areaCntThr){
+          areaStr += r + "　";
+        }
       });
-      console.log(str.replace(/<br>/g,"\n"));
-      let strList = str.split("<br>");
-      strList.push("");
-      this.showTelop(strList, repCnt); 
+      if(areaStr.length>0){
+        str += areaStr;
+        console.log(str.replace(/<br>/g,"\n"));
+        let strList = str.split("<br>");
+        strList.push("");
+        this.showTelop(strList, repCnt); 
+      }
     }catch(e){
       console.log(e);
       this.run();
