@@ -184,7 +184,7 @@
         
         for(let i=4;i<7;i++){
           setTimeout(()=>{
-            speak(act);
+            speak(act + "。");
           },i*1000)
         }
         interv1 = setInterval(()=>{
@@ -222,14 +222,18 @@
         var text  = text;
         uttr.text = text;
         uttr.lang = "ja";
+        var googleJPN = synth.getVoices().filter(
+                          voice => voice.name === "Google 日本語")[0];
+        if(googleJPN) uttr.voice = googleJPN;
         synth.speak(uttr);
       }
-      var uttrStr;
-      if(isNext) uttrStr = "次は、";
-      else       uttrStr = "";
-      uttrStr += sta + "、" + act;
-      if(sta != "")speak(uttrStr);
-      
+      setTimeout(() => {
+        var uttrStr;
+        if(isNext) uttrStr = "次は、";
+        else       uttrStr = "";
+        uttrStr += sta + "、" + act;
+        if(sta != "")speak(uttrStr);  
+      },1000)
       function getParam(name) {
         let url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
