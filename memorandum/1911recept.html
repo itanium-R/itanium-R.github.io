@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      @font-face {
+        font-family: 'houkoumaku';
+        font-style: normal;
+        font-weight: 500;
+        src: url(./jrwhlogo.woff) format('woff');
+      }
+
+      body{
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      .recept{
+        display: block;
+        width: 18em;
+        margin: auto;
+      }
+
+      h1{
+        font-size: 2rem;
+      }
+
+      .cent{
+        width: 100%;
+        text-align: center;
+      }
+
+      .right{
+        width: 100%;
+        text-align: right;
+      }
+
+      .underline{
+        border: solid #000;
+        border-width: 0 0 2px 0;
+        line-height: 2em;
+      }
+
+      .borderd{
+        border: solid #000;
+        border-width: 2px;
+        line-height: 2em;
+      }
+
+      .emph{
+        font-size: 1.5rem;
+      }
+
+      .grayFont{
+        color: gray;
+      }
+
+      div{
+        margin: .5em  0;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div class="recept">
+        <h1 class="cent">領収書</h1>
+
+        <div class="dateNo cent"> 
+          2019年99月99日(日) 99:99 No.99999
+        </div>
+
+        <div class="underline cent">
+          <span class="emph" id="cname">立命　太郎</span>　様
+        </div>
+
+        <div class="borderd cent">
+          ￥<span class="emph" id="price">6,000</span>-
+        </div>
+
+        <div  class="cent">
+          但　<span id="proviso cent">会費(2019年度分)として</span><br>
+          上記　正に領収いたしました。
+        </div>
+        
+        <br>
+
+        <div class="cent">
+          立命館大学立命館コンピュータクラブ<br>
+          〒525-0058<br>
+          滋賀県草津市野路東１丁目１−１<br>
+          立命館大学　びわこ・くさつキャンパス<br>
+          バイオリンク1F　サークルルーム8<br>
+        </div>
+
+        <div class="right emph grayFont">
+          <br>（印）　<br>
+        </div>
+
+    <script>
+      function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      window.onload = () => {
+        //window.print();
+      }
+
+    </script>
+            
+  </body>
+</html>
