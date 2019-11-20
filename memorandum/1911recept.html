@@ -3,13 +3,7 @@
   <head>
     <style>
       @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
-      @font-face {
-        font-family: 'houkoumaku';
-        font-style: normal;
-        font-weight: 500;
-        src: url(./jrwhlogo.woff) format('woff');
-      }
-
+      
       body{
         font-family: 'M PLUS 1p', sans-serif;
       }
@@ -74,50 +68,6 @@
 
       
     </style>
-  </head>
-  <body>
-    <div class="recept">
-        <div class="top">
-          <img src="https://ritscc.github.io/formviewer/logo-w.png" >
-        </div>
-        <h1 class="top">領収書</h1>
-
-        <div class="dateNo cent"> 
-          2019年99月99日　№99999
-        </div>
-
-        <div class="underline cent">
-          <span class="emph" id="cname">立命　太郎</span>　様
-        </div>
-
-        <div class="borderd cent">
-          ￥<span class="emph" id="price">6,000</span>-
-        </div>
-
-        <div  class="cent">
-          但　<span id="proviso cent">会費(2019年度分)として</span><br>
-          上記　正に領収いたしました。
-        </div>
-        
-        <br>
-
-        <div class="cent">
-          立命館大学<br>立命館コンピュータクラブ<br>
-          〒525-0058<br>
-          滋賀県草津市野路東1丁目1−1<br>
-          立命館大学 びわこ・くさつｷｬﾝﾊﾟｽ<br>
-          ﾊﾞｲｵﾘﾝｸ1F ｻｰｸﾙﾙｰﾑ8<br>
-        </div>
-
-        <br>
-        <div class="right grayFont">
-          <div class="cent">
-            ※領収印無きものは無効
-          </div>
-          <div class="emph">
-            （印）　
-          </div>
-        </div>
 
     <script>
       function getParam(name) {
@@ -130,11 +80,77 @@
         return decodeURIComponent(results[2].replace(/\+/g, " "));
       }
 
-      window.onload = () => {
-        window.print();
+      function zeroPad(num,len){
+        let padded = "";
+        for(let i = 0; i < len; i++)padded += "0";
+        return (padded + num).slice(-len);
+      }
+
+      function ElmId(id){
+        return document.getElementById(id);
+      }
+
+      window.onload = function(){
+        try{
+          let now = new Date();
+          let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
+          ElmId("date").innerHTML    = date;
+          ElmId("No"     ).innerHTML = getParam("No")      ? getParam("No")      : 99999;
+          ElmId("cname"  ).innerHTML = getParam("cname")   ? getParam("cname")   : "　　　　　　　";
+          ElmId("price"  ).innerHTML = getParam("price")   ? getParam("price")   : 0;
+          ElmId("proviso").innerHTML = getParam("proviso") ? getParam("proviso") : "お品代として";
+          
+          window.print();
+        }catch(e){
+          alert("print faile...\n" + e)
+        }
       }
 
     </script>
+  </head>
+  <body>
+    <div class="recept">
+        <div class="top">
+          <img src="https://ritscc.github.io/formviewer/logo-w.png" >
+        </div>
+        <h1 class="top">領収書</h1>
+
+        <div class="dateNo cent"> 
+          <span id="date">2019年99月99日</span>　№<span id="No">99999</span>
+        </div>
+
+        <div class="underline cent">
+          <span class="emph" id="cname">立命　太郎</span>　様
+        </div>
+
+        <div class="borderd cent">
+          ￥<span class="emph" id="price">6,000</span>-
+        </div>
+
+        <div  class="cent">
+          但　<span id="proviso">会費(2019年度分)として</span><br>
+          上記　正に領収いたしました。
+        </div>
+        
+        <br>
+
+        <div class="cent">
+          立命館大学<br>立命館コンピュータクラブ<br>
+          〒525-0058<br>
+          滋賀県草津市野路東1丁目1−1<br>
+          立命館大学びわこ･くさつｷｬﾝﾊﾟｽ<br>
+          ﾊﾞｲｵﾘﾝｸ1F ｻｰｸﾙﾙｰﾑ8<br>
+        </div>
+
+        <br>
+        <div class="right grayFont">
+          <div class="cent">
+            ※領収印無きものは無効
+          </div>
+          <div class="emph">
+            （印）　
+          </div>
+        </div>
             
   </body>
 </html>
