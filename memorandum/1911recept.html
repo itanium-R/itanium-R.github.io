@@ -14,18 +14,13 @@
         font-family: 'M PLUS 1p', sans-serif;
       }
 
-      .recept{
-        display: block;
-        width: 20rem;
-        margin: auto;
-      }
-
       h1{
         font-size: 2rem;
       }
 
       .cent{
-        width: 100%;
+        width: 90%;
+        padding: 0 5%;
         text-align: center;
       }
 
@@ -37,17 +32,16 @@
       .underline{
         border: solid #000;
         border-width: 0 0 2px 0;
-        line-height: 2em;
+        line-height: 2rem;
       }
 
       .borderd{
-        border: solid #000;
-        border-width: 2px;
-        line-height: 2em;
+        background-color:#CCC;
       }
 
       .emph{
         font-size: 1.5rem;
+        font-weight: bold;
       }
 
       .grayFont{
@@ -59,10 +53,18 @@
       }
 
       .top{
-        width: 9.5rem !important;
+        width: 7.5rem !important;
         display: inline-block;
         margin: auto;
         vertical-align: middle;
+        text-align: center;
+        align-items: center;
+      }
+
+      .recept{
+        display: block;
+        width: 18rem; 
+        margin: auto;
       }
 
       img{
@@ -78,7 +80,7 @@
         <div class="top">
           <img src="https://ritscc.github.io/formviewer/logo-w.png" >
         </div>
-        <h1 class="cent top">領収書</h1>
+        <h1 class="top">領収書</h1>
 
         <div class="dateNo cent"> 
           2019年99月99日　№99999
@@ -100,15 +102,21 @@
         <br>
 
         <div class="cent">
-          立命館大学　立命館<br>コンピュータクラブ<br>
+          立命館大学<br>立命館コンピュータクラブ<br>
           〒525-0058<br>
           滋賀県草津市野路東1丁目1−1<br>
           立命館大学 びわこ・くさつｷｬﾝﾊﾟｽ<br>
           ﾊﾞｲｵﾘﾝｸ1F ｻｰｸﾙﾙｰﾑ8<br>
         </div>
 
-        <div class="right emph grayFont">
-          <br>（印）　<br>
+        <br>
+        <div class="right grayFont">
+          <div class="cent">
+            ※領収印無きものは無効
+          </div>
+          <div class="emph">
+            （印）　
+          </div>
         </div>
 
     <script>
@@ -123,7 +131,7 @@
       }
 
       window.onload = () => {
-        //window.print();
+        window.print();
       }
 
     </script>
