@@ -15,7 +15,7 @@
 
       textarea{
         width: 90%;
-        border:none;
+        border: solid 1px #000;
         margin: 0 5% 0 5%;
         resize: none;  
       }
@@ -26,9 +26,19 @@
         margin: auto;
       }
 
-      #ctrl{
-        display: none;
+      @media print{
+        #ctrl{
+          display: none;
+        }
+        textarea{
+          border: none;
+        }
+        .title{
+          display: none;
+        }
       }
+
+      
       
     </style>
 
@@ -56,10 +66,16 @@
         ElmId("txt").style.fontSize = `${val}em`;
       }
 
+      function updateTxtH(){
+        let val = ElmId("fs").value;
+        ElmId("txt").style.fontSize = `${val}em`;
+      }
+
       function openPrintPage(){
-        let url = window.location.href.split("?")[0];
-        url += `?txt=${ElmId("txt").value}&fs=${ElmId("fs").value}&prints=true`;
-        window.open(url, "_self")
+        window.print();
+        // let url = window.location.href.split("?")[0];
+        // url += `?txt=${ElmId("txt").value}&fs=${ElmId("fs").value}&prints=true`;
+        // window.open(url, "_self");
       }
 
       window.onload = function(){
@@ -67,18 +83,16 @@
           if(getParam("prints")){
             // let now = new Date();
             // let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
-            ElmId("txt").innerHTML      = getParam("txt");
+            ElmId("txt").value          = getParam("txt");
             ElmId("txt").style.fontSize = getParam("fs") + "em";
             ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
             window.print();
             // window.close();
           }
-          setTimeout(() => {
-            ElmId("ctrl").style.display = "block";
-            ElmId("txt" ).style.border  = "solid 1px #000";
-            ElmId("pB").addEventListener("click",openPrintPage);
-            ElmId("fs").addEventListener("change",updateFs);
-          }, 1000);
+          ElmId("fs" ).value = getParam("fs");
+          ElmId("pB" ).addEventListener("click",  openPrintPage);
+          ElmId("fs" ).addEventListener("change", updateFs);
+          ElmId("txt").addEventListener("change", updateTxtH);
         }catch(e){
           alert("failed...\n" + e)
         }
@@ -88,6 +102,7 @@
   </head>
   <body>
     <div class="recept">
+      <label class="title">印刷内容：</label>
       <textarea id="txt"></textarea>
       <div id="ctrl">
         <label>文字サイズ：</label>
