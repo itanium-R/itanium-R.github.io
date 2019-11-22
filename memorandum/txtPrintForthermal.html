@@ -1,6 +1,7 @@
 <!DOCTYPE html>
   <html>
   <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <style>
       @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
       
@@ -58,7 +59,7 @@
       function openPrintPage(){
         let url = window.location.href.split("?")[0];
         url += `?txt=${ElmId("txt").value}&fs=${ElmId("fs").value}&prints=true`;
-        window.open(url, "_blank")
+        window.open(url, "_self")
       }
 
       window.onload = function(){
@@ -70,13 +71,14 @@
             ElmId("txt").style.fontSize = getParam("fs") + "em";
             ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
             window.print();
-            window.close();
+            // window.close();
           }
-
-          ElmId("ctrl").style.display = "block";
-          ElmId("txt" ).style.border  = "solid 1px #000";
-          ElmId("pB").addEventListener("click",openPrintPage);
-          ElmId("fs").addEventListener("change",updateFs);
+          setTimeout(() => {
+            ElmId("ctrl").style.display = "block";
+            ElmId("txt" ).style.border  = "solid 1px #000";
+            ElmId("pB").addEventListener("click",openPrintPage);
+            ElmId("fs").addEventListener("change",updateFs);
+          }, 1000);
         }catch(e){
           alert("failed...\n" + e)
         }
