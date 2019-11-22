@@ -222,9 +222,6 @@
         var text  = text;
         uttr.text = text;
         uttr.lang = "ja";
-        var googleJPN = synth.getVoices().filter(
-                          voice => voice.name === "Google 日本語")[0];
-        if(googleJPN) uttr.voice = googleJPN;
         synth.speak(uttr);
       }
       setTimeout(() => {
