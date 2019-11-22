@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      
+      body{
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      div{
+        margin: .5em  0;
+      }
+
+      textarea{
+        width: 90%;
+        border:none;
+        margin: 0 5% 0 5%;
+        resize: none;  
+      }
+
+      .recept{
+        display: block;
+        width: 14rem; 
+        margin: auto;
+      }
+      
+    </style>
+
+    <script>
+      function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      function ElmId(id){
+        return document.getElementById(id);
+      }
+
+
+      window.onload = function(){
+        try{
+          // let now = new Date();
+          // let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
+          ElmId("txt").innerHTML      = getParam("txt");
+          ElmId("txt").style.fontSize = getParam("fs") + "em";
+          ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
+          window.print();
+        }catch(e){
+          alert("print faile...\n" + e)
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <div class="recept">
+      <textarea id="txt"></textarea>
+    </div>
+            
+  </body>
+</html>
