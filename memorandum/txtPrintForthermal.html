@@ -67,8 +67,8 @@
       }
 
       function updateTxtH(){
-        let val = ElmId("fs").value;
-        ElmId("txt").style.fontSize = `${val}em`;
+        ElmId("txt").style.height = "0";
+        ElmId("txt").style.height = ElmId("txt").scrollHeight + "px";
       }
 
       function openPrintPage(){
@@ -80,19 +80,26 @@
 
       window.onload = function(){
         try{
+          // let now = new Date();
+          // let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
+          ElmId("txt").value          = getParam("txt");
+          ElmId("txt").style.fontSize = getParam("fs") + "em";
+          ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
           if(getParam("prints")){
-            // let now = new Date();
-            // let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
-            ElmId("txt").value          = getParam("txt");
-            ElmId("txt").style.fontSize = getParam("fs") + "em";
-            ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
             window.print();
-            // window.close();
           }
-          ElmId("fs" ).value = getParam("fs");
+          if(getParam("closes")){
+            window.close();
+          }
+          if(getParam("fs")){
+            ElmId("fs" ).value = getParam("fs");
+          }else{
+            ElmId("fs" ).value = 1;
+          }
           ElmId("pB" ).addEventListener("click",  openPrintPage);
           ElmId("fs" ).addEventListener("change", updateFs);
-          ElmId("txt").addEventListener("change", updateTxtH);
+          ElmId("fs" ).addEventListener("change", updateTxtH);
+          ElmId("txt").addEventListener("input",  updateTxtH);
         }catch(e){
           alert("failed...\n" + e)
         }
