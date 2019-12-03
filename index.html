@@ -69,10 +69,19 @@
         overflow: hidden;
         transition: all 0.5s ease 0s;
         font-size: 3em; 
+        opacity: 0.7;
+    }
+    .content{
+        filter: blur(.3em);
+        transition: all 0.5s ease 0s;
     }
     div.wrap:hover > .cover{
-        width:100%;
-        height:0%;
+        transform: scale(5);
+        opacity: 0;
+        transition: all 0.5s ease 0s;
+    }
+    div.wrap:hover > .content{
+        filter: blur(0);
         transition: all 0.5s ease 0s;
     }
     h1{
@@ -135,31 +144,37 @@
   </div>
   <div class="centralWrap">
     <div class="wrap">
-      <h2>よく書く</h2>
-      GoogleAppsScript / JavaScript /<br> HTML / CSS
-      <h2>たまに書く</h2>
-      C / Java / VBA
-
-      <span class="cover">skills</span>
+      <div class="content">
+        <h2>よく書く</h2>
+        GoogleAppsScript / JavaScript /<br> HTML / CSS
+        <h2>たまに書く</h2>
+        C / Java / VBA
+      </div>
+      <div class="cover">skills</div>
     </div>
     <div class="wrap">
-      <h2>画像処理</h2>
-      C言語で画像のエッジ検出・パターンマッチングなど / 
-      metasequoiaでCG作成 / OpenGL + C言語でCG
-      <h2>音声処理</h2>
-      C言語で低域・高域通過フィルタ設計や周波数・音の高さ分析など
-      <span class="cover">major</span>
+      <div class="content">
+        <h2>画像処理</h2>
+        C言語で画像のエッジ検出・パターンマッチングなど / 
+        metasequoiaでCG作成 / OpenGL + C言語でCG
+        <h2>音声処理</h2>
+        C言語で低域・高域通過フィルタ設計や周波数・音の高さ分析など
+      </div>
+      <div class="cover">major</div>
     </div>
   </div>
   <div class="lastWrap">
     <div class="wrap">
-      <a href="https://github.com/itanium-R/">github</a>
-      <span class="cover">products</span>
+      <div class="content">
+        <a href="https://github.com/itanium-R/">github</a>
+      </div>
+      <div class="cover">products</div>
     </div>
     <div class="wrap">
-      
+      <div class="content">
         <a href="https://twitter.com/itanium103">twitter</a>
-      <span class="cover">links</span>
+      </div>
+      <div class="cover">links</div>
     </div>
   </div>
  
