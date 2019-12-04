@@ -13,18 +13,20 @@
       }
 
       .cent{
-        width: 90%;
-        padding: 0 5%;
+        width: 88%;
+        padding: 0 8% 0 4%;
         text-align: center;
       }
 
       .right{
-        width: 100%;
+        width: 80%;
+        margin: 0 16% 0 4%;
         text-align: right;
       }
 
       .left{
-        width: 100%;
+        width: 90%;
+        margin: 0 4% 0 6%;
         text-align: left;
       }
 
@@ -44,6 +46,12 @@
         line-height: 2rem;
       }
 
+      hr{
+        border: solid #000;
+        border-width: 1.5px 0 0 0;
+        height: 1px;
+      }
+
       .borderd{
         background-color:#CCC;
       }
@@ -58,7 +66,7 @@
       }
 
       div{
-        margin: .5em  0;
+        margin-bottom: .5em;
       }
 
       .top{
@@ -100,7 +108,7 @@
         for(let i = 0; i < len; i++)padded += "0";
         return (padded + num).slice(-len);
       }
-
+      
       function ElmId(id){
         return document.getElementById(id);
       }
@@ -113,9 +121,9 @@
           ElmId("No"     ).innerHTML = getParam("No")      ? getParam("No")      : "　　　　　";
           ElmId("cname"  ).innerHTML = getParam("cname")   ? getParam("cname")   : "　　　　　　　";
           ElmId("price"  ).innerHTML = getParam("price")   ? getParam("price")   : 0;
+          ElmId("outTax" ).innerHTML = getParam("price")   ? getParam("price")   : 0;
           ElmId("proviso").innerHTML = getParam("proviso") ? getParam("proviso") : "お品代として";
-          
-          window.print();
+          //window.print();
         }catch(e){
           alert("print faile...\n" + e)
         }
@@ -147,13 +155,29 @@
         上記　正に領収いたしました。
       </div>
       
+      <br> 
+
+      <div  class="left">
+        内訳
+      </div>
+      <hr>
+      <div  class="left">
+        税抜金額　￥<span id="outTax">0</span>-<br>
+        消費税等　非課税<br>
+      </div>
+      <hr>
+      <div  class="left">
+        営業に関しないため収入印紙不要
+      </div>
+      
       <br>
 
       <div class="cent">
         立命館大学<br>立命館コンピュータクラブ<br>
         〒525-0058<br>
-        滋賀県草津市野路東1丁目1−1<br>
-        立命館大学びわこ･くさつｷｬﾝﾊﾟｽ<br>
+        滋賀県草津市野路東<br>
+        1丁目1-1 立命館大学<br>
+        びわこ･くさつｷｬﾝﾊﾟｽ<br>
         ﾊﾞｲｵﾘﾝｸ1F ｻｰｸﾙﾙｰﾑ8<br>
       </div>
       <div class="inl-blk-wrap">
@@ -162,7 +186,7 @@
           　ものは無効
         </div>
         <div class="emph grayFont inl-blk">
-          　　　（印）
+          　　（印）
         </div>      
     </div>
   </body>
