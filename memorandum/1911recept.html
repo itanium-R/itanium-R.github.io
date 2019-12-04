@@ -128,7 +128,7 @@
           ElmId("price"  ).innerHTML = getParam("price")   ? parseCurrencyStr(getParam("price"))  : 0;
           ElmId("outTax" ).innerHTML = getParam("price")   ? parseCurrencyStr(getParam("price"))  : 0;
           ElmId("proviso").innerHTML = getParam("proviso") ? getParam("proviso") : "お品代として";
-          //window.print();
+          window.print();
         }catch(e){
           alert("print faile...\n" + e)
         }
