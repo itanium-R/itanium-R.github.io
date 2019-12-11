@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      
+      body{
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      div{
+        margin: .5em  0;
+      }
+
+      textarea{
+        width: 90%;
+        border: solid 1px #000;
+        margin: 0 5% 0 5%;
+        resize: none;  
+      }
+
+      .recept{
+        display: block;
+        width: 14rem; 
+        margin: auto;
+      }
+
+      @media print{
+        #ctrl{
+          display: none;
+        }
+        textarea{
+          border: none;
+        }
+        .title{
+          display: none;
+        }
+      }
+
+      
+      
+    </style>
+
+    <script>
+      function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        let result = decodeURIComponent(results[2].replace(/\+/g, " "));
+        if(result === "false") return false;
+        if(result === "true" ) return true;
+        if(result === "null" ) return null;
+        return result;
+      }
+
+      function ElmId(id){
+        return document.getElementById(id);
+      }
+
+      function updateFs(){
+        let val = ElmId("fs").value;
+        ElmId("txt").style.fontSize = `${val}em`;
+      }
+
+      function updateTxtH(){
+        ElmId("txt").style.height = "0";
+        ElmId("txt").style.height = ElmId("txt").scrollHeight + "px";
+      }
+
+      function openPrintPage(){
+        window.print();
+        // let url = window.location.href.split("?")[0];
+        // url += `?txt=${ElmId("txt").value}&fs=${ElmId("fs").value}&prints=true`;
+        // window.open(url, "_self");
+      }
+
+      window.onload = function(){
+        try{
+          // let now = new Date();
+          // let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
+          ElmId("txt").value          = getParam("txt");
+          ElmId("txt").style.fontSize = getParam("fs") + "em";
+          ElmId("txt").style.height   = ElmId("txt").scrollHeight + "px";
+          if(getParam("prints")){
+            window.print();
+          }
+          if(getParam("closes")){
+            window.close();
+          }
+          if(getParam("fs")){
+            ElmId("fs" ).value = getParam("fs");
+          }else{
+            ElmId("fs" ).value = 1;
+          }
+          ElmId("pB" ).addEventListener("click",  openPrintPage);
+          ElmId("fs" ).addEventListener("change", updateFs);
+          ElmId("fs" ).addEventListener("change", updateTxtH);
+          ElmId("txt").addEventListener("input",  updateTxtH);
+        }catch(e){
+          alert("failed...\n" + e)
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <div class="recept">
+      <label class="title">印刷内容：</label>
+      <textarea id="txt"></textarea>
+      <div id="ctrl">
+        <label>文字サイズ：</label>
+        <input type="number" value="1" id="fs">
+        <input type="button" value="印刷" id="pB">
+      </div>
+    </div>
+            
+  </body>
+</html>
