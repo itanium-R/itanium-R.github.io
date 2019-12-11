@@ -70,6 +70,8 @@
         transition: all 0.5s ease 0s;
         font-size: 3em; 
         opacity: 0.7;
+        display: flex;
+        z-index: 2;
     }
     .content{
         filter: blur(.3em);
@@ -79,6 +81,7 @@
         transform: scale(5);
         opacity: 0;
         transition: all 0.5s ease 0s;
+        z-index: -1;
     }
     div.wrap:hover > .content{
         filter: blur(0);
