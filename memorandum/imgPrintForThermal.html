@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      
+      body{
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+      h1{
+        font-size: 2rem;
+      }
+
+      .cent{
+        width: 88%;
+        padding: 0 8% 0 4%;
+        text-align: center;
+      }
+
+      .right{
+        width: 80%;
+        margin: 0 16% 0 4%;
+        text-align: right;
+      }
+
+      .left{
+        width: 90%;
+        margin: 0 4% 0 6%;
+        text-align: left;
+      }
+
+      .inl-blk{
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .inl-blk-wrap{
+        width: 100%;
+        text-align: center;
+      }
+
+      .underline{
+        border: solid #000;
+        border-width: 0 0 2px 0;
+        line-height: 2rem;
+      }
+
+      hr{
+        border: solid #000;
+        border-width: 1.5px 0 0 0;
+        height: 1px;
+      }
+
+      .borderd{
+        background-color:#CCC;
+      }
+
+      .emph{
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .grayFont{
+        color: gray;
+      }
+
+      div{
+        margin-bottom: .5em;
+      }
+
+      .top{
+        width: 7.5rem !important;
+        display: inline-block;
+        margin: auto;
+        vertical-align: middle;
+        text-align: center;
+        align-items: center;
+      }
+
+      .receipt{
+        display: block;
+        width: 18rem; 
+        margin: auto;
+      }
+
+      img{
+        width: 80%;
+        margin: 0 10%;
+      }
+
+      
+    </style>
+
+    <script>
+      
+      function ElmId(id){
+        return document.getElementById(id);
+      }
+
+      window.onload = () => {
+        let imgUrl = window.prompt("画像ＵＲＬを入力してね");
+        ElmId("icon").src = imgUrl;
+        window.print();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="receipt">
+      <img id="icon">
+
+    </div>
+  </body>
+</html>
