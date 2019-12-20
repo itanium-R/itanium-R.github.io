@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,700&display=swap');
+      
+      body{
+        font-family: 'M PLUS 1p', sans-serif;
+      }
+
+    </style>
+
+    <script>
+      function getParam(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        let result = decodeURIComponent(results[2].replace(/\+/g, " "));
+        if(result === "false") return false;
+        if(result === "true" ) return true;
+        if(result === "null" ) return null;
+        return result;
+      }
+
+      window.onload = function(){
+        try{
+          console.log(document.referrer);
+          let a = document.createElement("a");
+          a.innerHTML = a;
+          a.href = document.referrer;
+          document.querySelector("#ref").appendChild(a);
+          
+        }catch(e){
+          alert("failed...\n" + e)
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="ref">            
+  </body>
+</html>
