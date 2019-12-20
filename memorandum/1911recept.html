@@ -126,12 +126,15 @@
           let now = new Date();
           let date = `${now.getFullYear()}年${zeroPad(now.getMonth()+1,2)}月${zeroPad(now.getDate(),2)}日`;
           ElmId("date").innerHTML    = date;
-          ElmId("No"     ).innerHTML = getParam("No")      ? getParam("No")      : "　　　　　";
-          ElmId("cname"  ).innerHTML = getParam("cname")   ? getParam("cname")   : "　　　　　　　";
-          ElmId("price"  ).innerHTML = getParam("price")   ? parseCurrencyStr(getParam("price"))  : 0;
-          ElmId("outTax" ).innerHTML = getParam("price")   ? parseCurrencyStr(getParam("price"))  : 0;
-          ElmId("proviso").innerHTML = getParam("proviso") ? getParam("proviso") : "お品代として";
-          window.print();
+          ElmId("No"      ).innerHTML = getParam("No")       ? getParam("No")       : "　　　　　";
+          ElmId("cname"   ).innerHTML = getParam("cname")    ? getParam("cname")    : "　　　　　　　";
+          ElmId("price"   ).innerHTML = getParam("price")    ? parseCurrencyStr(getParam("price"))  : 0;
+          ElmId("outTax"  ).innerHTML = getParam("price")    ? parseCurrencyStr(getParam("price"))  : 0;
+          ElmId("proviso" ).innerHTML = getParam("proviso")  ? getParam("proviso")  : "お品代として";
+          ElmId("receiver").innerHTML = getParam("receiver") ? getParam("receiver") : "itanium-r.github.io";
+          ElmId("proviso" ).innerHTML = getParam("proviso")  ? getParam("proviso")  : "お品代として";
+          ElmId("logo" ).src          = getParam("logoSrc")  ? getParam("logoSrc")  : "https://itanium-r.github.io/favicon.ico";
+          ElmId("logo" ).onload = () => {window.print()}; // img読込後印刷）
         }catch(e){
           alert("print faile...\n" + e)
         }
@@ -142,7 +145,7 @@
   <body>
     <div class="receipt">
       <div class="top">
-        <img src="https://ritscc.github.io/formviewer/logo-w.png" >
+        <img id="logo" >
       </div>
       <h1 class="top">領収書</h1>
 
@@ -180,13 +183,7 @@
       
       <br>
 
-      <div class="cent">
-        立命館大学<br>立命館コンピュータクラブ<br>
-        〒525-0058<br>
-        滋賀県草津市野路東<br>
-        1丁目1-1 立命館大学<br>
-        びわこ･くさつｷｬﾝﾊﾟｽ<br>
-        ﾊﾞｲｵﾘﾝｸ1F ｻｰｸﾙﾙｰﾑ8<br>
+      <div class="cent" id="receiver">
       </div>
       <div class="inl-blk-wrap">
         <div class="inl-blk">
