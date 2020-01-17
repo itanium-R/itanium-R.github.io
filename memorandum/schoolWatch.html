@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang = "ja">
 <head>
     <meta charset = "UTF-8">
@@ -321,6 +321,19 @@ function ClockF() {
 setInterval('ClockF()',1000);
 
 
+window.onload = () => {
+  let now   = new Date();
+  let month = now.getMonth() + 1;
+  let date  = now.getDate();
+  if((month == 7 || month == 1) && date > 15){
+    document.write('<div style="z-index: 9;background: #235;color: #FFF;display: block;position: fixed;bottom: 10vw;' + 
+                   'right: 10vw;padding: .5em;border-radius: 1em;font-weight: bold;font-size: 1em;"" ' + 
+                   '><a style="color:#EEF;" href="./schoolWatchExam.html">テスト時刻へ変更するにはこちらをクリック</a>　' +
+                   '<input type="button" value="閉じる" ' +
+                   'onclick="this.parentNode.parentNode.removeChild(this.parentNode);"></div>');
+  }
+
+} 
 
 
 
