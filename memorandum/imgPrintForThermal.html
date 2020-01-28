@@ -102,7 +102,7 @@
       window.onload = () => {
         let imgUrl = window.prompt("画像ＵＲＬを入力してね");
         ElmId("icon").src = imgUrl;
-        window.print();
+        ElmId("icon").onload = () => {window.print()}; // img読込後印刷）
       }
     </script>
   </head>
