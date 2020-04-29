@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
+#main {
+  border: solid 1px #000000;
+  position: static;
+  width: 960px;
+  height: 720px;
+  display: block;
+  margin: auto;
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
+.route {
+  position: relative;
+}
