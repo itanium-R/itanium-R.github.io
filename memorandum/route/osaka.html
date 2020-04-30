@@ -16,10 +16,25 @@
     <div id="kansai" class="route">
     </div>
   </section>
-  <script type="text/javascript" src="osaka.js">
-  </script>
+  <script type="text/javascript" src="osaka.js"></script>
 
   <footer>
+    <div>
+      <label>MEM:</label>
+      <select id="memSelector">
+        <option value="1">1</option>
+      </select>
+      <input type="button" value="save" onclick="save('kansai',kansaiRoutes);">
+      <input type="button" value="load" onclick="load('kansai',kansaiRoutes);">
+    </div>
+    <script type="text/javascript" src="mem.js"></script>
+    <div>
+      COPYRIGHT &#169; あいてにあむ <span id="nowYear"></span>
+      <script>
+        document.getElementById("nowYear").innerHTML = new Date().getFullYear();
+      </script>
+      ALL RIGHTS RESERVED.
+    </div>
   </footer>
 </body>
 
