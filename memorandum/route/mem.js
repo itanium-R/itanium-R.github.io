@@ -1,4 +1,4 @@
-function save(area, routes) {
+function save(area, mId, routes) {
   let fullSelectedLines = [];
   for (let rObj of routes) {
     let rElm = document.getElementById(rObj.id);
@@ -7,12 +7,12 @@ function save(area, routes) {
       fullSelectedLines.push(rObj.id);
     }
   }
-  localStorage.setItem('routeAsst' + area, JSON.stringify(fullSelectedLines));
+  localStorage.setItem('routeAsst' + area + mId, JSON.stringify(fullSelectedLines));
 }
 
-function load(area, routes) {
+function load(area, mId, routes) {
   let fullSelectedLines = [];
-  fullSelectedLines = JSON.parse(localStorage.getItem('routeAsst' + area));
+  fullSelectedLines = JSON.parse(localStorage.getItem('routeAsst' + area + mId));
   for (let rObj of routes) {
     let rId = rObj.id;
     let rElm = document.getElementById(rId);

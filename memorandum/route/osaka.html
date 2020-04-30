@@ -23,9 +23,13 @@
       <label>MEM:</label>
       <select id="memSelector">
         <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
       </select>
-      <input type="button" value="save" onclick="save('kansai',kansaiRoutes);">
-      <input type="button" value="load" onclick="load('kansai',kansaiRoutes);">
+      <input type="button" value="save"
+        onclick="save('kansai', document.getElementById('memSelector').value, kansaiRoutes);">
+      <input type="button" value="load"
+        onclick="load('kansai', document.getElementById('memSelector').value, kansaiRoutes);">
     </div>
     <script type="text/javascript" src="mem.js"></script>
     <div>
