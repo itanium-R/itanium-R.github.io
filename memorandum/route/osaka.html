@@ -16,7 +16,10 @@
     <div id="kansai" class="route">
     </div>
   </section>
-  <script type="text/javascript" src="osaka.js"></script>
+  <script type="text/javascript" src="draw.js"></script>
+  <script type="text/javascript">
+    window.onload = () => { drawRoute("kansai"); }
+  </script>
 
   <footer>
     <div class="mem">
@@ -34,11 +37,10 @@
     </div>
     <script type="text/javascript" src="mem.js"></script>
     <div>
-      COPYRIGHT &#169; あいてにあむ <span id="nowYear"></span>
+      &#169; あいてにあむ <span id="nowYear"></span>
       <script>
         document.getElementById("nowYear").innerHTML = new Date().getFullYear();
       </script>
-      ALL RIGHTS RESERVED.
     </div>
   </footer>
 </body>

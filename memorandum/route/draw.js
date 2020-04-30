@@ -1,5 +1,5 @@
+let zoomLevel = 1;
 
-const kansai = document.getElementById("kansai");
 const stations = {
   omishiotsu: { name: "近江塩津", x: 900, y: 20 },
   yamashina: { name: "山科", x: 770, y: 150 },
@@ -107,77 +107,81 @@ const kansaiRoutes = [
   { id: "sanyo9", color: "#0071be", st: ["hyogo", "wadamisaki"] },
 ];
 
-for (k of kansaiRoutes) {
-  let line = document.createElement("div");
-  line.id = k.id;
-  line.style.position = "absolute";
-  let x0 = stations[k.st[0]].x, y0 = stations[k.st[0]].y;
-  let x1 = stations[k.st[1]].x, y1 = stations[k.st[1]].y;
-  if (x0 === x1 || y0 === y1) {
-    line.style.left = (x0 - 10) + "px";
-    line.style.top = (y0 - 10) + "px";
-    line.style.width = (x1 - x0 + 20) + "px";
-    line.style.height = (y1 - y0 + 20) + "px";
-  } else if ((x1 - x0) === (y1 - y0) || -(x1 - x0) === (y1 - y0)) {
-    line.style.width = "20px";
-    let diff = (y1 - y0);
-    if (diff > 0) {
-      line.style.left = (x0 - 10 + (diff / 2)) + "px";
-      line.style.top = (y0 - 20) + "px";
-      line.style.height = (y1 - y0 + 20) * 1.2 + "px";
-      line.style.transform = "rotate(-45deg)";
-    } else {
-      line.style.left = (x1 - 10 + (diff / 2)) + "px";
-      line.style.top = (y1 - 20) + "px";
-      line.style.height = (y0 - y1 + 20) * 1.2 + "px";
-      line.style.transform = "rotate(45deg)";
-    }
-  } else {
-    console.error(k.id + " is invalid coordinate.")
-    continue;
-  }
-  line.style.backgroundColor = "#EEE";
-  let fillColor = function (e) {
-    let t = e.target;
-    if (t.style.backgroundColor == "#EEE" || t.style.backgroundColor == "rgb(238, 238, 238)") {
-      for (k of kansaiRoutes) {
-        if (k.id === t.id) {
-          t.style.backgroundColor = k.color;
-          break;
-        }
+function drawRoute(area) {
+  const areaElm = document.getElementById(area);
+  areaElm.innerHTML = "";
+  for (k of kansaiRoutes) {
+    let line = document.createElement("div");
+    line.id = k.id;
+    line.style.position = "absolute";
+    let x0 = stations[k.st[0]].x, y0 = stations[k.st[0]].y;
+    let x1 = stations[k.st[1]].x, y1 = stations[k.st[1]].y;
+    if (x0 === x1 || y0 === y1) {
+      line.style.left = (x0 - 10) * zoomLevel + "px";
+      line.style.top = (y0 - 10) * zoomLevel + "px";
+      line.style.width = (x1 - x0 + 20) * zoomLevel + "px";
+      line.style.height = (y1 - y0 + 20) * zoomLevel + "px";
+    } else if ((x1 - x0) === (y1 - y0) || -(x1 - x0) === (y1 - y0)) {
+      line.style.width = 20 * zoomLevel + "px";
+      let diff = (y1 - y0);
+      if (diff > 0) {
+        line.style.left = (x0 - 10 + (diff / 2)) * zoomLevel + "px";
+        line.style.top = (y0 - 20) * zoomLevel + "px";
+        line.style.height = (y1 - y0 + 20) * zoomLevel * 1.2 + "px";
+        line.style.transform = "rotate(-45deg)";
+      } else {
+        line.style.left = (x1 - 10 + (diff / 2)) * zoomLevel + "px";
+        line.style.top = (y1 - 20) * zoomLevel + "px";
+        line.style.height = (y0 - y1 + 20) * zoomLevel * 1.2 + "px";
+        line.style.transform = "rotate(45deg)";
       }
     } else {
-      t.style.backgroundColor = "#EEE"
+      console.error(k.id + " is invalid coordinate.")
+      continue;
     }
-  };
-  line.style.borderRadius = "10px";
-  line.addEventListener("click", fillColor);
-  kansai.appendChild(line);
-}
+    line.style.backgroundColor = "#EEE";
+    let fillColor = function (e) {
+      let t = e.target;
+      if (t.style.backgroundColor == "#EEE" || t.style.backgroundColor == "rgb(238, 238, 238)") {
+        for (k of kansaiRoutes) {
+          if (k.id === t.id) {
+            t.style.backgroundColor = k.color;
+            break;
+          }
+        }
+      } else {
+        t.style.backgroundColor = "#EEE"
+      }
+    };
+    line.style.borderRadius = "10px";
+    line.addEventListener("click", fillColor);
+    areaElm.appendChild(line);
+  }
 
-for (s of Object.keys(stations)) {
-  let st = document.createElement("div");
-  st.style.position = "absolute";
-  st.style.left = (stations[s].x - 15) + "px";
-  st.style.top = (stations[s].y - 15) + "px";
-  st.style.width = "24px";
-  st.style.height = "24px";
-  st.style.backgroundColor = "#FFF";
-  st.style.border = "solid 3px #000";
-  st.style.borderRadius = "15px";
-  kansai.appendChild(st);
-  let label = document.createElement("div");
-  label.style.position = "absolute";
-  label.style.left = (stations[s].x - 50) + "px";
-  label.style.top = (stations[s].y + 15) + "px";
-  label.style.width = "100px";
-  label.style.height = "1px";
-  label.style.textAlign = "center";
-  label.style.fontSize = "15px";
-  label.style.fontWeight = "bold";
-  label.innerHTML = stations[s].name;
-  label.style.userSelect = "none";
-  label.style.textShadow = "1px 1px 0px #FFF, -1px -1px 0px #FFF, " +
-    "-1px 1px 0px #FFF, 1px -1px 0px #FFF";
-  kansai.appendChild(label);
+  for (s of Object.keys(stations)) {
+    let st = document.createElement("div");
+    st.style.position = "absolute";
+    st.style.left = (stations[s].x - 15) * zoomLevel + "px";
+    st.style.top = (stations[s].y - 15) * zoomLevel + "px";
+    st.style.width = 24 * zoomLevel + "px";
+    st.style.height = 24 * zoomLevel + "px";
+    st.style.backgroundColor = "#FFF";
+    st.style.border = "solid 3px #000";
+    st.style.borderRadius = "15px";
+    areaElm.appendChild(st);
+    let label = document.createElement("div");
+    label.style.position = "absolute";
+    label.style.left = (stations[s].x - 50) * zoomLevel + "px";
+    label.style.top = (stations[s].y + 15) * zoomLevel + "px";
+    label.style.width = "100px";
+    label.style.height = "1px";
+    label.style.textAlign = "center";
+    label.style.fontSize = "15px";
+    label.style.fontWeight = "bold";
+    label.innerHTML = stations[s].name;
+    label.style.userSelect = "none";
+    label.style.textShadow = "1px 1px 0px #FFF, -1px -1px 0px #FFF, " +
+      "-1px 1px 0px #FFF, 1px -1px 0px #FFF";
+    areaElm.appendChild(label);
+  }
 }
