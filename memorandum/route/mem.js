@@ -12,7 +12,7 @@ function save(area, mId, routes) {
 
 function load(area, mId, routes) {
   let fullSelectedLines = [];
-  fullSelectedLines = JSON.parse(localStorage.getItem('routeAsst' + area + mId));
+  fullSelectedLines = JSON.parse(localStorage.getItem('routeAsst' + area + mId) || '[]');
   for (let rObj of routes) {
     let rId = rObj.id;
     let rElm = document.getElementById(rId);
