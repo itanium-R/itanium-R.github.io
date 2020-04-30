@@ -25,4 +25,10 @@ footer {
   width: 100%;
   text-align: center;
   background-color: lightgray;
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
+.mem {
+  font-size: 1.5em;
+  font-family: 'Kosugi Maru', sans-serif;
 }
