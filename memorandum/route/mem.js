@@ -23,3 +23,11 @@ function load(area, mId, routes) {
     }
   }
 }
+
+function init(routes){
+  for (let rObj of routes) {
+    let rId = rObj.id;
+    let rElm = document.getElementById(rId);
+    rElm.style.backgroundColor = "#EEE";
+  }
+}
