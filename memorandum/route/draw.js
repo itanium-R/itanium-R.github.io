@@ -40,8 +40,13 @@ const stations = {
   wakayama: { name: "和歌山", x: 140, y: 640 },
   hashimoto: { name: "橋本", x: 460, y: 640 },
 };
+
+const areaWidths = {
+  kansai: 960,
+};
+
 // st[0]は左(上下なら上)側の駅を指定
-const kansaiRoutes = [
+const routes = [
   { id: "kosei1", color: "#00a7e3", st: ["yamashina", "omishiotsu"] },
 
   { id: "hokuriku1", color: "#0071be", st: ["omishiotsu", "maibara"] },
@@ -107,10 +112,12 @@ const kansaiRoutes = [
   { id: "sanyo9", color: "#0071be", st: ["hyogo", "wadamisaki"] },
 ];
 
-function drawRoute(area) {
+function drawRoute(area, zoomOffset = 0) {
+  zoomLevel += zoomOffset;
   const areaElm = document.getElementById(area);
   areaElm.innerHTML = "";
-  for (k of kansaiRoutes) {
+  areaElm.style.width = areaWidths[area] * zoomLevel + "px";
+  for (k of routes) {
     let line = document.createElement("div");
     line.id = k.id;
     line.style.position = "absolute";
@@ -143,7 +150,7 @@ function drawRoute(area) {
     let fillColor = function (e) {
       let t = e.target;
       if (t.style.backgroundColor == "#EEE" || t.style.backgroundColor == "rgb(238, 238, 238)") {
-        for (k of kansaiRoutes) {
+        for (k of routes) {
           if (k.id === t.id) {
             t.style.backgroundColor = k.color;
             break;
@@ -173,10 +180,10 @@ function drawRoute(area) {
     label.style.position = "absolute";
     label.style.left = (stations[s].x - 50) * zoomLevel + "px";
     label.style.top = (stations[s].y + 15) * zoomLevel + "px";
-    label.style.width = "100px";
+    label.style.width = 100 * zoomLevel + "px";
     label.style.height = "1px";
     label.style.textAlign = "center";
-    label.style.fontSize = "15px";
+    label.style.fontSize = 15 * zoomLevel + "px";
     label.style.fontWeight = "bold";
     label.innerHTML = stations[s].name;
     label.style.userSelect = "none";
