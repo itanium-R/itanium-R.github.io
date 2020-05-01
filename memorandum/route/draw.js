@@ -112,8 +112,7 @@ const routes = [
   { id: "sanyo9", color: "#0071be", st: ["hyogo", "wadamisaki"] },
 ];
 
-function drawRoute(area, zoomOffset = 0) {
-  zoomLevel += zoomOffset;
+function drawRoute(area) {
   const areaElm = document.getElementById(area);
   areaElm.innerHTML = "";
   areaElm.style.width = areaWidths[area] * zoomLevel + "px";
@@ -191,4 +190,11 @@ function drawRoute(area, zoomOffset = 0) {
       "-1px 1px 0px #FFF, 1px -1px 0px #FFF";
     areaElm.appendChild(label);
   }
+}
+
+function zoom(area, zoomOffset = 0){
+  zoomLevel += zoomOffset;
+  save('tmp', 0, routes);
+  drawRoute(area);
+  load('tmp', 0, routes);
 }
