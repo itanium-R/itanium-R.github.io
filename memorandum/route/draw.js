@@ -173,8 +173,8 @@ function drawRoute(area, zoomOffset = 0) {
     st.style.width = 24 * zoomLevel + "px";
     st.style.height = 24 * zoomLevel + "px";
     st.style.backgroundColor = "#FFF";
-    st.style.border = "solid 3px #000";
-    st.style.borderRadius = "15px";
+    st.style.border = "solid " + (3 * zoomLevel) + "px #000";
+    st.style.borderRadius = 15 * zoomLevel + "px";
     areaElm.appendChild(st);
     let label = document.createElement("div");
     label.style.position = "absolute";
