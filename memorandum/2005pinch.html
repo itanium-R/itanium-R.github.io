@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    // cf: https://gist.github.com/cognitom/de11ba8cf4f4b98ac8ab
+    let pinching = false;
+    let d0 = 1;
+    let d1 = 1;
+    document.addEventListener("touchmove", function (e) {
+      if (e.touches.length == 2) {
+        if (!pinching) {
+          pinching = true;
+          d0 = Math.sqrt(
+            Math.pow(e.touches[1].screenX - e.touches[0].screenX, 2) +
+            Math.pow(e.touches[1].screenY - e.touches[0].screenY, 2)
+          );
+        } else {
+          d1 = Math.sqrt(
+            Math.pow(e.touches[1].screenX - e.touches[0].screenX, 2) +
+            Math.pow(e.touches[1].screenY - e.touches[0].screenY, 2)
+          );
+          let zoomLevel = d1 / d0;
+          document.getElementById("zl").innerHTML = zoomLevel;
+        }
+      }
+    });
+    document.addEventListener("touchend", function (e) {
+      pinching = false;
+    });
+  </script>
+  <title>always</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #235;
+    }
+  </style>
+</head>
+
+<body>
+  zoomLevel: <span id="zl"></span>
+</body>
+
+</html>
