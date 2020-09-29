@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script>
+    let cLen, pLen;
+    const redoMsg = `<hr><input type="button" value="やりなおす" onclick="location.href = location.href;">`;
+
+    function goInputMode() {
+      cLen = document.getElementById("cLen").value;
+      pLen = document.getElementById("pLen").value;
+
+      let appHtml = `<h3>各かたまりの下限値</h3>`;
+      for (let n = 0; n < cLen; n++) {
+        appHtml += `<input type="number" id="c_${n}"><br>`;
+      }
+      appHtml += `<h3>各要素の値</h3>`;
+      for (let n = 0; n < pLen; n++) {
+        appHtml += `<input type="number" id="p_${n}"><br>`;
+      }
+      appHtml += `<input type="button" value="実行" onclick="exec();">`;
+      appHtml += redoMsg;
+      document.getElementById("app").innerHTML = appHtml;
+    }
+
+    function exec() {
+      let classes = new Array(cLen);
+      let parts = new Array(pLen);
+      for (let n = 0; n < cLen; n++) classes[n] = document.getElementById(`c_${n}`).value;
+      for (let n = 0; n < pLen; n++) parts[n] = document.getElementById(`p_${n}`).value;
+      console.log(classes);
+      console.log(parts);
+
+      let msg = buildLump(classes, parts);
+
+      document.getElementById("app").innerHTML = "<span class='enph'>" + msg + "</span>" + redoMsg;
+    }
+
+    function buildLump(classes, parts) {
+
+      let tryLen = Math.pow(cLen, pLen);
+
+      let flgs = new Array(pLen);
+      let pows = new Array(pLen);
+
+      for (let n = pLen - 1; n >= 0; n--) {
+        pows[n] = Math.pow(cLen, n);
+      }
+
+
+      for (let n = 1; n <= tryLen; n++) {
+        let nTmp = n;
+        for (let n2 = pLen - 1; n2 >= 0; n2--) {
+          flgs[n2] = 0;
+          while (nTmp > pows[n2]) {
+            flgs[n2] += 1;
+            nTmp -= pows[n2];
+          }
+        }
+
+        let cCopy = classes.slice();
+
+        for (let n3 = 0; n3 < pLen; n3++) {
+          cCopy[flgs[n3]] -= parts[n3];
+        }
+
+        let c4 = 0;
+        while (cCopy[c4] <= 0) {
+          c4 += 1;
+          if (c4 >= cLen) {
+            // success
+            let msg = buildFoundMsg(classes, parts, flgs);
+            return msg;
+          }
+        }
+
+      }
+      // not found
+      return "not found...";
+    }
+
+    function buildFoundMsg(classes, parts, flgs, brCode = "<br>") {
+      let msg = "";
+      for (let n1 = classes.length - 1; n1 >= 0; n1--) {
+        msg += classes[n1] + ": {";
+        for (let n2 = flgs.length - 1; n2 >= 0; n2--) {
+          if (n1 === flgs[n2]) msg += parts[n2] + ", ";
+        }
+        msg += "}" + brCode;
+      }
+      return msg;
+    }
+  </script>
+  <title>値のかたまりツクール</title>
+  <style>
+    body {
+      background: #EEE;
+    }
+
+    #main {
+      display: block;
+      width: 26em;
+      max-width: 90vw;
+      margin: auto;
+      text-align: center;
+    }
+
+    #app {
+      margin: 1em;
+    }
+
+    label {
+      width: 7em;
+    }
+
+    .enph {
+      font-size: 2em;
+      font-weight: 900;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <section id="main">
+    <h1>値のかたまりツクール</h1>
+    <div id="app">
+      <label>かたまりの数</label>
+      <input type="number" id="cLen" value="3">
+      <br>
+      <label>値の数</label>
+      <input type="number" id="pLen" value="5">
+      <input type="button" onclick="goInputMode();" value="値を入力">
+    </div>
+  </section>
+</body>
+
+</html>
