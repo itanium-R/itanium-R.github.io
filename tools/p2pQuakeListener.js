@@ -1,6 +1,6 @@
-const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=1";
+const P2PURL = "https://api.p2pquake.net/v1/human-readable?limit=5";
 const lineCharNum = 20; // 1行の文字数
-const DEFCHIMEURL = "./plugins/sounds/ring_quakeNotify01_(c)aonr.wav"; 
+const DEFCHIMEURL = "/always/plugins/sounds/o26_(c)maoudamashii.wav"; 
 
 class p2pQuakeListener{
 
@@ -114,26 +114,29 @@ class p2pQuakeListener{
 
 
   checkP2pJsonUpdate(gotJson){
-    if(this.p2pJson.length == 0){
-      this.p2pJson = gotJson;
+    if (this.p2pJson.length === 0) {
+      this.p2pJson = gotJson[0];
       console.log("first access : p2pJson got success.");
-    }else if(JSON.stringify(this.p2pJson) != JSON.stringify(gotJson)){
-      this.p2pJson = gotJson;
-      let latestP2pJson = gotJson[0]; 
-      console.log("p2pJson update found.");
-      switch(latestP2pJson.code){
-        case 551:
-          this.showQuakeInfo(latestP2pJson);
-          break;
-        case 5610:
-          if(latestP2pJson.count > this.allCntThr)
-          this.showP2pQuakePromptNews(latestP2pJson);
-          break;
-        default:
-          console.log("unknown p2pJson.code : " + this.p2pJson[0].code);
+    } else {
+      eachP2PData : for (let latestP2pJson of gotJson) { 
+        if (JSON.stringify(this.p2pJson) === JSON.stringify(latestP2pJson)) {
+          break eachP2PData;
+        }
+        switch(latestP2pJson.code) {
+          case 551:
+            this.p2pJson = latestP2pJson;
+            this.showQuakeInfo(latestP2pJson);
+            break eachP2PData;
+          case 5610:
+            if (latestP2pJson.count > this.allCntThr) {
+              this.p2pJson = latestP2pJson;
+              this.showP2pQuakePromptNews(latestP2pJson);
+              break eachP2PData;
+            }
+          default:
+            break;
+        }
       }
-    }else{
-      // console.log("p2pJson update is NOT found.");
     }
   }
 
@@ -158,6 +161,8 @@ class p2pQuakeListener{
       qtElm.style.top        = "3vh";
       qtElm.style.left       = "20vw";
       qtElm.style.color      = "#FFF";
+      qtElm.style.textAlign  = "left";
+      qtElm.style.padding    = ".2vw";
       // qtElm.style.webkitTextStroke = "0.05vw #235"; qtElm.style.textStroke       = "0.05vw #235";
       qtElm.style.textShadow = ".2vw 0px 0px #235, .2vw -.2vw 0px #235,  .2vw  .2vw 0px #235, 0px -.2vw 0px #235," + 
                                "0px .2vw 0px #235, -.2vw .2vw 0px #235, -.2vw -.2vw 0px #235, -.2vw 0px 0px #235 ";
