@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock and Date</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
+    <style>
+        html {
+            overflow: hidden;
+            font-family: "Cutive Mono", monospace;
+        }
+
+        body {
+            margin: 0;
+            background-color: #fff; /* Default background color */
+            color: #000; /* Default text color */
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        #clock {
+            font-size: 15vw;
+        }
+
+        #date {
+            font-size: 7vw;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div id="clock"></div>
+        <div id="date"></div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.12.0/NoSleep.min.js"></script>
+    <script src="./p2pQuakeListener.js"></script>
+    <script>
+        // Get query parameter value by name
+        function getParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Apply query parameters to page
+        function applyQueryParams() {
+            const p2pParam = getParam("p2p");
+            if (p2pParam === "1") {
+                const p2pQL = new p2pQuakeListener();
+                a.run();
+            }
+
+            const bgColor = getParam("bg");
+            if (bgColor) {
+                document.body.style.backgroundColor = `#${bgColor}`;
+            }
+
+            const textColor = getParam("c");
+            if (textColor) {
+                document.body.style.color = `#${textColor}`;
+            }
+        }
+
+        // Update clock display
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const dateString = `${year}-${month}-${day}`;
+            
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const weekday = weekdays[now.getDay()];
+            
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('date').textContent = `${dateString} (${weekday})`;
+        }
+
+        // Initialize page
+        function init() {
+            applyQueryParams();
+            updateClock();
+            setInterval(updateClock, 1000);
+            
+            const noSleep = new NoSleep();
+            noSleep.enable();
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
