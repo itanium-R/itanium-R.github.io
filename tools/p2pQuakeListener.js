@@ -166,6 +166,7 @@ class p2pQuakeListener{
       // qtElm.style.webkitTextStroke = "0.05vw #235"; qtElm.style.textStroke       = "0.05vw #235";
       qtElm.style.textShadow = ".2vw 0px 0px #235, .2vw -.2vw 0px #235,  .2vw  .2vw 0px #235, 0px -.2vw 0px #235," + 
                                "0px .2vw 0px #235, -.2vw .2vw 0px #235, -.2vw -.2vw 0px #235, -.2vw 0px 0px #235 ";
+      qtElm.style.fontFamily = 'Cutive Mono, ui-monospace';
     }
   }
 
