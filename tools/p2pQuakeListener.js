@@ -4,12 +4,13 @@ const DEFCHIMEURL = "/always/plugins/sounds/o26_(c)maoudamashii.wav";
 
 class p2pQuakeListener{
 
-  constructor(fetchDur = 3, dispDur = 1, chimeUrl, allCntThr = 10, areaCntThr = 3){
+  constructor(fetchDur = 6, dispDur = 1, chimeUrl, allCntThr = 10, areaCntThr = 3){
     this.fetchDur = fetchDur;
     this.dispDur  = dispDur;
     this.chimeUrl = chimeUrl || DEFCHIMEURL
     this.allCntThr  = allCntThr;
     this.areaCntThr = areaCntThr;
+    this.fetching = false;
     this.init();
     this.initQtElm();
   }
@@ -41,12 +42,19 @@ class p2pQuakeListener{
   }
 
   fetchP2pJson(){
+    if (this.fetching) {
+      return;
+    }
+    this.fetching = true;
+
     fetch(P2PURL)
     .then((response) => {
       return response.json();
     })
     .then((gotJson) => {
       this.checkP2pJsonUpdate(gotJson);      
+    }).finally(() => {
+      this.fetching = false;
     });
   }
 
@@ -166,7 +174,7 @@ class p2pQuakeListener{
       // qtElm.style.webkitTextStroke = "0.05vw #235"; qtElm.style.textStroke       = "0.05vw #235";
       qtElm.style.textShadow = ".2vw 0px 0px #235, .2vw -.2vw 0px #235,  .2vw  .2vw 0px #235, 0px -.2vw 0px #235," + 
                                "0px .2vw 0px #235, -.2vw .2vw 0px #235, -.2vw -.2vw 0px #235, -.2vw 0px 0px #235 ";
-      qtElm.style.fontFamily = 'Cutive Mono, ui-monospace';
+      qtElm.style.fontFamily = "Cutive Mono, ui-monospace";
     }
   }
 
